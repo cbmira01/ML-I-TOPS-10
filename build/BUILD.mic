@@ -1,0 +1,23 @@
+
+r MACRO
+lowldf=lostar,loarit,lobran,locomp,loexte,lolayo,loload,lostac,lotabl,loend
+machdp=machdp
+hellow,hellow=hellow
+ltest4,ltest4=ltest4
+valmdl,valmdl=valmdl
+mliajb,mliajb=mliajb
+^C
+
+
+LOAD hworld
+SAVE
+
+LOAD ltest4
+SAVE
+
+LOAD valmdl
+SAVE
+
+LOAD mliajb
+SAVE
+

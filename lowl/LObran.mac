@@ -1,0 +1,96 @@
+
+; FILENAME:       LOBRAN.mac
+; DESCRIPTION:
+; SUBROUTINES AND BRANCHING, [WXYZ] x.y.z
+
+;   Declare a subroutine: SUBR    subroutine_name,parameter_name,number_of_exits
+        DEFINE SUBR (SUBNAM, PARAM, NUMEXS) <
+SUBNAM: IFDIF <PARAM><X>,<        movem       LOWL.A, PARAM>
+>
+
+;   Branch to subroutine: GOSUB   subroutine_name,distance
+        DEFINE GOSUB (SUBNAM, DIST) <
+        pushj       sp, SUBNAM
+>
+
+;   Exit from subroutine: EXIT    exit_number,subroutine_name
+        DEFINE $EXIT (EXIT.N, SUBNAM) <
+        REPEAT EXIT.N-1,<        aos         (sp)>
+        popj        sp,
+>
+
+;   Multi-way branch statement.
+        DEFINE GOADD (V, %jmptb) <
+        move        index, V
+        jrst        %jmptb(index)
+%jmptb:
+>
+
+;   Clear Subroutine Stack.
+        DEFINE CSS <
+        move        sp, [-sublen,,substk-1]
+>
+
+;   Unconditional branch: GO LABNAM, distance, exit_subroutine, following_GOSUB
+        DEFINE GO   (LABNAM, DIST, EXSUBR, FOLSUB) <
+        jrst        LABNAM
+>
+
+;   Branch if equal.
+        DEFINE GOEQ (LABNAM, DIST, EXSUBR, FOLSUB) <
+        jumpe       ac1, LABNAM
+>
+
+;   Branch if not equal.
+        DEFINE GONE (LABNAM, DIST, EXSUBR, FOLSUB) <
+        jumpn       ac1, LABNAM
+>
+
+;   Branch if greater than or equal.
+        DEFINE GOGE (LABNAM, DIST, EXSUBR, FOLSUB) <
+        jumpge      ac1, LABNAM
+>
+
+;   Branch if greater than.
+        DEFINE GOGR (LABNAM, DIST, EXSUBR, FOLSUB) <
+        jumpg       ac1, LABNAM
+>
+
+;   Branch if less than or equal.
+        DEFINE GOLE (LABNAM, DIST, EXSUBR, FOLSUB) <
+        jumple      ac1, LABNAM
+>
+
+;   Branch if less than.
+        DEFINE GOLT (LABNAM, DIST, EXSUBR, FOLSUB) <
+        jumpl       ac1, LABNAM
+>
+
+;   Branch to LABNAM if the character in the LOWL C register 
+;   is a punctuation character.
+        DEFINE GOPC (LABNAM, DIST, EXSUBR, FOLSUB, %exit) <
+        caige       LOWL.C, "0"
+        jrst        LABNAM
+        caig        LOWL.C, "9"
+        jrst        %exit           ;; digit recognized here
+        caige       LOWL.C, "A"
+        jrst        LABNAM
+        caig        LOWL.C, "Z"
+        jrst        %exit           ;; upper case recognized here
+        caige       LOWL.C, "a"
+        jrst        LABNAM
+        caile       LOWL.C, "z"
+        jrst        LABNAM
+%exit:                              ;; lower case recognized here
+>
+
+;   Branch to LABNAM if character in the LOWL C register is not a digit.
+;   Otherwise, deposit the ASCII code for the number into the LOWL A register.
+        DEFINE GOND (LABNAM, DIST, EXSUBR, FOLSUB) <
+        caige       LOWL.C, "0"
+        jrst        LABNAM
+        caile       LOWL.C, "9"
+        jrst        LABNAM
+        move        LOWL.A, LOWL.C
+        subi        LOWL.A, "0"     ;; convert from ASCII code to number
+>

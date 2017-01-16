@@ -1,0 +1,41 @@
+
+; FILENAME:       LOCOMP.mac
+; DESCRIPTION:
+; COMPARE STATEMENTS, [WXYZ] x.y.z
+;
+;   Compare the LOWL A register with the contents of memory location V.
+        DEFINE CAV (V, ADORIN) <
+        move        ac1, LOWL.A
+        sub         ac1, V
+>
+
+;   Compare the LOWL A register with the literal value N.
+        DEFINE CAL (N) <
+        move        ac1, LOWL.A
+        sub         ac1, [N]
+>
+
+;   Compare the LOWL C with the given character.
+        DEFINE CCL (C)<
+        move        ac1, LOWL.C
+        subi        ac1, C
+>
+
+;   Compare the LOWL C register with the named character.
+        DEFINE CCN (CHRNAM) <
+        move        ac1, LOWL.C
+        subi        ac1, CHRNAM
+>
+
+;   Compare the LOWL A register with value pointed at by V.
+        DEFINE CAI (V, ADORIN) <
+        move        ac1, LOWL.A
+        sub         ac1, @V
+>
+
+;   Compare the LOWL C register with the character pointed at by V.
+        DEFINE CCI (V) <
+        move        ac1, LOWL.C
+        sub         ac1, @V
+>
+

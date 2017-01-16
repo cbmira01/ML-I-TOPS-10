@@ -1,0 +1,67 @@
+
+; FILENAME:       LOLOAD.mac
+; DESCRIPTION:
+; LOAD AND STORE STATEMENTS, [WXYZ] x.y.z
+
+
+;   Load the LOWL A register with the contents of memory location V.
+        DEFINE LAV (V, REDUND) <
+        IFDIF <REDUND><R><        move        LOWL.A, V>
+>
+
+;   Load the LOWL B register with the contents of memory location V.
+        DEFINE LBV (V) <
+        move        LOWL.B, V
+>
+
+;   Load the LOWL A register with the literal value N.
+        DEFINE LAL (N) <
+        move        LOWL.A, [N]
+>
+
+;   Load the LOWL C register with the literal named character.
+        DEFINE LCN (CHRNAM) <
+        movei       LOWL.C, CHRNAM
+>
+
+;   Load the LOWL A register with the value pointed at by N!B.
+        DEFINE LAM (N) <
+        move        LOWL.A, N(LOWL.B)
+>
+
+;   As LAM, but load a character into the LOWL C register.
+        DEFINE LCM (N) <
+        move        LOWL.C, N(LOWL.B)
+>
+
+;   Load the LOWL A register with the contents of the memory location
+;   pointed to by V.
+        DEFINE LAI (V, REDUND) <
+        IFDIF <REDUND><R><        move        LOWL.A, @V>
+>
+
+;   Load the LOWL C register with the character pointed to by V.
+        DEFINE LCI (V, REDUND) <
+        IFDIF <REDUND><R><        move        LOWL.C, @V>
+>
+
+;   Load the LOWL A register with the address of memory location V.
+        DEFINE LAA (V, D) <
+        movei       LOWL.A, V
+>
+
+
+;   Store the LOWL A register at memory location V.
+        DEFINE STV (V, PRESVA) <
+        movem       LOWL.A, V
+>
+
+;   Store the LOWL A register at the memory address pointed to by V.
+        DEFINE STI (V, PRESVA) <
+        movem       LOWL.A, @V
+>
+
+;   Set the contents of memory location V to zero.
+        DEFINE CLEAR (V) <
+        setzm       V
+>

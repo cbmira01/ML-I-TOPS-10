@@ -1,0 +1,5 @@
+ML/I test -- NAMES -- version T2A
+Tests initial state of built-in tables and hashing function
+Should be used as the first real test of a new implementation
+....SB....
+Make all others unmatched

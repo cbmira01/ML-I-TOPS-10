@@ -1,0 +1,16 @@
+ML/I test -- MACROTIME -- version T2A
+Tests macro expressions and macro-time statements
+Macros tested are: MC-GO,MC-SET,MCSUB,MCLENG,MC-PVAR,MC-NOTE
+7 SB 3 (This will be wrong if extra calls have been added)
+12345 SB 12345
+01 SB 01
+123456 SB 123456
+1100-1-1-2-2 SB 1100-1-1-2-2
+01234567 SB 01234567
+SUCCESSFUL GOTOS
+NOW TRY UNSUCCESSFUL GOS
+TRY GOS WITHIN MACRO
+0123 SB 0123
+0123 SB 0123
+TEST BC ON MC-GO
+12 SB 12

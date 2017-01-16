@@ -1,0 +1,857 @@
+        PRGST   'LOWLTEST'
+
+        NB      'LOWL statements to test LOWL macros'
+
+        DCL     AA
+        DCL     BB
+        DCL     PARNM
+
+        NB      'THE FOLLOWING MUST BE STORED CONTIGUOUSLY'
+
+        DCL     PVNUM
+        DCL     PVARPT
+
+        NB      'END OF CONTIGUOUS BLOCK OF VARIABLES'
+
+        DCL     ENDPT
+        DCL     FFPT
+        DCL     LFPT
+
+        EQU     KK,AA
+
+        DCL     SRCPT
+        DCL     DSTPT
+
+        NB      'THE FOLLOWING MUST BE STORED CONTIGUOUSLY'
+
+        DCL     CC
+        DCL     DD
+        DCL     EE
+        DCL     FF
+        DCL     GG
+        DCL     HH
+        DCL     II
+        DCL     JJ
+
+        NB      'END OF CONTIGUOUS BLOCK OF VARIABLES'
+
+        DCL     LINKPT
+        DCL     SPT
+        DCL     IDLEN
+        DCL     IDPT
+        DCL     ERNOB
+        DCL     ERNOD
+        DCL     ERNOG
+        DCL     ERNOH
+        DCL     LOTEMP
+
+        IDENT   SEVTH,73
+
+[TABFST]        CON     0
+[LLKK]  CON     27
+[TBCH]  STR     'X'
+[TBNUM] CON     -6
+[LL34]  NCH     NLREP
+        STR     'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        NCH     SPREP
+[NUMS]  STR     '0123456789'
+        NCH     NLREP
+        STR     '.,;:()*/-+='
+        NCH     TABREP
+        NCH     QUTREP
+        NCH     NLREP
+[LL35]  CON     10
+        STR     'GOSUB'
+
+[BEGIN] MESS    '$Test of LOWL'
+        MESS    ' mapping$...Mar 1974'
+        MESS    ',revised Nov 1976,Mar 1986, Apr 2004$'
+        MESS    'Version L4A...$$'
+        MESS    '...Testing forward GO..$'
+        GO      LL1,3,X,X
+        MESS    '+++Forward GO has no effect$'
+[LL99]  MESS    'OK$...Testing long GO..$'
+        GO      LL98,3,X,X
+[LL1]   MESS    'OK$...Testing backward GO..$'
+        GO      LL99,-4,X,X
+        MESS    '+++Backward GO has no effect$'
+[LL98]  GO      LL27,571,X,X
+[LL28]  MESS    'OK$...Testing LAL,CAL,GONE,GOEQ,STV,LAV..$'
+        LAL     0
+
+        NB      'Test LAL and CAL zero'
+
+        CAL     0
+        GONE    ER1,568,X,X
+        LAL     0
+[LL29]  CAL     0
+        GOEQ    LL2,1,X,X
+        MESS    '+++GOEQ not branching$'
+[LL2]   LAL     0
+        STV     AA,X
+        LAV     AA,X
+        CAL     0
+        GONE    ER2,561,X,X
+        LAV     AA,X
+        STV     AA,P
+        CAL     0
+        GONE    ER3,559,X,X
+[LL17]  LAV     AA,X
+        CAL     0
+        GONE    ER4,558,X,X
+[LL18]  LAL     8
+        CAL     8
+        GONE    ER5,557,X,X
+        LAL     64
+        AAL     0
+        STV     BB,X
+        LAV     BB,X
+        CAL     64
+        GONE    ER6,553,X,X
+[LL19]  LAL     0
+        STV     ERNOB,X
+        LAL     0
+        STV     ERNOD,X
+        LAL     0
+        STV     ERNOG,X
+        LAL     0
+        STV     ERNOH,X
+        LAL     64
+        CAV     BB,X
+        GONE    ER7,544,X,X
+[LL93]  MESS    'OK$...Testing arithmetic and conditional GOs..$'
+        LAL     0
+        AAV     BB
+        CAL     64
+        GONE    ER8,543,X,X
+[LL92]  LAV     BB,X
+        SAL     64
+        CAL     0
+        GONE    ER9,541,X,X
+[LL91]  LAL     64
+        SAV     BB
+        CAL     0
+        GONE    ER10,541,X,X
+[LL20]  LAL     65
+        CAL     64
+        GOGR    LL3,1,X,X
+        MESS    '+++Error in GOGR$'
+[LL3]   LAL     65
+        CAL     64
+        GOGE    LL4,1,X,X
+        MESS    '+++GOGE error, GR fails$'
+[LL4]   LAL     64
+        CAL     64
+        GOGE    LL5,1,X,X
+        MESS    '+++GOGE error, EQ fails$'
+[LL5]   LAL     64
+        CAL     65
+        GOLE    LL6,1,X,X
+        MESS    '+++GOLE error, LT fails$'
+[LL6]   LAL     64
+        CAL     64
+        GOLE    LL7,1,X,X
+        MESS    '+++GOLE error, EQ fails$'
+[LL7]   LAL     64
+        CAL     65
+        GOLT    LL8,1,X,X
+        MESS    '+++GOLT error$'
+[LL8]   MESS    'OK$...Testing GOSUB and EXIT 1..$'
+        GOSUB   SR1,413
+        MESS    'K$...testing EXITs 2,3 and 4..$'
+[LL96]  GOSUB   SR2,416
+        GO      ER11,514,X,C
+        GO      LL39,2,X,C
+        GO      ER11,512,X,C
+        GO      ER11,511,X,X
+[LL39]  MESS    'O'
+[LL21]  LAL     0
+        STV     BB,X
+        GOSUB   SR2,408
+        GO      ER56,508,X,C
+        GO      ER56,507,X,C
+        GO      LL47,1,X,C
+        GO      ER56,505,X,X
+[LL47]  MESS    'K'
+[LL56]  LAL     8
+        STV     BB,X
+        GOSUB   SR2,400
+        GO      ER57,502,X,C
+        GO      ER57,501,X,C
+        GO      ER57,500,X,C
+        MESS    '$'
+[LL57]  GOSUB   CSSUB,340
+        GO      ERCSS,520,X,X
+[LLCSS] CSS
+        LAL     65
+        STV     BB,X
+        GOSUB   SR2,393
+        GO      LL9,3,X,C
+        GO      ER58,1,X,C
+        GO      ER58,0,X,C
+[ER58]  MESS    '+++EXIT 1 error from SR2$'
+[LL9]   LAL     65
+        GOSUB   SR3,403
+        LAL     0
+        GOSUB   SR4,421
+[LL94]  LAL     15
+        STV     AA,X
+        LAL     102
+        ANDV    AA
+        CAL     6
+        GONE    ER12,484,X,X
+        LAV     AA,X
+        CAL     15
+        GONE    ER26,483,X,X
+[LL22]  LAL     15
+        ANDL    102
+        CAL     6
+        GONE    ER13,481,X,X
+[LL24]  CLEAR   AA
+        LAV     AA,X
+        CAL     0
+        GONE    ER15,479,X,X
+[LL25]  BUMP    AA,65
+        BUMP    AA,8
+        LAV     AA,X
+        CAL     SEVTH
+        GONE    ER16,478,X,X
+[LL46]  LAL     3
+        STV     CC,X
+        MESS    '...Testing GOADD..$'
+        GOADD   CC
+        GO      ER37,536,X,T
+        GO      ER37,535,X,T
+        GO      ER37,534,X,T
+        GO      LL10,1,X,T
+        GO      ER37,532,X,T
+[LL10]  MESS    'OK$'
+        LAL     65
+        AAL     8
+        CAL     73
+        GONE    ER17,466,X,X
+[LL90]  LAL     OF(2*LCH)
+        CAL     OF(LCH+LCH)
+        GONE    ER18,467,X,X
+        LAL     OF(LNM+LCH)
+        SAL     OF(LCH)
+        CAL     OF(LNM)
+        GONE    ER19,465,X,X
+        LAL     OF(3*LNM+LCH)
+        SAL     OF(2*LNM-LCH)
+        CAL     OF(2*LCH+LNM)
+        GONE    ER18,459,X,X
+        LAL     OF(LCH-LCH)
+        CAL     0
+        GONE    ER20,460,X,X
+[LL88]  LAV     ERNOD,X
+        CAL     0
+        GONE    LL86,132,X,X
+        LAA     TABFST,C
+        AAL     OF(LNM)
+        STV     AA,X
+        LAA     LLKK,C
+        CAV     AA,A
+        GONE    ER22,453,X,X
+        LAA     LLKK,C
+        STV     BB,X
+        LAI     BB,X
+        CAL     27
+        GONE    ER23,450,X,X
+[LL84]  LBV     BB
+        LAM     0
+        CAL     27
+        GONE    ER24,450,X,X
+[LL83]  LAV     ERNOB,X
+        CAL     0
+        GONE    LL81,61,X,X
+        LAL     19
+        SAL     58
+        STV     AA,X
+        LAL     1
+        SAL     40
+        CAV     AA,X
+        GONE    ER59,521,X,X
+        LAL     1
+        SAL     39
+        CAV     AA,X
+        GOLE    ER59,517,X,X
+        LAV     AA,X
+        CAL     0
+        GOGE    ER59,514,X,X
+        LAL     0
+        CAV     AA,X
+        GOLE    ER59,511,X,X
+[LL61]  LAV     ERNOG,X
+        CAL     0
+        GONE    LL81,41,X,X
+        LAV     FFPT,X
+        STV     PVARPT,X
+        LAV     LFPT,X
+        STV     ENDPT,X
+        LAL     69
+        STV     PVNUM,X
+        MESS    '...Testing FSTK..$'
+        LAV     PVNUM,X
+        FSTK
+        LAV     FFPT,X
+        SAL     OF(LNM)
+        STV     CC,X
+        LAI     CC,X
+        CAV     PVNUM,X
+        GONE    ER25,416,X,X
+        MESS    'OK$...Testing BSTK..$'
+[LL82]  LAV     PVNUM,X
+        BSTK
+        LAI     LFPT,X
+        CAV     PVNUM,X
+        GONE    ER27,422,X,X
+        LAV     LFPT,X
+        AAL     OF(LNM)
+        STV     LFPT,X
+        LAV     LFPT,X
+        CAV     ENDPT,A
+        GONE    ER28,425,X,X
+        MESS    'OK$'
+        LAV     ERNOB,X
+        CAL     0
+        GONE    LL81,10,X,X
+        LAV     LFPT,X
+        SAL     OF(LNM)
+        STV     LFPT,X
+        UNSTK   CC
+        LAV     CC,X
+        CAV     PVNUM,X
+        GONE    ER29,416,X,X
+        LAV     LFPT,X
+        CAV     ENDPT,A
+        GONE    ER30,415,X,X
+[LL81]  LAA     CC,D
+        STV     SRCPT,X
+        LAL     1
+        STV     CC,X
+        LAL     2
+        STV     DD,X
+        LAL     3
+        STV     EE,X
+        LAA     HH,D
+        STV     DSTPT,X
+        LAL     OF(3*LNM)
+        FMOVE
+        LAV     HH,X
+        CAL     1
+        GONE    ER31,402,X,X
+        LAV     II,X
+        CAL     2
+        GONE    ER31,399,X,X
+        LAV     JJ,X
+        CAL     3
+        GONE    ER31,396,X,X
+[LL77]  LAA     HH,D
+        STV     SRCPT,X
+        LAA     FF,D
+        STV     DSTPT,X
+        LAL     OF(3*LNM)
+        FMOVE
+        LAV     FF,X
+        CAL     1
+        GONE    ER32,389,X,X
+        LAV     GG,X
+        CAL     2
+        GONE    ER32,386,X,X
+        LAV     HH,X
+        CAL     3
+        GONE    ER32,383,X,X
+[LL76]  LAV     FFPT,X
+        STV     SRCPT,P
+        STV     GG,X
+        LAA     LL34,C
+        STV     KK,X
+        LCI     KK,X
+        CFSTK
+        LAV     FFPT,X
+        STV     DSTPT,P
+        STV     HH,X
+        LAA     TBCH,C
+        STV     KK,X
+        LCI     KK,X
+        CFSTK
+        LCN     SPREP
+        CFSTK
+        LAL     OF(2*LCH)
+        BMOVE
+        LCI     GG,X
+        CCN     NLREP
+        GONE    ER33,376,X,X
+        LCI     HH,X
+        CCN     NLREP
+        GONE    ER33,373,X,X
+        LBV     HH
+        LCM     OF(LCH)
+        CCL     'X'
+        GONE    ER33,369,X,X
+[LL86]  LAV     CC,X
+        MULTL   OF(LNM-LNM)
+        CAL     0
+        GONE    ER34,368,X,X
+[LL44]  LAL     64
+        MULTL   1
+        CAL     64
+        GONE    ER35,366,X,X
+[LL45]  LAL     28
+        MULTL   3
+        CAL     84
+        GONE    ER36,364,X,X
+[LL85]  LAV     ERNOD,X
+        CAL     0
+        GONE    END,408,X,X
+        LAL     3
+        STV     CC,P
+        FSTK
+        LAV     FFPT,X
+        STV     JJ,X
+        LAV     DD,X
+        FSTK
+        BUMP    FFPT,OF(LNM)
+        LAV     FF,X
+        FSTK
+        LAV     ERNOH,X
+        CAL     0
+        GONE    LL80,6,X,X
+        LBV     JJ
+        LAM     OF(2*LNM)
+        CAV     FF,X
+        GONE    ER38,354,X,X
+[LL80]  LAL     10
+        STV     DD,P
+        STI     JJ,X
+        LAV     DD,X
+        CAL     10
+        GONE    ER39,351,X,X
+[LL75]  LAL     20
+        STI     JJ,P
+        CAL     20
+        GONE    ER40,349,X,X
+[LL74]  LAV     ERNOH,X
+        CAL     0
+        GONE    LL54,19,X,X
+        LBV     JJ
+        SBL     OF(LNM)
+        LAM     0
+        CAL     3
+        GONE    ER42,343,X,X
+[LL52]  LAL     OF(2*LNM)
+        STV     II,X
+        LBV     JJ
+        ABV     II
+        LAM     0
+        CAV     FF,X
+        GONE    ER43,338,X,X
+[LL53]  LAL     OF(LNM)
+        STV     II,X
+        LBV     JJ
+        SBV     II
+        LAM     0
+        CAV     CC,X
+        GONE    ER44,333,X,X
+[LL54]  LAL     20
+        CAI     JJ,X
+        GONE    ER45,332,X,X
+[LL101] LAA     LL34,C
+        STV     CC,X
+        GOSUB   ADVNCE,201
+        LCI     SPT,X
+[DUMA]  CCN     NLREP
+        GONE    ER47,328,X,X
+        LCI     SPT,R
+        CCN     SPREP
+        GOEQ    ER47,325,X,X
+        LCI     SPT,R
+        CCN     NLREP
+        GOEQ    CCNOK,1,X,X
+        GO      ER47,321,X,X
+[CCNOK] LAL     0
+        STV     IDLEN,X
+        LAV     FFPT,X
+        STV     DD,X
+        LCI     SPT,X
+        CFSTK
+        LCI     DD,X
+        CCN     NLREP
+        GONE    ER51,320,X,X
+        LAV     DD,X
+        AAL     OF(LCH)
+        CAV     FFPT,A
+        GONE    ER52,318,X,X
+[LL32]  LCN     NLREP
+        CCN     NLREP
+        GONE    ER53,321,X,X
+[LL33]  GOSUB   ADVNCE,174
+        LCI     SPT,X
+[DUMB]  CCL     'A'
+        GONE    ER48,303,X,X
+        LCI     SPT,R
+        CCL     'B'
+        GOEQ    ER48,300,X,X
+        LCI     SPT,R
+        CCL     'A'
+        GOEQ    CCLOK,1,X,X
+        GO      ER48,296,X,X
+[CCLOK] LCI     SPT,X
+        GOPC    ER48,294,X,X
+        MESS    '...Searching for C..$'
+[LL13]  GOSUB   ADVNCE,160
+        LCI     SPT,X
+        CCL     'C'
+        GONE    LL13,-4,X,X
+        MESS    'found$...Searching for zero..$'
+[LL14]  GOSUB   ADVNCE,155
+        LCI     SPT,X
+        CCL     '0'
+        GONE    LL14,-4,X,X
+        MESS    'found$...Searching for punct with GOPC..$'
+        LAV     SPT,X
+        STV     SRCPT,X
+        LAV     JJ,X
+        STV     DSTPT,X
+        LAL     OF(LCH)
+        FMOVE
+        LCI     SPT,X
+        CCI     JJ
+        GONE    ER49,276,X,X
+[LL16]  GOSUB   ADVNCE,141
+        LCI     SPT,X
+        GOPC    LL15,1,X,X
+        GO      LL16,-4,X,X
+[LL15]  MESS    'found$...Searching for NLREP..$'
+        LCI     SPT,X
+        CCN     NLREP
+        GONE    ER48,266,X,X
+[LL26]  GOSUB   ADVNCE,133
+        LCI     SPT,X
+        CCN     NLREP
+        GONE    LL26,-4,X,X
+        MESS    'found$'
+        LAV     ERNOH,X
+        CAL     0
+        GONE    LL60,4,X,X
+        LBV     JJ
+        LCM     0
+        CCL     '0'
+        GONE    ER50,258,X,X
+[LL60]  LAA     NUMS,C
+        STV     SPT,X
+        LCI     SPT,X
+        GOND    GONDER,10,X,X
+        CAL     0
+        GONE    GONDER,8,X,X
+        LBV     SPT
+        LCM     OF(9*LCH)
+        GOND    GONDER,5,X,X
+        CAL     9
+        GONE    GONDER,3,X,X
+        LBV     SPT
+        LCM     OF(10*LCH)
+        GOND    TSCON,1,X,X
+[GONDER]        MESS    '+++GOND or STR error$'
+
+        NB      'Now test CON'
+
+[TSCON] LAV     ERNOG,X
+        CAL     0
+        GONE    TSAL,5,X,X
+        LAA     LL35,C
+        STV     CC,X
+        LAI     CC,X
+        CAL     10
+        GONE    ER54,247,X,X
+[TSAL]  LAA     TBCH,C
+        AAL     OF(LCH)
+        ALIGN
+        STV     IDPT,X
+        LAI     IDPT,X
+        AAL     6
+        CAL     0
+        GONE    ER55,241,X,X
+        LAV     IDPT,X
+        ALIGN
+        CAV     IDPT,A
+        GONE    ER55,237,X,X
+[LL37]  LAA     LL34,C
+        STV     IDPT,X
+        LAL     0
+        STV     JJ,X
+[LL41]  LCI     IDPT,X
+        GOSUB   MDERCH,X
+        LAV     JJ,X
+        AAL     OF(LCH)
+        STV     JJ,X
+        LAV     IDPT,X
+        AAL     OF(LCH)
+        STV     IDPT,X
+        LAV     JJ,X
+        CAV     IDLEN,X
+        GONE    LL41,-11,X,X
+        MESS    '$Should be the same as$ABCDEFGHIJKLMNOPQRSTUVWX'
+        MESS    'YZ 0123456789$.,;:()*/-+= TAB and quote sign$'
+        GOSUB   MDQUIT,X
+
+
+        SUBR    SR1,X,1
+        MESS    'O'
+        EXIT    1,SR1
+        MESS    '+++Possibly EXIT not transferring control$'
+        GO      LL96,-417,X,X
+
+
+        SUBR    SR2,X,4
+        LAV     BB,X
+        CAL     64
+        GONE    SS1,1,X,X
+        EXIT    2,SR2
+[SS1]   LAV     BB,X
+        CAL     0
+        GONE    SS2,1,X,X
+        EXIT    3,SR2
+[SS2]   LAV     BB,X
+        CAL     8
+        GONE    SS3,1,X,X
+        EXIT    4,SR2
+[SS3]   EXIT    1,SR2
+        MESS    '+++Possibly EXIT not transferring control$'
+        GO      LL21,-427,X,X
+
+
+        SUBR    SR3,PARNM,1
+        STV     AA,X
+        LAV     AA,X
+        CAL     65
+        GONE    ER100,5,X,X
+        LAV     PARNM,X
+        CAL     65
+        GONE    ER101,5,X,X
+        EXIT    1,SR3
+        GO      LL94,-411,X,X
+[ER100] MESS    '+++A clobbered when entering subroutine$'
+        EXIT    1,SR3
+        GO      LL94,-414,X,X
+[ER101] MESS    '+++A not stored in PARNM on SUBR entry$'
+        EXIT    1,SR3
+        GO      LL94,-417,X,X
+
+
+        SUBR    SRNEST,X,1
+        LAL     2
+        STV     IDLEN,X
+        EXIT    1,SRNEST
+
+
+        SUBR    SR4,PARNM,1
+        CAL     0
+        GONE    ER1,36,E,X
+        BUMP    PARNM,2
+        GOSUB   SRNEST,-9
+        LAV     PARNM,X
+        CAV     IDLEN,X
+        GOEQ    S4EX,1,X,X
+        MESS    '+++Error in nested subroutine call$'
+[S4EX]  EXIT    1,SR4
+
+
+        SUBR    CSSUB,X,1
+        GO      LLCSS,-340,E,X
+        EXIT    1,CSSUB
+
+
+        SUBR    BUMPFF,PARNM,1
+        CAL     0
+        GOEQ    ER1,26,E,X
+        LAV     FFPT,X
+        AAL     OF(LNM)
+        STV     FFPT,X
+        LAV     FFPT,X
+        CAV     LFPT,A
+        GOGE    ERLSO,167,E,X
+        EXIT    1,BUMPFF
+
+
+        SUBR    DECLF,PARNM,1
+        LAV     LFPT,X
+        SAL     OF(LNM)
+        STV     LFPT,X
+        LAV     FFPT,X
+        CAV     LFPT,A
+        GOGE    ERLSO,159,E,X
+        EXIT    1,DECLF
+
+
+        SUBR    ADVNCE,X,1
+        LAV     CC,X
+        STV     SPT,X
+        LAV     CC,X
+        AAL     OF(LCH)
+        STV     CC,X
+        LAV     IDLEN,X
+        AAL     OF(LCH)
+        STV     IDLEN,X
+        EXIT    1,ADVNCE
+
+
+
+[LL27]  GO      LL28,-572,X,X
+
+[ER1]   MESS    '+++Error in LAL or CAL with zero arg or GONE$'
+        GO      END,146,X,X
+[ER2]   MESS    '+++Error in STV V,X or LAV$'
+        GO      END,144,X,X
+[ER3]   MESS    '+++Error in STV V,P   A not preserved$'
+        GO      LL17,-561,X,X
+[ER4]   MESS    '+++Error in STV V,P   (not storing)$'
+        GO      LL18,-560,X,X
+[ER5]   MESS    '+++Error in LAL or CAL with non-zero arg$'
+        GO      END,138,X,X
+[ER6]   MESS    '+++Error in AAL with zero arg$'
+        GO      LL19,-555,X,X
+[ER7]   MESS    '+++CAV error$'
+        LAL     4
+        STV     ERNOD,X
+        GO      LL93,-548,X,X
+[ER8]   MESS    '+++AAV error$'
+        GO      LL92,-545,X,X
+[ER9]   MESS    '+++SAL error$'
+        LAL     2
+        STV     ERNOB,X
+        GO      LL91,-545,X,X
+[ER10]  MESS    '+++SAV error$'
+        GO      LL20,-543,X,X
+[ER11]  MESS    '+++EXIT 2 error$'
+        GO      LL21,-512,X,X
+[ER56]  MESS    '+++EXIT 3 error$'
+        GO      LL56,-506,X,X
+[ER57]  MESS    '+++EXIT 4 error$'
+        GO      LL57,-501,X,X
+[ER12]  MESS    '+++ANDV error$'
+        GO      LL22,-483,X,X
+[ER26]  MESS    '+++Value of V clobbered in ANDV$'
+        GO      LL22,-485,X,X
+[ER13]  MESS    '+++ANDL error$'
+        GO      LL24,-483,X,X
+[ER15]  MESS    '+++CLEAR error$'
+        LAL     0
+        STV     AA,X
+        GO      LL25,-483,X,X
+[ER16]  MESS    '+++BUMP or IDENT  error$'
+        GO      LL46,-480,X,X
+[ER17]  MESS    '+++AAL error$'
+        LAL     4
+        STV     ERNOD,X
+        GO      LL90,-470,X,X
+[ER18]  MESS    '+++OF error, * or +$'
+        GO      END,100,X,X
+[ER19]  MESS    '+++OF error, addition$'
+        GO      END,98,X,X
+[ER20]  MESS    '+++OF error, subtraction$'
+        GO      END,96,X,X
+[ER22]  MESS    '+++LAA L,D error or value of LNM incorrect$'
+        LAL     4
+        STV     ERNOD,X
+        GO      LL86,-331,X,X
+[ER23]  MESS    '+++LAI error$'
+        LAL     7
+        STV     ERNOG,X
+        GO      LL84,-454,X,X
+[ER24]  MESS    '+++LBV or LAM 0 error$'
+        LAL     8
+        STV     ERNOH,X
+        GO      LL83,-454,X,X
+[ER25]  MESS    '+++FSTK error '
+        LAV     PVARPT,X
+        AAL     OF(LNM)
+        CAV     FFPT,A
+        GONE    LL79,2,X,X
+        MESS    'but FFPT bumped correctly$'
+        GO      LL82,-422,X,X
+[LL79]  MESS    'FFPT incorrect$'
+        LAV     PVARPT,X
+        AAL     OF(LNM)
+        STV     FFPT,X
+        GO      LL82,-427,X,X
+[ER27]  MESS    '+++BSTK error '
+        LAV     LFPT,X
+        AAL     OF(LNM)
+        CAV     ENDPT,A
+        GONE    LL78,2,X,X
+        MESS    'but LFPT correct$'
+        GO      LL81,-409,X,X
+[LL78]  MESS    'LFPT incorrect$'
+        GO      LL81,-411,X,X
+[ER28]  MESS    '+++LFPT not debumped correctly in BSTK$'
+        GO      LL81,-413,X,X
+[ER29]  MESS    '+++UNSTK error$'
+        GO      LL81,-415,X,X
+[ER30]  MESS    '+++LFPT not bumped correctly in UNSTK$'
+        GO      LL81,-417,X,X
+[ER31]  MESS    '+++FMOVE error (non-overlapping case)$'
+        GO      LL77,-398,X,X
+[ER32]  MESS    '+++FMOVE error(overlapping case)$'
+        GO      LL76,-385,X,X
+[ER33]  MESS    '+++BMOVE error$'
+        GO      LL86,-372,X,X
+[ER34]  MESS    '+++MULTL error with zero arg$'
+        GO      LL44,-370,X,X
+[ER35]  MESS    '+++MULTL error with one as arg$'
+        GO      LL45,-368,X,X
+[ER36]  MESS    '+++MULTL error with 3 as arg$'
+        GO      LL85,-366,X,X
+[ER37]  MESS    '+++GOADD error$'
+        GO      LL10,-534,X,X
+[ER38]  MESS    '+++LAM error$'
+        GO      LL80,-356,X,X
+[ER39]  MESS    '+++STI error$'
+        GO      LL75,-353,X,X
+[ER40]  MESS    '+++A not preserved in STI V,P$'
+        GO      LL74,-351,X,X
+[ER42]  MESS    '+++SBL error$'
+        GO      LL52,-345,X,X
+[ER43]  MESS    '+++ABV error$'
+        GO      LL53,-340,X,X
+[ER44]  MESS    '+++SBV error$'
+        GO      LL54,-335,X,X
+[ER45]  MESS    '+++CAI error$'
+        GO      LL101,-334,X,X
+[ER47]  MESS    '+++NCH,LCI or CCN error$'
+        GO      END,27,X,X
+[ER48]  MESS    '+++CCL or GOPC error$'
+        GO      END,25,X,X
+[ER49]  MESS    '+++CCI error$'
+        GO      LL16,-278,X,X
+[ER50]  MESS    '+++LCM error$'
+        GO      LL60,-260,X,X
+[ER51]  MESS    '+++CFSTK error$'
+        GO      LL32,-318,X,X
+[ER52]  MESS    '+++FFPT not bumped correctly in CFSTK. Possibly'
+        MESS    ' LCH value is wrong$'
+        LAV     CC,X
+        AAL     OF(LCH)
+        STV     FFPT,X
+        GO      LL32,-324,X,X
+[ER53]  MESS    '+++LCN NLREP error$'
+        GO      LL33,-323,X,X
+[ER54]  MESS    '+++CON error$'
+        GO      TSAL,-249,X,X
+[ER55]  MESS    '+++Alignment error$'
+        GO      LL37,-239,X,X
+[ER59]  MESS    '+++Error in moving or comparing'
+        MESS    ' negative integers$'
+        GO      LL61,-514,X,X
+        LCI     SPT,X
+        CCL     '<'
+        GONE    LL29,-714,X,X
+[ERCSS] MESS    '+++CSS error$'
+        GO      END,5,X,X
+
+[ERLSO] MESS    '+++Stack overflow$'
+
+[END]   MESS    '...Correct above error(s) and run again$'
+        GOSUB   MDQUIT,X
+        PRGEN

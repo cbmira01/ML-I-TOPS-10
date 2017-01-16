@@ -1,0 +1,11 @@
+ML/I test -- S -- version T2A
+Tests S-variables,startlines,stop markers and counting of lines
+123 SB 123
+123456 SB 123456
+1234 SB 1234
+
+This should cause an error on the next line:
+This should cause 4 errors on the next line but one:
+1 2 3 4 5 6 7 SB 1 2 3 4 5 6 7
+0123 SB 0123
+12 SB 12

@@ -1,0 +1,31 @@
+
+This is a MC-NOTE message from line 67 of source text
+
+detected in
+line 67 of source text
+
+
+A MC-NOTE within the macro NOTEST
+
+detected in
+line 2 of macro NOTEST with arguments
+  1)  MCNOTE A MC-NOTE within an argument to <NOTEST>
+
+called from
+lines 72 to 73 of source text
+
+
+A MC-NOTE within an argument to NOTEST
+
+detected in
+line 2 of argument 1 of macro NOTEST evaluated in
+line 2 of macro NOTEST with arguments
+  1)  MCNOTE A MC-NOTE within an argument to <NOTEST>
+
+called from
+lines 72 to 73 of source text
+
+
+No environment should be printed with this MC-NOTE
+
+At end of process: 73 lines, 80 calls

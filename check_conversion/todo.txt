@@ -1,0 +1,9 @@
+
+Codes in this directory are the ML/I macroprocessor and the LOWL test suite
+source codes that have been preprocessed to look like MACRO-10 macro calls. 
+
+    [LABELS] have been recast to LABELS:
+    Stanzas needed for MACRO-10 have been inserted.
+
+The idea is to recreate these files on the fly at build-time.
+

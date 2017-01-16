@@ -1,0 +1,9 @@
+ML/I test -- OVERRIDE -- version T2A
+Tests overriding, globals and locals,MC-NO macros and warnings
+1234567 SB 1234567
+01234567 SB 01234567
+1111 SB 1111
+1 2 3 4 5 SB 1 2 3 4 5
+4 5 4 5 SB 4 5 4 5
+1 2 3 4 5 6 SB 1 2 3 4 5 6
+:1:2:3 SB :1:2:3

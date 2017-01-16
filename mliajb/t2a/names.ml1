@@ -1,0 +1,9 @@
+ML/I test -- NAMES -- versoin T2A
+Tests initial state of built-in tables and hashing function
+Should be used as the first real test of a new implementation
+MCNOINS.MCNOSKIP.MCNODEF.MCNOWARN.SB....
+Make all others unmatched
+MCSTOP MCWARN MCWARNG  MCSKIP MCSKIPG,MCDEF
+MCINS,MCINSG MCALTER TO TO MCDEF VARS
+MCNOTE MCGO MCPVAR MCDEFG AS MCSUB(,,
+MCSET=MCGO IF MCGO UNLESS EN MCLENG   (

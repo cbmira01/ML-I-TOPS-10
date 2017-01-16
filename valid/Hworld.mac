@@ -1,0 +1,35 @@
+
+        SEARCH      jobdat, macten, uuosym, lowldf, machdp
+        
+        RADIX       10           ; all LOWL numerals are declared in base 10
+        LALL                
+        TITLE       HELLOW
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+    PRGST       "Minimal LOWL program"
+    NB          "Hello, World! should appear in the debugging stream file."
+    
+    NB    "The following variables are needed to reconcile with machine-dependent logic."
+    DCL    SVARPT
+    DCL    SRCPT
+    DCL    DSTPT
+    DCL    FFPT
+    DCL    LFPT
+    DCL    LINKPT
+    DCL    IDPT
+    DCL    IDLEN
+    DCL    MEVAL
+    DCL    HASHPT
+    DCL    HTABPT
+    DCL    OP1
+    DCL    OPSW
+    DCL    SPT
+
+BEGIN::    
+    MESS        "$Hello, World!$"
+
+ERLOVF:
+ERLSO:
+    GOSUB    MDQUIT,X
+    PRGEN
+    END     MDSTAR    

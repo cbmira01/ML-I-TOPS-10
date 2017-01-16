@@ -1,0 +1,62 @@
+
+
+Error(s)
+Argument 2 has illegal value, viz "(SL) SB (SL)"
+
+detected in
+macro MCSUB ( with arguments
+  1) An error message with SL in
+  2) /
+(SL) SB (SL)
+  3) 2
+called from
+lines 11 to 12 of source text
+
+Macro MCSUB ( aborted due to above error
+
+
+
+Error(s)
+Delimiter > of skip < in line 16 of current text not found
+Delimiter . of insert % in line 16 of current text not found
+Delimiter IF or UNLESS or (NL) of macro MCGO in line 16 of current text 
+not found
+Delimiter X (NL) or (NL) (NL) OK or 2 of macro MACRONL in line 15 of cur
+rent text not found
+
+
+detected in
+line 16 of source text
+
+
+
+Error(s)
+Label 12 referenced in line 18 of current text not found
+
+
+detected in
+line 19 of source text
+
+
+
+Error(s)
+Delimiter / of macro STRSCAN in line 22 of current text not found
+Delimiter , of macro MCSUB ( in line 22 of current text not found
+Delimiter . of insert % in line 22 of current text not found
+Label 1 referenced in line 20 of current text not found
+
+
+detected in
+line 22 of source text
+
+
+
+Error(s)
+Delimiter END of macro STOPMAC in line 32 of current text not found
+
+
+detected in
+line 32 of source text
+
+
+At end of process: 43 lines, 44 calls

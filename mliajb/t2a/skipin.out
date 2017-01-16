@@ -1,0 +1,6 @@
+ML/I test -- SKIPINS -- version T2A
+Tests skips and inserts
+AA>BA/+MCDEF+/B SB AA>BA/+MCDEF+/B
+ABCDEF  SB ABCDEF
+1/1/2/2/3/3/4/4/5/5 SB 1/1/2/2/3/3/4/4/5/5
+123 SB 123

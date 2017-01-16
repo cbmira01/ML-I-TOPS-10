@@ -1,0 +1,66 @@
+
+ML/I is licensed for use as follows:
+
+    In a private communication to me on 2017.01.15, Dr. Eager instructed me to 
+    record that the primary reference for ML/I is his web site, and that the 
+    ML/I source code is to be licensed under the 3-Clause BSD License. ML/I 
+    documentation is available on Dr. Eager's website for private use only and
+    is not to be hosted elsewhere.
+
+    The ML/I macro processor: http://www.ml1.org.uk/index.html
+    ML/I documentation:       http://www.ml1.org.uk/doc.html
+    How ML/I is implemented:  http://www.ml1.org.uk/implementation.html
+    3-Clause BSD License:     https://opensource.org/licenses/BSD-3-Clause
+
+    ML/I, Copyright 2004,2015,2016 R.D. Eager 
+
+    Redistribution and use in source and binary forms, with or without 
+    modification, are permitted provided that the following conditions 
+    are met:
+
+    1. Redistributions of source code must retain the above copyright 
+    notice, this list of conditions and the following disclaimer.
+
+    2. Redistributions in binary form must reproduce the above copyright 
+    notice, this list of conditions and the following disclaimer in the 
+    documentation and/or other materials provided with the distribution.
+
+    3. Neither the name of the copyright holder nor the names of its 
+    contributors may be used to endorse or promote products derived from 
+    this software without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
+    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
+    FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
+    COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+    INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS 
+    OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED 
+    AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+    OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF 
+    THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+    DAMAGE.
+
+Digital Equipment Corporation Software Technology is licensed for use as follows:
+
+    Software technologies developed by Digital Equipment Corporation (DEC)
+    are used herein under the terms of the "DEC 36-bit hobbyist license". In
+    particular under that license, "DIGITAL grants to CUSTOMER a worldwide,
+    non-exclusive, royalty-free license under DIGITAL's INTELLECTUAL PROPERTY
+    RIGHTS to use and modify the SOFTWARE TECHNOLOGY solely for personal,
+    non-commercial uses." A complete statement of the "DEC 36-bit hobbyist
+    license" may be found at http://pdp-10.trailing-edge.com/
+
+ML/I implementation is licensed for use as follows:
+
+    Creative effort in this work not otherwise mentioned is to be considered
+    copyright (c) 2017 Calvin Miracle. You may share, copy, distribute,
+    transmit, remix and adapt this work, with the understanding that you
+    properly attribute this work, and that you not use this work for
+    commercial purposes. If you alter, transform, or build upon this work,
+    you may distribute the resulting work only under the same or similar
+    license to this one.
+
+    Creative Commons Attribution-NonCommercial-ShareAlike 3.0:
+        https://creativecommons.org/licenses/by-nc-sa/3.0/

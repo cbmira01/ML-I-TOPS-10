@@ -1,0 +1,63 @@
+
+; FILENAME:       LOARIT.mac
+; DESCRIPTION:
+; ARITHMETIC AND LOGICAL STATEMENTS, [WXYZ] x.y.z
+
+
+;   Add the contents of memory location V to the LOWL A register.
+        DEFINE AAV (V) <
+        add         LOWL.A, V
+>
+
+;   Add the contents of memory location V to the LOWL B register.
+        DEFINE ABV (V) <
+        add         LOWL.B, V
+>
+
+;   Add the literal value N to the LOWL A register.
+        DEFINE AAL (N) <
+        add         LOWL.A, [N]
+>
+
+;   Subtract the contents of memory location V from the LOWL A register.
+        DEFINE SAV (V) <
+        sub         LOWL.A, V
+>
+
+;   Subtract the contents of memory location V from the LOWL B register.
+        DEFINE SBV (V) <
+        sub         LOWL.B, V
+>
+
+;   Subtract the literal value N from the LOWL A register.
+        DEFINE SAL (N) <
+        sub         LOWL.A, [N]
+>
+
+;   Subtract the literal value N from the LOWL B register.
+        DEFINE SBL (N) <
+        sub         LOWL.B, [N]
+>
+
+;   Multiply the LOWL A register by the literal value N.
+        DEFINE MULTL (N) <
+        imul        LOWL.A,    [N]
+>
+
+;   Increase the contents of memory location V by the literal value N.
+        DEFINE BUMP (V, N) <
+        move        ac1, V
+        add         ac1, [N]
+        movem       ac1, V
+>
+
+;   Logical "and" the LOWL A register with contents of memory location V.
+        DEFINE ANDV (V) <
+        and         LOWL.A, V
+>
+
+;   Logical "and" the LOWL A register with the literal value N.
+        DEFINE ANDL (N) <
+        and         LOWL.A, [N]
+>
+

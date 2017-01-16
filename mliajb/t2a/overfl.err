@@ -1,0 +1,20 @@
+
+
+Error(s)
+Process aborted for lack of storage
+
+detected in
+line 1 of macro PIG with no arguments
+called from
+line 1 of macro PIG with no arguments
+called from
+line 1 of macro PIG with no arguments
+called from
+line 1 of macro PIG with no arguments
+called from
+line 1 of macro PIG with no arguments
+called from
+line 6 of source text
+
+
+At end of process: 6 lines, 6 calls

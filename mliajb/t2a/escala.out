@@ -1,0 +1,10 @@
+ML/I test -- ESCALATE -- version T2A
+Tests gradually more complicated constructions
+Not comprehensive, but useful as general overall test
+123456789 SB 123456789
+123456789 SB 123456789
+-123450 SB -123450
+123456789 SB 123456789
+123456789 SB 123456789
+123456789 SB 123456789
+123456789 SB 123456789

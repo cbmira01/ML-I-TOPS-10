@@ -1,0 +1,49 @@
+ML/I test -- S -- version T2A
+Tests S-variables,startlines,stop markers and counting of lines
+MCSKIP MT,<>
+MCINS U,%.
+MCGO ERROR1 UNLESS%S1.%S3.%S4.=000
+MCSKIP /WITHS NL
+1<>MCSET S1=1
+2<>MCDEF SL
+AS 3
+MCSKIP D,SL
+MCSUB(An error message with SL in,/
+ SB (SL),2)MCSET S1=0
+ SB 123
+MCSET S2=0
+%S2./
+%S2.MCDEF THREENL NL WITHS NL WITHS NL AS<MCSET S2=S2-3
+%S2.>
+THREENL
+
+
+%S2.MCDEF SLASHNL/WITHS NL N0 AS<%S2.>
+SLASHNL X/
+%S2. SB 123456
+MCDEF MACRONL OPT NL N1 OR N1 X WITHS NL OR
+NL WITHS NL WITHS OK OR 2 N0 ALL N1 AS<1>
+MCSTOP NL
+MACRONL
+X
+
+
+OK X 2%3.<4> SB 1234
+MACRONL
+This line contains 4 mismatches: MCGO%<
+MCDEF STRSCAN/SSAS RUBBISH
+This should cause an error on the next line: MCGO L12
+Line ignored
+This should cause 4 errors on the next line but one: MCGO L1
+MCGO L2
+%MCSUB(STRSCAN .....
+MCSKIP D,NL
+MCSKIP 2 WITHS 3 5 WITHS 6
+MCDEF STOPMAC END
+AS<MCNOSKIP%A1.MCSTOP SPACE
+MCGO ERROR UNLESS MCLENG(5 6) EN 3
+>
+MCSTOP 5 WITHS 6
+STOPMAC 1 2 3 4 5 6 7 END SB 1 2 %3. 4 5 6 7
+MCDEFG 5 WITHS 6 AS 1
+0<>STOPMAC This should give a mismatch 5 6<>2%%S5.-2. SB 0123

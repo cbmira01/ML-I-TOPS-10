@@ -1,0 +1,1248 @@
+
+
+Error(s)
+Illegal macro name after warning, viz "2"
+
+detected in
+line 7 of source text
+
+
+
+Error(s)
+Arithmetic overflow
+
+detected in
+macro MCSET with arguments
+  1)  P1
+  2) 3/0
+called from
+line 7 of source text
+
+Macro MCSET aborted due to above error
+
+
+
+Error(s)
+Label 1 is multiply-defined
+
+detected in
+line 2 of argument 1 of macro MCSUB ( evaluated in
+macro MCSUB ( with arguments
+  1) %L1.%L2.3.MCGO L3
+%L1.
+  2) 1%T1.
+  3) 1
+called from
+lines 8 to 9 of source text
+
+
+
+Error(s)
+Label 3 referenced in line 1 of current text not found
+
+
+detected in
+line 2 of argument 1 of macro MCSUB ( evaluated in
+macro MCSUB ( with arguments
+  1) %L1.%L2.3.MCGO L3
+%L1.
+  2) 1%T1.
+  3) 1
+called from
+lines 8 to 9 of source text
+
+
+
+Error(s)
+T1 is illegal macro element
+
+detected in
+insert % with arguments
+  1) T1
+called from
+line 1 of argument 2 of macro MCSUB ( evaluated in
+macro MCSUB ( with arguments
+  1) %L1.%L2.3.MCGO L3
+%L1.
+  2) 1%T1.
+  3) 1
+called from
+lines 8 to 9 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Delimiter CANT or WONT of macro EXCLUSIVE in line 1 of current text not 
+found
+
+
+detected in
+line 1 of argument 1 of macro ARGERR evaluated in
+line 1 of macro ARGERR with arguments
+  1)  2<>EXCLUSIVE XXX
+called from
+line 12 of source text
+
+
+
+Error(s)
+T5 is illegal macro element
+
+detected in
+insert % with arguments
+  1) T5
+called from
+line 1 of macro ARGERR with arguments
+  1)  2<>EXCLUSIVE XXX
+called from
+line 12 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "1"
+
+detected in
+macro MCSET with arguments
+  1)   1
+  2) 0
+called from
+line 13 of source text
+
+Macro MCSET aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "P1+1"
+
+detected in
+macro MCSET with arguments
+  1)  P1+1
+  2) 0
+called from
+line 14 of source text
+
+Macro MCSET aborted due to above error
+
+
+
+Error(s)
+A1 is illegal macro element
+
+detected in
+insert % with arguments
+  1) A1
+called from
+line 15 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+P0 is illegal macro element
+
+detected in
+insert % with arguments
+  1) P0
+called from
+line 15 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+T1 is illegal macro element
+
+detected in
+insert % with arguments
+  1) T1
+called from
+line 15 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+L0 is illegal macro element
+
+detected in
+insert % with arguments
+  1) L0
+called from
+line 15 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "(null)"
+
+detected in
+insert % with arguments
+  1) (null)
+called from
+line 15 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "L1A"
+
+detected in
+insert % with arguments
+  1) L1A
+called from
+line 15 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "LPIG"
+
+detected in
+insert % with arguments
+  1) LPIG
+called from
+line 15 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "L"
+
+detected in
+insert % with arguments
+  1)  L
+called from
+line 15 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "P+1"
+
+detected in
+insert % with arguments
+  1) P+1
+called from
+line 15 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "(null)"
+
+detected in
+macro MCGO with arguments
+  1) (null)
+called from
+line 16 of source text
+
+Macro MCGO aborted due to above error
+
+
+
+Error(s)
+L0 is illegal macro element
+
+detected in
+macro MCGO with arguments
+  1)  L0
+called from
+line 17 of source text
+
+Macro MCGO aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "L"
+
+detected in
+macro MCGO with arguments
+  1)  L
+called from
+line 18 of source text
+
+Macro MCGO aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "L1A"
+
+detected in
+macro MCGO with arguments
+  1)  L1A
+called from
+line 19 of source text
+
+Macro MCGO aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "/6"
+
+detected in
+insert % with arguments
+  1) /6
+called from
+line 21 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "*6"
+
+detected in
+insert % with arguments
+  1) *6
+called from
+line 21 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "4/+-/3"
+
+detected in
+insert % with arguments
+  1) 4/+-/3
+called from
+line 21 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "4*/6"
+
+detected in
+insert % with arguments
+  1) 4*/6
+called from
+line 21 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "5*"
+
+detected in
+insert % with arguments
+  1) 5*
+called from
+line 21 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "-*-1"
+
+detected in
+insert % with arguments
+  1) -*-1
+called from
+line 21 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "-4+/6"
+
+detected in
+insert % with arguments
+  1) -4+/6
+called from
+line 21 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+A0 is illegal macro element
+
+detected in
+insert % with arguments
+  1) A0
+called from
+line 1 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+B2 is illegal macro element
+
+detected in
+insert % with arguments
+  1) B2
+called from
+line 1 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "W"
+
+detected in
+insert % with arguments
+  1) W
+called from
+line 1 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+D-1 is illegal macro element
+
+detected in
+insert % with arguments
+  1) WD-1
+called from
+line 1 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+D2 is illegal macro element
+
+detected in
+insert % with arguments
+  1) D2
+called from
+line 1 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "WD"
+
+detected in
+insert % with arguments
+  1) WD
+called from
+line 1 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+T0 is illegal macro element
+
+detected in
+insert % with arguments
+  1) T0
+called from
+line 1 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+T4 is illegal macro element
+
+detected in
+insert % with arguments
+  1) T4
+called from
+line 1 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "D1
+"
+
+detected in
+insert % with arguments
+  1) D1
+
+called from
+lines 1 to 2 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+A1 is illegal macro element
+
+detected in
+insert % with arguments
+  1) A1
+called from
+line 1 of argument 1 of macro ERRMAC evaluated in
+line 2 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+A1 is illegal macro element
+
+detected in
+insert % with arguments
+  1) A1
+called from
+line 1 of argument 1 of insert % evaluated in
+insert % with arguments
+  1) %A1.+5
+called from
+line 1 of argument 1 of macro ERRMAC evaluated in
+line 2 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "WT1"
+
+detected in
+insert % with arguments
+  1) WT1
+called from
+line 2 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "WWD0"
+
+detected in
+insert % with arguments
+  1) WWD0
+called from
+line 2 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "DD1"
+
+detected in
+insert % with arguments
+  1) DD1
+called from
+line 2 of macro ERRMAC with arguments
+  1)  %A1.4%%A1.+5.
+called from
+line 25 of source text
+
+Insert % aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "(null)"
+
+detected in
+macro MCSTOP with arguments
+  1) (null)
+called from
+line 30 of source text
+
+Macro MCSTOP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "XX N0"
+
+detected in
+macro MCSTOP with arguments
+  1)  XX N0
+called from
+line 31 of source text
+
+Macro MCSTOP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "X1 X2"
+
+detected in
+macro MCSTOP with arguments
+  1)  X1 X2
+called from
+line 32 of source text
+
+Macro MCSTOP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT X OR Y ALL"
+
+detected in
+macro MCSTOP with arguments
+  1)  OPT X OR Y ALL
+called from
+line 33 of source text
+
+Macro MCSTOP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "INSERT TWO ARGUMENTS"
+
+detected in
+macro MCINS with arguments
+  1)  INSERT TWO ARGUMENTS
+called from
+line 34 of source text
+
+Macro MCINS aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "NOARGUMENTS"
+
+detected in
+macro MCINS with arguments
+  1)  NOARGUMENTS
+called from
+line 35 of source text
+
+Macro MCINS aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "(null)"
+
+detected in
+macro MCSKIP with arguments
+  1) (null)
+called from
+line 36 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "R2 OR+ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  R2 OR+ALL
+called from
+line 37 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "R3 ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  R3 ALL
+called from
+line 38 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT N1 R4 ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT N1 R4 ALL
+called from
+line 39 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT OPT R5 ALL ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT OPT R5 ALL ALL
+called from
+line 40 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT R6 OR N2 OPT+ALL ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT R6 OR N2 OPT+ALL ALL
+called from
+line 41 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "R7+N1+N1+"
+
+detected in
+macro MCSKIP with arguments
+  1)  R7+N1+N1+
+called from
+line 42 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT R8 N1 ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT R8 N1 ALL
+called from
+line 43 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "N1 OPT R9 N1 ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  N1 OPT R9 N1 ALL
+called from
+line 44 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "N1 OPT R10 N1 OR +N0 ALL +"
+
+detected in
+macro MCSKIP with arguments
+  1)  N1 OPT R10 N1 OR +N0 ALL +
+called from
+line 45 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "N1 OPT R11 N1 OR-OPT+N1ALL ALL +"
+
+detected in
+macro MCSKIP with arguments
+  1)  N1 OPT R11 N1 OR-OPT+N1ALL ALL +
+called from
+line 46 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "R12 N1 N2"
+
+detected in
+macro MCSKIP with arguments
+  1)  R12 N1 N2
+called from
+line 47 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT R13 OR N1 N2+ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT R13 OR N1 N2+ALL
+called from
+line 48 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "R14 OPT ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  R14 OPT ALL
+called from
+line 49 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT R15 OR N1 ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT R15 OR N1 ALL
+called from
+line 50 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT R16 OR +"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT R16 OR +
+called from
+line 51 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "R17 N10A"
+
+detected in
+macro MCSKIP with arguments
+  1)  R17 N10A
+called from
+line 52 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "R18 N0 A"
+
+detected in
+macro MCSKIP with arguments
+  1)  R18 N0 A
+called from
+line 53 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "R19 N10"
+
+detected in
+macro MCSKIP with arguments
+  1)  R19 N10
+called from
+line 54 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "B WITHS WITH"
+
+detected in
+macro MCSKIP with arguments
+  1)  B WITHS WITH
+called from
+line 55 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "C WITHS WITHS"
+
+detected in
+macro MCSKIP with arguments
+  1)  C WITHS WITHS
+called from
+line 56 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "D WITHS OPT"
+
+detected in
+macro MCSKIP with arguments
+  1)  D WITHS OPT
+called from
+line 57 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "E WITHS OR"
+
+detected in
+macro MCSKIP with arguments
+  1)  E WITHS OR
+called from
+line 58 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "F WITHS ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  F WITHS ALL
+called from
+line 59 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "G WITHS N1"
+
+detected in
+macro MCSKIP with arguments
+  1)  G WITHS N1
+called from
+line 60 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "H WITH"
+
+detected in
+macro MCSKIP with arguments
+  1)  H WITH
+called from
+line 61 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "I N1 WITH."
+
+detected in
+macro MCSKIP with arguments
+  1)  I N1 WITH.
+called from
+line 62 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "J OPT WITH.ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  J OPT WITH.ALL
+called from
+line 63 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "K OPT.OR WITHS. ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  K OPT.OR WITHS. ALL
+called from
+line 64 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "L OPT+ ALL WITH ."
+
+detected in
+macro MCDEF with arguments
+  1)  L OPT+ ALL WITH .
+  2) (null)
+called from
+line 65 of source text
+
+Macro MCDEF aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "M OPT A WITH.WITH B OR A WITHS . WITH
+S B ALL"
+
+detected in
+macro MCDEF with arguments
+  1)  M OPT A WITH.WITH B OR A WITHS . WITHS B ALL  
+  2) (null)
+called from
+line 66 of source text
+
+Macro MCDEF aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT A OR A ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT A OR A ALL
+called from
+line 67 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT A OR B N0 OR C OR B ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT A OR B N0 OR C OR B ALL
+called from
+line 68 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT SPACE OR B OPT C ALL OR SPACES AL
+L"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT SPACE OR B OPT C ALL OR SPACES ALL
+called from
+line 69 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT A WITHS . WITHS B OR C OR A WITH.
+WITH B ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT A WITHS . WITHS B OR C OR A WITH.WITH B ALL
+called from
+line 70 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT A WITH SPACE WITH C OR A WITHS C 
+ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT A WITH SPACE WITH C OR A WITHS C ALL
+called from
+line 71 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT A WITH SPACE WITH . OR A WITHS. A
+LL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT A WITH SPACE WITH . OR A WITHS. ALL
+called from
+line 72 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT SPACE WITH SPACE OR SPACES ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT SPACE WITH SPACE OR SPACES ALL
+called from
+line 73 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT A WITH SPACES OR A WITH SPACE WIT
+H SPACE WITH SPACE ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT A WITH SPACES OR A WITH SPACE WITH SPACE WITH SPACE ALL
+called from
+line 74 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT SPACES OR SPACES ALL"
+
+detected in
+macro MCSKIP with arguments
+  1)  OPT SPACES OR SPACES ALL
+called from
+line 75 of source text
+
+Macro MCSKIP aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "OPT SPACE WITHS C WITHS. OR   ---  WI
+TH
+ C WITH SPACE WITH. ALL"
+
+detected in
+macro MCDEF with arguments
+  1)  OPT SPACE WITHS C WITHS. OR  ---  ITH
+ C WITH SPACE WITH. ALL 
+  2)  RUBBISH
+called from
+lines 76 to 77 of source text
+
+Macro MCDEF aborted due to above error
+
+
+At end of process: 86 lines, 90 calls

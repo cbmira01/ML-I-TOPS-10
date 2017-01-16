@@ -1,0 +1,4 @@
+ML/I test -- OVERFLOW -- version T2A
+Tests stack overflow, using endless recursion
+Depth of nesting reached before overflow occurs will
+ vary between implementations

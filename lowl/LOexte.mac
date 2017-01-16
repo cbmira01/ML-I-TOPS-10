@@ -1,0 +1,98 @@
+
+; FILENAME:       LOEXTE.mac
+; DESCRIPTION:
+; LOWL EXTENSIONS FOR THE ML/I MACRO PROCESSOR, [WXYZ] x.y.z
+
+;   Compute the relative offset to a tableLabel: RL tableLabel, OF()
+        DEFINE RL (TABLAB, N.OF, %here) <
+%here:  exp         TABLAB-%here
+>
+
+;   Define the hash chain links for the named macros.
+        DEFINE HASH (STRING) <
+        XLIST
+        IFIDN <STRING><"MCDEF">,   <CN320:  exp         0>
+        IFIDN <STRING><"MCSKIP">,  <CN150:  exp         0>
+        IFIDN <STRING><"MCINS">,   <CN10:   exp         0>
+        IFIDN <STRING><"MCWARN">,  <CN30:   exp         0>
+        IFIDN <STRING><"MCDEFG">,  <CN250:  exp         0>
+        IFIDN <STRING><"MCSKIPG">, <CN130:  exp         0>
+        IFIDN <STRING><"MCINSG">,  <CN251:  exp         CN250>
+        IFIDN <STRING><"MCWARNG">, <CN131:  exp         CN130>
+        IFIDN <STRING><"MCNODEF">, <CN60:   exp         0>
+        IFIDN <STRING><"MCNOSKIP">,<CN90:   exp         0>
+        IFIDN <STRING><"MCNOINS">, <CN11:   exp         CN10>
+        IFIDN <STRING><"MCNOWARN">,<CN252:  exp         CN251>
+        IFIDN <STRING><"MCSET">,   <CN61:   exp         CN60>
+        IFIDN <STRING><"MCGO">,    <CN170:  exp         0>
+        IFIDN <STRING><"MCALTER">, <CN260:  exp         0>
+        IFIDN <STRING><"MCNOTE">,  <CN132:  exp         CN131>
+        IFIDN <STRING><"MCPVAR">,  <CN270:  exp         0>
+        IFIDN <STRING><"MCLENG">,  <CN253:  exp         CN252>
+        IFIDN <STRING><"MCSUB">,   <CN120:  exp         0>
+        IFIDN <STRING><"MCSTOP">,  <CN151:  exp         CN150>
+        LIST
+>
+
+;   Defines the start of all hash chains. The hash function is:
+;   LEN(string) TIMES [ ASC(first) PLUS ASC(last) ] ] AND hsmask
+        DEFINE THASH <
+        exp         CN11        ;; hash code 0: MCNOINS then MCINS then stop
+        exp         0
+        exp         CN30        ;; hash code 2: MCWARN then stop
+        exp         0
+        exp         0
+        exp         CN61        ;; hash code 5: MCSET then MCNODEF then stop
+        exp         0
+        exp         0
+
+        exp         CN90        ;; hash code 8: MCNOSKIP then stop
+        exp         0
+        exp         0
+        exp         CN120       ;; hash code 11: MCSUB then stop
+        exp         CN132       ;; hash code 12: MCNOTE then MCWARNG then MCSKIPG then stop
+        exp         0
+        exp         CN151       ;; hash code 14: MCSTOP then MCSKIP then stop
+        exp         0
+
+        exp         CN170       ;; hash code 16: MCGO then stop
+        exp         0
+        exp         0
+        exp         0
+        exp         0
+        exp         0
+        exp         0
+        exp         0
+
+        exp         CN253       ;; hash code 24: MCLENG then MCNOWARN then MCINSG then MCDEFG then stop
+        exp         CN260       ;; hash code 25: MCALTER then stop
+        exp         CN270       ;; hash code 26: MCPVAR then stop
+        exp         0
+        exp         0
+        exp         0
+        exp         0
+        exp         CN320       ;; hash code 31: MCDEF then stop
+>
+
+; Define the largest integer used as special table marker.
+        DEFINE WTHS <
+        exp         bigint
+>
+
+;   Logical "OR" the LOWL A register with the literal value N.
+        DEFINE ORL (N) <
+        or          LOWL.A, [N]
+>
+
+;   Declare a link routine
+        DEFINE LINKR (LNKNAM) <
+LNKNAM: pop         sp, LINKPT
+>
+
+;   Return from a link routine.
+        DEFINE LINKB <
+        jrst        @LINKPT
+>
+
+        END                         ; end of LOWL macro definitions
+;

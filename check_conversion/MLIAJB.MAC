@@ -1,0 +1,4552 @@
+
+        SEARCH       jobdat, macten, uuosym, lowldf, machdp
+        
+        RADIX        10            ; all LOWL numerals are declared in base 10
+        LALL            
+        TITLE        MLIAJB
+        
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+    PRGST    "ML/I version AJB"
+
+    NB    "ML/I Aug 30 1971"
+    NB    "Copyright (C)  1971  P.J. Brown"
+    NB    "Updated December 1982  R.D. Eager"
+    NB    "Updated 13th January 1986  R.D. Eager"
+    NB    "MI-Logic Part 1 -- Vars and data sections"
+
+    NB    "THE FOLLOWING MUST BE STORED CONTIGUOUSLY"
+
+    DCL    ARGCT
+
+
+    DCL    STAKPT
+    DCL    ARGPT
+    DCL    DBUGPT
+    DCL    SPT
+    DCL    MCHLIN
+    DCL    LINECT
+    DCL    ARGNO
+    DCL    DBUGSW
+
+
+    DCL    TVARPT
+    DCL    HASHPT
+    DCL    MTCHPT
+    DCL    STOPPT
+    DCL    LABPT
+    DCL    INFFPT
+    DCL    SKVAL
+    DCL    SKLIN
+    DCL    OHSW
+
+
+
+
+    DCL    TOPSPT
+    DCL    MHSHPT
+    DCL    SQPT
+    DCL    LINKPT
+    DCL    ARGLEN
+    DCL    OPTYP
+    DCL    SQNUM
+    DCL    SQSW
+    DCL    NTYPSW
+
+
+
+
+    DCL    ALLPT
+    DCL    OPTPT
+    DCL    OPTHPT
+
+
+
+
+    DCL    ENDPT
+    DCL    PVARPT
+    DCL    LFPT
+    DCL    PVNUM
+    DCL    GLBWSW
+
+
+    NB    "END OF CONTIGUOUS BLOCK OF VARIABLES"
+
+    NB    "Miscellaneous variables"
+
+    DCL    KNPT
+    DCL    ETEMPT
+    DCL    SVARPT
+    DCL    FNDPT
+    DCL    BFNDPT
+    DCL    INFOPT
+    DCL    BINFPT
+    DCL    FFPT
+    DCL    TEMPT
+    DCL    TEMAPT
+    DCL    CHANPT
+    DCL    ERIAPT
+    DCL    BESPT
+    DCL    HTABPT
+    DCL    IDPT
+    DCL    TIDPT
+    DCL    TSPT
+    DCL    CLLFPT
+    DCL    NARGPT
+    DCL    STFFPT
+    EQU    CINFPT,OPTPT
+    EQU    DELPT,OPTHPT
+    EQU    WNSPT,ALLPT
+    EQU    WNIDPT,ERIAPT
+
+    DCL    SKIPLV
+    DCL    NESTLV
+    DCL    OPLEV
+    DCL    BINDIC
+    DCL    LEVEL
+    DCL    INVOCT
+    DCL    TEMP
+    DCL    INDIC
+    DCL    CHLINK
+    DCL    PARNM
+    DCL    TYPE
+    DCL    IDLEN
+    DCL    BESTPL
+    DCL    OFFSET
+    DCL    MEVAL
+    DCL    BESLIN
+    DCL    CALTYP
+    DCL    TLINCT
+
+    DCL    TEMPSW
+    DCL    MASKSW
+    DCL    COPTSW
+    DCL    COPDSW
+    DCL    CAPSW
+    EQU    INSW,COPTSW
+
+
+    NB    "Used in processing structure representations"
+
+    EQU    NODEPT,NARGPT
+    EQU    NNODPT,MTCHPT
+    EQU    LNODPT,MHSHPT
+    EQU    EXIDPT,HTABPT
+    EQU    OLLFPT,BFNDPT
+    EQU    OLDSPT,BINFPT
+    EQU    NDEFPT,NARGPT
+
+    EQU    DELCT,BESLIN
+    EQU    OPTLEV,CALTYP
+
+    EQU    NODESW,COPTSW
+    EQU    KEYSW,COPDSW
+    EQU    CONSW,OHSW
+    DCL    EXITSW
+
+
+    NB    "Used in processing macro expressions or inserts"
+
+    EQU    VARPT,NARGPT
+    EQU    OLIDPT,OPTPT
+    EQU    FLAGPT,ALLPT
+
+    EQU    OP1,BESLIN
+    EQU    SUM,CALTYP
+    EQU    NEGVAL,SKLIN
+
+    EQU    OPSW,MASKSW
+    EQU    VARSW,EXITSW
+    EQU    WSW,COPDSW
+
+
+
+    NB    "Variables used only in ENVPR section"
+
+    DCL    PRSTPT
+    DCL    PRTAPT
+    DCL    PRTBPT
+    DCL    MTYPE
+
+    NB    "Variables needed only in LOWL logic"
+
+    DCL    SRCPT
+    DCL    DSTPT
+    DCL    LOTEMP
+    DCL    NLSW
+    DCL    EXCLMK
+    DCL    WTHSMK
+    DCL    WITHMK
+    DCL    SPCSMK
+
+
+
+
+
+
+TABFST:    CON    0
+
+    HASH    "MCDEF"
+    CON    0
+    CON    OF(5*LCH)
+    STR    "MCDEF"
+    RL    DVARS,OF(142*LNM+120*LCH)
+    CON    1
+    CON    1
+    CON    4
+    HASH    "MCSKIP"
+    CON    0
+    CON    OF(6*LCH)
+    STR    "MCSKIP"
+    RL    DCOMMA,OF(191*LNM+146*LCH)
+    CON    1
+    CON    1
+    CON    7
+    HASH    "MCINS"
+    CON    0
+    CON    OF(5*LCH)
+    STR    "MCINS"
+    RL    DCOMMA,OF(184*LNM+141*LCH)
+    CON    1
+    CON    1
+    CON    6
+    HASH    "MCWARN"
+    CON    0
+    CON    OF(6*LCH)
+    STR    "MCWARN"
+    RL    DNL,OF(181*LNM+136*LCH)
+    CON    1
+    CON    1
+    CON    5
+
+    HASH    "MCDEFG"
+    CON    0
+    CON    OF(6*LCH)
+    STR    "MCDEFG"
+    RL    DVARS,OF(114*LNM+97*LCH)
+    CON    1
+    CON    0
+    CON    4
+    HASH    "MCSKIPG"
+    CON    0
+    CON    OF(7*LCH)
+    STR    "MCSKIPG"
+    RL    DCOMMA,OF(163*LNM+122*LCH)
+    CON    1
+    CON    0
+    CON    7
+    HASH    "MCINSG"
+    CON    0
+    CON    OF(6*LCH)
+    STR    "MCINSG"
+    RL    DCOMMA,OF(156*LNM+116*LCH)
+    CON    1
+    CON    0
+    CON    6
+    HASH    "MCWARNG"
+    CON    0
+    CON    OF(7*LCH)
+    STR    "MCWARNG"
+    RL    DNL,OF(153*LNM+110*LCH)
+    CON    1
+    CON    0
+    CON    5
+
+    HASH    "MCNODEF"
+    CON    0
+    CON    OF(7*LCH)
+    STR    "MCNODEF"
+    CON    0
+    CON    1
+    CON    1
+    CON    0
+    HASH    "MCNOSKIP"
+    CON    0
+    CON    OF(8*LCH)
+    STR    "MCNOSKIP"
+    CON    0
+    CON    1
+    CON    1
+    CON    3
+    HASH    "MCNOINS"
+    CON    0
+    CON    OF(7*LCH)
+    STR    "MCNOINS"
+    CON    0
+    CON    1
+    CON    1
+    CON    2
+    HASH    "MCNOWARN"
+    CON    0
+    CON    OF(8*LCH)
+    STR    "MCNOWARN"
+    CON    0
+    CON    1
+    CON    1
+    CON    1
+
+    HASH    "MCSET"
+    CON    0
+    CON    OF(5*LCH)
+    STR    "MCSET"
+    RL    DEQ,OF(94*LNM+68*LCH)
+    CON    1
+    CON    0
+    CON    8
+    HASH    "MCGO"
+    CON    0
+    CON    OF(4*LCH)
+    STR    "MCGO"
+    RL    DIF,OF(63*LNM+48*LCH)
+    CON    1
+    CON    0
+    CON    9
+    HASH    "MCALTER"
+    CON    0
+    CON    OF(7*LCH)
+    STR    "MCALTER"
+    RL    DTO,OF(84*LNM+58*LCH)
+    CON    1
+    CON    0
+    CON    10
+    HASH    "MCNOTE"
+    CON    0
+    CON    OF(6*LCH)
+    STR    "MCNOTE"
+    RL    DNL,OF(97*LNM+58*LCH)
+    CON    1
+    CON    0
+    CON    11
+    HASH    "MCPVAR"
+    CON    0
+    CON    OF(6*LCH)
+    STR    "MCPVAR"
+    RL    DNL,OF(90*LNM+52*LCH)
+    CON    1
+    CON    0
+    CON    12
+
+    HASH    "MCLENG"
+    CON    0
+    CON    OF(6*LCH)
+    STR    "MCLENG"
+CWITHS:    WTHS
+    CON    OF(1*LCH)
+    STR    "("
+    RL    DRBRAC,OF(73*LNM+43*LCH)
+    CON    1
+    CON    0
+    CON    13
+    HASH    "MCSUB"
+    CON    0
+    CON    OF(5*LCH)
+    STR    "MCSUB"
+    WTHS
+    CON    OF(1*LCH)
+    STR    "("
+    RL    DCOM1,OF(56*LNM+35*LCH)
+    CON    1
+    CON    0
+    CON    14
+    HASH    "MCSTOP"
+    CON    0
+    CON    OF(6*LCH)
+    STR    "MCSTOP"
+    RL    DNL,OF(65*LNM+33*LCH)
+    CON    1
+    CON    1
+    CON    15
+
+
+
+
+
+    NB    "These are all chained for use by ALTER macro"
+
+DELCHN:    RL    ACAS,OF(4*LNM+4*LCH)
+DVARS:    RL    DAS,OF(4*LNM+4*LCH)
+    CON    OF(4*LCH)
+    STR    "VARS"
+    RL    DAS,OF(2*LNM+0*LCH)
+ACAS:    RL    ACSSAS,OF(4*LNM+2*LCH)
+DAS:    RL    DSSAS,OF(4*LNM+2*LCH)
+    CON    OF(2*LCH)
+    STR    "AS"
+    RL    DNL,OF(54*LNM+27*LCH)
+ACSSAS:    RL    ACIF,OF(4*LNM+4*LCH)
+DSSAS:    CON    0
+    CON    OF(4*LCH)
+    STR    "SSAS"
+    RL    DNL,OF(50*LNM+23*LCH)
+
+ACIF:    RL    ACUNLE,OF(4*LNM+2*LCH)
+DIF:    RL    DUNLES,OF(4*LNM+2*LCH)
+    CON    OF(2*LCH)
+    STR    "IF"
+    RL    DGE,OF(6*LNM+6*LCH)
+ACUNLE:    RL    ACGE,OF(4*LNM+6*LCH)
+DUNLES:    RL    DNL,OF(44*LNM+21*LCH)
+    CON    OF(6*LCH)
+    STR    "UNLESS"
+    RL    DGE,OF(2*LNM+0*LCH)
+ACGE:    RL    ACGR,OF(4*LNM+2*LCH)
+DGE:    RL    DGR,OF(4*LNM+2*LCH)
+    CON    OF(2*LCH)
+    STR    "GE"
+    RL    DNL,OF(38*LNM+13*LCH)
+ACGR:    RL    ACEN,OF(4*LNM+2*LCH)
+DGR:    RL    DEN,OF(4*LNM+2*LCH)
+    CON    OF(2*LCH)
+    STR    "GR"
+    RL    DNL,OF(34*LNM+11*LCH)
+ACEN:    RL    ACBC,OF(4*LNM+2*LCH)
+DEN:    RL    DBC,OF(4*LNM+2*LCH)
+    CON    OF(2*LCH)
+    STR    "EN"
+    RL    DNL,OF(30*LNM+9*LCH)
+ACBC:    RL    ACEQ,OF(4*LNM+2*LCH)
+DBC:    RL    DEQ,OF(4*LNM+2*LCH)
+    CON    OF(2*LCH)
+    STR    "BC"
+    RL    DNL,OF(26*LNM+7*LCH)
+ACEQ:    RL    ACTO,OF(4*LNM+1*LCH)
+DEQ:    CON    0
+    CON    OF(1*LCH)
+    STR    "="
+    RL    DNL,OF(22*LNM+6*LCH)
+
+ACTO:    RL    ACOM1,OF(4*LNM+2*LCH)
+DTO:    CON    0
+    CON    OF(2*LCH)
+    STR    "TO"
+    RL    DNL,OF(18*LNM+4*LCH)
+
+ACOM1:    RL    ACOM2,OF(4*LNM+1*LCH)
+DCOM1:    CON    0
+    CON    OF(1*LCH)
+    STR    ","
+    RL    DCOM2,OF(2*LNM+0*LCH)
+ACOM2:    RL    ACRBRA,OF(4*LNM+1*LCH)
+DCOM2:    CON    0
+    CON    OF(1*LCH)
+    STR    ","
+    RL    DRBRAC,OF(2*LNM+0*LCH)
+ACRBRA:    RL    ACOMMA,OF(4*LNM+1*LCH)
+DRBRAC:    CON    0
+    CON    OF(1*LCH)
+    STR    ")"
+    CON    0
+
+ACOMMA:    RL    ACNL,OF(4*LNM+1*LCH)
+DCOMMA:    RL    DNL,OF(4*LNM+1*LCH)
+    CON    OF(1*LCH)
+    STR    ","
+    RL    DNL,OF(2*LNM+0*LCH)
+ACNL:    RL    LAYCHN,OF(4*LNM+1*LCH)
+DNL:    CON    0
+    CON    OF(LCH)
+    NCH    NLREP
+    CON    0
+
+    NB    "Chain of layout characters"
+
+LAYCHN:    RL    KNL,OF(4*LNM+5*LCH)
+    RL    RSPACE,OF(46*LNM+40*LCH)
+    CON    OF(5*LCH)
+    STR    "SPACE"
+    CON    0
+KNL:    RL    KTAB,OF(4*LNM+2*LCH)
+    RL    LAYREP,OF(42*LNM+32*LCH)
+    CON    OF(2*LCH)
+    STR    "NL"
+    CON    0
+KTAB:    RL    KSL,OF(4*LNM+3*LCH)
+    RL    RTAB,OF(38*LNM+31*LCH)
+    CON    OF(3*LCH)
+    STR    "TAB"
+    CON    0
+KSL:    RL    KSPACS,OF(4*LNM+2*LCH)
+    RL    RSL,OF(34*LNM+29*LCH)
+    CON    OF(2*LCH)
+    STR    "SL"
+    CON    0
+KSPACS:    RL    ACN,OF(4*LNM+6*LCH)
+KSPS1:    RL    SPCSRP,OF(30*LNM+24*LCH)
+    CON    OF(6*LCH)
+    STR    "SPACES"
+    CON    0
+
+    NB    "Node marker"
+
+ACN:    RL    KEYCHN,OF(4*LNM+1*LCH)
+    CON    0
+    CON    OF(LCH)
+KNREP:    STR    "N"
+    CON    0
+
+    NB    "Keyword chain -- subchain of delimiter chain"
+
+KEYCHN:    RL    ACWHS,OF(4*LNM+4*LCH)
+    CON    0
+    CON    OF(4*LCH)
+    STR    "WITH"
+    CON    0
+ACWHS:    RL    ACOPT,OF(4*LNM+5*LCH)
+KWITHS:    CON    1
+    CON    OF(5*LCH)
+    STR    "WITHS"
+    CON    0
+ACOPT:    RL    ACOR,OF(4*LNM+3*LCH)
+KOPT:    CON    2
+    CON    OF(3*LCH)
+    STR    "OPT"
+    CON    0
+ACOR:    RL    ACALL,OF(4*LNM+2*LCH)
+KOR:    CON    3
+    CON    OF(2*LCH)
+    STR    "OR"
+    CON    0
+ACALL:    RL    ACLAST,OF(4*LNM+3*LCH)
+KALL:    CON    4
+    CON    OF(3*LCH)
+    STR    "ALL"
+    CON    0
+ACLAST:    CON    0
+
+    NB    "Dummy last entry"
+
+DUMMY:    CON    0
+    CON    0
+
+
+
+
+SPCSRP:    NCH    SPREP
+
+
+    NB    "MD tables --- hash-tables and error block"
+
+LAYREP:    NCH    NLREP
+RTAB:    NCH    TABREP
+RSL:    NCH    SLREP
+RSPACE:    NCH    SPREP
+
+GHSHTB:    THASH
+    CON    0
+    CON    0
+    CON    0
+    CON    0
+    CON    7
+
+
+
+
+    NB    "MI-logic of ML/I --- continued"
+    NB    "Part 2 -- Program sections"
+    NB    "Version of Aug 24 1971"
+    NB    "Updated 8th January 1985  R.D. Eager"
+    NB    "Updated 13th January 1986  R.D. Eager"
+
+
+
+
+BEGIN::    LAV    FFPT,X
+
+    NB    "Reserve ERBLOC,HASHTB,GHSHTB..."
+    NB    "...and 10 permanent variables"
+
+    STV    ETEMPT,P
+    AAL    OF(7*LNM)
+    STV    TEMPT,P
+    AAL    OF(11*LNM)
+    STV    PVARPT,P
+    SAV    ETEMPT
+    GOSUB    BUMPFF,637
+    LAL    10
+    STV    PVNUM,P
+    FSTK
+    LAV    LFPT,X
+    STV    ENDPT,X
+    LAL    7
+    STV    GLBWSW,X
+
+    NB    "Zeroise permanent variables"
+
+ZPLP:    BUMP    TEMPT,OF(LNM)
+    LAV    TEMPT,X
+    CAV    PVARPT,A
+    GOEQ    SETMKS,3,X,X
+    LAL    0
+    STI    TEMPT,X
+    GO    ZPLP,-7,X,X
+
+    NB    "Set values of special markers"
+
+SETMKS:    LAA    CWITHS,C
+    STV    TEMPT,X
+    LAI    TEMPT,X
+    STV    WTHSMK,P
+    SAL    1
+    STV    WITHMK,P
+    SAL    1
+    STV    EXCLMK,P
+    SAL    1
+    STV    SPCSMK,X
+    LAL    1
+    STV    NLSW,P
+    STV    LINECT,X
+    LAL    0
+    STV    LABPT,P
+    STV    STOPPT,P
+    STV    TVARPT,P
+    STV    ARGPT,P
+    STV    OPLEV,P
+    STV    NESTLV,P
+    STV    SKIPLV,P
+    STV    INVOCT,P
+    STV    LEVEL,P
+    STV    TLINCT,P
+    STV    SKVAL,P
+    STV    BINDIC,P
+    STV    DBUGSW,P
+    BSTK
+    LAA    GHSHTB,C
+    STV    HASHPT,X
+    GOSUB    STKHSH,1137
+
+    NB    "Set limits on locals"
+
+    LAV    HASHPT,X
+    AAL    OF(LHV)
+    STV    TEMPT,X
+LIMLP:    LAV    ENDPT,X
+    STI    TEMPT,X
+    BUMP    TEMPT,OF(LNM)
+    LAI    TEMPT,X
+    CAL    0
+    GOEQ    LIMLP,-6,X,X
+    LAA    KNREP,C
+    STV    KNPT,X
+
+
+
+
+
+
+    NB    "Start of logic -- Main scanning routine"
+
+    LAV    PVARPT,X
+    STV    FFPT,P
+    AAL    OF(LNM-LCH)
+    STV    SPT,X
+    LAV    PVNUM,X
+    FSTK
+    LAV    FFPT,X
+    STV    INFFPT,X
+    LAV    PVNUM,X
+    MULTL    OF(LNM)
+    STV    TEMP,X
+    LAV    PVARPT,X
+    SAV    TEMP
+    STV    STFFPT,X
+
+BSNEXT:    GOSUB    SMSKSW,1105
+    GOSUB    SBSTPL,1056
+    CLEAR    BESPT
+BSLOOP:    GOSUB    GTATOM,842
+    LCI    IDPT,X
+    CCN    STOPCD
+    GOEQ    MNSTOP,67,X,X
+    LAV    NESTLV,X
+    CAL    0
+    GOEQ    BSNAME,13,X,X
+
+    NB    "Search delimiter chain"
+
+    CLEAR    HTABPT
+    LAV    DELPT,X
+    GOSUB    LOSCHN,2805
+    GO    MACERR,2429,X,C
+CHN1:    LAV    CHANPT,X
+    GOSUB    CMPARE,590
+    GO    BSC1,1,X,C
+    GOSUB    TEBEST,1141
+BSC1:    GOSUB    LOECHN,2807
+    GO    CHN1,-6,X,C
+    LAV    MASKSW,X
+    CAL    5
+    GOEQ    ENEXCL,472,X,X
+
+    NB    "Search chain of names"
+
+BSNAME:    GOSUB    MDFIND,X
+BSN1:    LAI    HTABPT,X
+    STV    CHANPT,X
+BSHASH:    LAV    CHANPT,X
+    CAL    0
+    GOEQ    BSSWIT,8,X,X
+    LAV    CHANPT,R
+    AAL    OF(LNM)
+    GOSUB    CMPARE,574
+    GO    BSH1,1,X,C
+    GOSUB    TEBEST,1125
+BSH1:    LAI    CHANPT,X
+    STV    CHANPT,X
+    GO    BSHASH,-11,X,X
+
+BSSWIT:    GOADD    BESTPL
+    GO    MNOUT,9,X,T
+    GO    CALLO,134,X,T
+    GO    WARNO,94,X,T
+    GO    CALLO,132,X,T
+    GO    SKIPPO,33,X,T
+    GO    DELLO,170,X,T
+    GO    BSLOOP,-42,X,T
+    GO    WRNERR,103,X,T
+    GO    SASTAK,15,X,T
+    GO    STOPO,115,X,T
+
+
+    NB    "Add atom to output text"
+
+MNOUT:    LAV    IDPT,X
+    AAV    IDLEN
+    STV    TEMPT,X
+OUTLP:    LCI    IDPT,X
+    CCN    SLREP
+    GOEQ    NOTOU,2,X,X
+    LCI    IDPT,R
+    GOSUB    MDOUCH,X
+NOTOU:    LAV    IDPT,X
+    AAL    OF(LCH)
+    STV    IDPT,P
+    CAV    TEMPT,A
+    GONE    OUTLP,-10,X,X
+    GO    BSLOOP,-59,X,X
+
+
+    NB    "Place atom on forwards stack"
+
+SASTAK:    LAV    FFPT,X
+    STV    DSTPT,X
+    LAV    IDLEN,X
+    GOSUB    BUMPFF,501
+    LAV    IDPT,X
+    STV    SRCPT,X
+    LAV    IDLEN,X
+    FMOVE
+    LAV    ARGLEN,X
+    AAV    IDLEN
+    STV    ARGLEN,X
+    GO    BSLOOP,-71,X,X
+
+
+    NB    "Action at end of source text"
+
+MNSTOP:    GOSUB    ERMTST,2324
+    GO    LOHALT,2761,X,X
+
+
+
+
+    NB    "Action at skip name"
+
+SKIPPO:    GOSUB    ENCALL,587
+    LAI    BINFPT,X
+    ANDL    4
+    STV    MASKSW,X
+    LAV    SKIPLV,X
+    CAL    0
+    GONE    SKDEL,8,X,X
+    LAV    NESTLV,X
+    STV    SKIPLV,X
+    LAI    BINFPT,X
+    ANDL    1
+    STV    COPDSW,X
+    LAI    BINFPT,X
+    ANDL    2
+    STV    COPTSW,X
+
+    NB    "Skip delimiter"
+
+SKDEL:    GOSUB    SBSTPL,966
+    LAV    COPTSW,X
+    CAL    0
+    GONE    GL1,2,X,X
+    LAL    6
+    STV    BESTPL,X
+GL1:    LAV    BESPT,X
+    SAV    IDPT
+    AAL    OF(LCH)
+    STV    IDLEN,X
+    GOSUB    RESSP,931
+    GO    SKD1,19,X,C
+
+    NB    "End of skip"
+
+    GOSUB    DECALV,539
+    GO    ENSKIP,6,X,C
+    LAV    SKIPLV,X
+    CAV    NESTLV,X
+    GOGR    ENSKIP,3,X,X
+
+    NB    "End of nested skip"
+
+    LAL    4
+    STV    MASKSW,X
+    GO    BST1,7,X,X
+
+    NB    "End of outermost skip"
+
+ENSKIP:    CLEAR    SKIPLV
+    LAV    COPDSW,X
+    CAL    0
+    GOEQ    BSNEXT,-115,X,X
+BSTREX:    GOSUB    SMSKSW,990
+    GOSUB    SBSTPL,941
+    CLEAR    BESPT
+BST1:    LAV    IDLEN,X
+    CAL    0
+    GOEQ    BSLOOP,-118,X,X
+    GO    BSSWIT,-85,X,X
+
+
+    NB    "Non-closing skip delimiter"
+
+SKD1:    LAV    SKIPLV,X
+    CAV    NESTLV,X
+    GONE    BSSWIT,-88,X,X
+    LAV    COPDSW,X
+    CAL    0
+    GOEQ    BSLOOP,-125,X,X
+    LAV    SKVAL,X
+    CAL    0
+    GONE    BSLOOP,-128,X,X
+    LAV    OPLEV,X
+    CAL    0
+    GOEQ    MNOUT,-86,X,X
+    GO    SASTAK,-73,X,X
+
+
+
+
+    NB    "Action at warning marker"
+
+WARNO:    GOSUB    RESSP,897
+    GO    WRN1,0,X,C
+WRN1:    LAV    SPT,X
+    STV    WNSPT,X
+    LAV    IDPT,X
+    STV    WNIDPT,X
+    CLEAR    IDLEN
+    GOSUB    GSATOM,688
+    GO    WRNERR,5,X,C
+    LAL    7
+    STV    BESTPL,X
+    LAL    1
+    STV    MASKSW,X
+    GO    BSNAME,-126,X,X
+
+WRNERR:    LBV    SVARPT
+    SBL    OF(3*LNM)
+    LAM    0
+    CAL    0
+    GONE    GL2,1,X,X
+    GOSUB    ERSNW,2239
+GL2:    LAV    WNIDPT,X
+    STV    IDPT,X
+    LAV    WNSPT,X
+    STV    SPT,P
+    SAV    IDPT
+    AAL    OF(LCH)
+    STV    IDLEN,X
+    GO    BSTREX,-48,X,X
+
+
+    NB    "Action at stop marker"
+
+STOPO:    LAV    IDPT,X
+    SAL    OF(LCH)
+    STV    SPT,X
+    LCI    IDPT,X
+    CCN    NLREP
+    GONE    GL3,3,X,X
+    LAV    LINECT,X
+    SAL    1
+    STV    LINECT,X
+GL3:    GOSUB    ERMTST,2226
+    GO    BSNEXT,-174,X,X
+
+
+
+    NB    "Action at macro or insert name"
+
+CALLO:    GOSUB    SMSKSW,931
+    LAV    BINFPT,X
+    STV    TEMPT,X
+    LAI    BINFPT,X
+    CAL    4
+    GONE    EL1,2,X,X
+    CLEAR    MASKSW
+    BUMP    TEMPT,OF(LNM)
+EL1:    LAV    NESTLV,X
+    CAL    0
+    GONE    MN2,27,X,X
+    LAV    TEMPT,X
+    AAL    OF(LNM)
+    STV    CINFPT,X
+    LAI    TEMPT,X
+    STV    CALTYP,P
+    CAL    1
+    GONE    MN1,6,X,X
+    LAV    OHSW,X
+    CAL    1
+    GOEQ    MN1,3,X,X
+    LAV    HASHPT,X
+    BSTK
+    GOSUB    STKHSH,914
+MN1:    LAL    OF(18*LNM)
+    GOSUB    DECLF,456
+    LAV    LFPT,X
+    STV    NARGPT,X
+    CLEAR    ARGCT
+    LAV    IDPT,X
+    BSTK
+    LAV    BESPT,X
+    AAL    OF(LCH)
+    BSTK
+    LAL    0
+    SAV    SKVAL
+    SAL    1
+    STV    SKVAL,X
+MN2:    GOSUB    ENCALL,451
+    GO    MXDEL1,19,X,X
+
+    NB    "Action at secondary delimiter"
+
+DELLO:    LAV    SKIPLV,X
+    CAL    0
+    GOEQ    EL2,4,X,X
+    LAV    BINFPT,X
+    AAV    BINDIC
+    STV    DELPT,X
+    GO    SKDEL,-130,X,X
+EL2:    LAV    NESTLV,X
+    CAL    1
+    GONE    MXDEL2,6,X,X
+    BUMP    ARGCT,1
+    LAV    IDPT,X
+    BSTK
+    LAV    BESPT,X
+    AAL    OF(LCH)
+    BSTK
+MXDEL2:    LAV    BINFPT,X
+    AAV    BINDIC
+    STV    DELPT,X
+MXDEL1:    LAL    6
+    STV    BESTPL,X
+    GOSUB    RESSP,797
+    GO    BSLOOP,-234,X,C
+
+    NB    "Perform call"
+
+    GOSUB    DECALV,405
+    GO    MN3,1,X,C
+    GO    BSNEXT,-240,X,X
+MN3:    LAL    0
+    SAV    SKVAL
+    SAL    1
+    STV    SKVAL,X
+    LAL    0
+    BSTK
+    LAA    ARGCT,D
+    STV    SRCPT,X
+    LAV    NARGPT,X
+    STV    DSTPT,X
+    LAL    OF(18*LNM)
+    FMOVE
+
+    NB    "Test for insert"
+
+    LAV    CALTYP,X
+    CAL    2
+    GOGE    OPINS,48,X,X
+    LAV    SKVAL,X
+    CAL    0
+    GOEQ    EL3,4,X,X
+
+    NB    "Still searching for label"
+
+    LAV    NARGPT,X
+    AAL    OF(18*LNM)
+    STV    LFPT,X
+    GO    BSNEXT,-262,X,X
+EL3:    BUMP    INVOCT,1
+
+    NB    "Test for operation macro"
+
+    LAV    CALTYP,X
+    CAL    0
+    GOGE    OPINS,37,X,X
+
+    NB    "Case of call of user macro"
+
+    BUMP    LEVEL,1
+    LAV    CALTYP,X
+    AAV    CINFPT
+    SAL    OF(LNM)
+    STV    STOPPT,X
+    LAI    CINFPT,X
+    AAV    CINFPT
+    SAL    OF(LCH)
+    STV    SPT,X
+    LAV    MTCHPT,X
+    STV    DBUGPT,X
+    LAL    1
+    STV    DBUGSW,X
+    LAV    NARGPT,X
+    STV    STAKPT,P
+    STV    ARGPT,X
+    GOSUB    PRSCAN,743
+
+    NB    "Set up temporary variables"
+
+    LAV    LFPT,X
+    SAL    OF(LNM)
+    STV    TVARPT,X
+    LBV    CINFPT
+    LAM    OF(LNM)
+    STV    TEMP,P
+    BSTK
+    LAV    ARGCT,X
+    BSTK
+    LAV    INVOCT,X
+    BSTK
+    LAV    LEVEL,X
+    SAV    OPLEV
+    BSTK
+    LAV    TEMP,X
+    MULTL    OF(LNM)
+    STV    TEMP,P
+    SAL    OF(3*LNM)
+    GOSUB    DECLF,354
+    GO    BSNEXT,-303,X,X
+
+    NB    "Perform operation macro call or insert"
+
+OPINS:    BUMP    LEVEL,1
+    LAV    OPLEV,X
+    CAL    0
+    GOEQ    OPM1,8,X,X
+    LAL    OF(9*LNM)
+    GOSUB    DECLF,347
+    LAA    TOPSPT,D
+    STV    SRCPT,X
+    LAV    LFPT,X
+    STV    DSTPT,X
+    LAL    OF(9*LNM)
+    FMOVE
+OPM1:    BUMP    OPLEV,1
+    LAV    HASHPT,X
+    STV    MHSHPT,X
+    LAV    LFPT,X
+    STV    TOPSPT,X
+    LAV    CALTYP,X
+    STV    OPTYP,X
+    LAL    5
+    STV    DBUGSW,X
+    LAL    1
+    STV    ARGNO,X
+    LAV    FFPT,X
+    STV    INFFPT,X
+    LAV    NARGPT,X
+    STV    STAKPT,P
+    STV    DBUGPT,X
+
+    NB    "Test for insert"
+
+    LAV    CALTYP,X
+    CAL    2
+    GOGE    INSRT,19,X,X
+    LAI    CINFPT,X
+    STV    TYPE,X
+
+    NB    "Go to code associated with macro called"
+
+    GOADD    TYPE
+    GO    MNO,1288,X,T
+    GO    MWN,1282,X,T
+    GO    MNO,1286,X,T
+    GO    MNO,1285,X,T
+    GO    DEF,1300,X,T
+    GO    WRN,1294,X,T
+    GO    INS,1335,X,T
+    GO    SKIP,1356,X,T
+    GO    MSET,1235,X,T
+    GO    MGO,1080,X,T
+    GO    ALT,1015,X,T
+    GO    NTE,1191,X,T
+    GO    PVR,1205,X,T
+    GO    LNG,1184,X,T
+    GO    SUB,1245,X,T
+    GO    STP,1287,X,T
+
+
+
+
+
+    NB    "Perform insert"
+
+INSRT:    LAV    SKVAL,X
+    STV    SQNUM,X
+    GOSUB    STKARG,990
+    GOSUB    GARGCH,341
+    GO    ERLIA,2073,X,C
+    LCI    SPT,X
+    CCL    "L"
+    GOEQ    INSL,80,X,X
+    LAV    SQNUM,X
+    CAL    0
+    GONE    MCEXIT,142,X,X
+    CLEAR    WSW
+    LCI    SPT,X
+    CCL    "W"
+    GONE    EL4,4,X,X
+    LAL    1
+    STV    WSW,X
+    GOSUB    GARGCH,327
+    GO    ERLIA,2059,X,C
+EL4:    LAL    5
+    STV    INSW,X
+    LCI    SPT,X
+    CCL    "A"
+    GOEQ    INSA,29,X,X
+    LCI    SPT,R
+    CCL    "B"
+    GOEQ    INSB,24,X,X
+    LCI    SPT,R
+    CCL    "D"
+    GOEQ    INSD,11,X,X
+    LAV    WSW,X
+    CAL    1
+    GOEQ    ERLIA,2045,X,X
+
+    NB    "Case of macro expression"
+
+    LAV    SPT,X
+    SAL    OF(LCH)
+    STV    SPT,X
+    GOSUB    GETEXP,316
+INV1:    GOSUB    MDCONV,X
+FNCTEX:    CSS
+    GOSUB    OPEXIT,600
+    GO    BSTREX,-279,X,X
+
+    NB    "Arg etc"
+
+INSD:    LAL    6
+    STV    INSW,X
+    GOSUB    GETEXP,309
+    LAV    MEVAL,X
+    CAL    0
+    GONE    GL4,3,X,X
+    LAV    ARGPT,X
+    CAL    0
+    GONE    INSA1,7,X,X
+GL4:    GO    INSA2,3,X,X
+
+INSB:    LAL    4
+    STV    INSW,X
+INSA:    GOSUB    GETEXP,299
+INSA2:    LAV    ARGPT,X
+    STV    VARPT,X
+    GOSUB    ER1TST,276
+INSA1:    LAV    ARGPT,X
+    STV    DBUGPT,X
+    LAV    MEVAL,X
+    STV    ARGNO,X
+    GOSUB    PRARG,582
+    LAV    WSW,X
+    CAL    1
+    GONE    EL5,7,X,X
+    LAV    SPT,X
+    AAL    OF(LCH)
+    STV    IDPT,X
+    LAV    STOPPT,X
+    SAV    IDPT
+    STV    IDLEN,X
+    GO    FNCTEX,-34,X,X
+
+    NB    "Test for protected insert"
+
+EL5:    LAV    OPTYP,X
+    CAL    3
+    GONE    GL5,3,X,X
+    LBV    DBUGPT
+    LAM    OF(10*LNM)
+    STV    HASHPT,X
+GL5:    GOSUB    UNOPDB,852
+    LAV    STAKPT,X
+    STV    LFPT,X
+    LBV    DBUGPT
+    LAM    OF(9*LNM)
+    STV    TVARPT,X
+    LBV    DBUGPT
+    LAM    OF(2*LNM)
+    STV    ARGPT,X
+    GO    BSNEXT,-441,X,X
+
+
+    NB    "Case of label"
+
+INSL:    GOSUB    GETEXP,264
+    LAV    MEVAL,X
+    CAL    0
+    GOGR    INSL1,1,X,X
+    GO    ERLME,1920,X,X
+INSL1:    GOSUB    OPEXIT,546
+    LAV    MEVAL,X
+    CAV    SKVAL,X
+    GONE    GL6,1,X,X
+    CLEAR    SKVAL
+
+    NB    "Remember label if necessary"
+
+GL6:    LAV    LEVEL,X
+    CAL    0
+    GOEQ    BSNEXT,-454,X,X
+    GOSUB    SKLAB,635
+    GO    INLMLT,12,X,C
+    LAV    LINECT,X
+    BSTK
+    LAV    SPT,X
+    SAV    STOPPT
+    BSTK
+    LAV    MEVAL,X
+    BSTK
+    LAV    LABPT,X
+    BSTK
+    LAV    LFPT,X
+    STV    LABPT,X
+    GO    BSNEXT,-468,X,X
+
+INLMLT:    LAI    CHANPT,X
+    AAV    STOPPT
+    CAV    SPT,A
+    GOEQ    BSNEXT,-472,X,X
+    GO    ERLMD,1903,X,X
+
+
+
+
+
+    NB    "Action at end of piece of text"
+
+ENTEXT:    CSS
+    LAV    NESTLV,X
+    CAL    0
+    GOEQ    ENTX1,23,X,X
+    LAV    DBUGSW,X
+    CAL    4
+    GOEQ    GL7,3,X,X
+    LAV    DBUGSW,R
+    CAL    2
+    GONE    ENTX1,17,X,X
+
+    NB    "End of arg. Look ahead for exclusive delimiter"
+
+GL7:    LAL    6
+    STV    INSW,X
+    GOSUB    SETPTS,585
+    LAV    IDPT,X
+    AAV    IDLEN
+    STV    STOPPT,X
+    LAV    IDPT,X
+    SAL    OF(LCH)
+    STV    SPT,X
+    LAL    5
+    STV    MASKSW,X
+    GO    BSLOOP,-492,X,X
+
+    NB    "Subsequently returning at"
+
+ENEXCL:    LAV    IDPT,X
+    STV    STOPPT,X
+    LAV    BINDIC,X
+    CAV    EXCLMK,X
+    GOEQ    DELLO,-286,X,X
+ENTX1:    GOSUB    ERMTST,1898
+ENTX2:    LAV    DBUGSW,X
+    CAL    2
+    GOEQ    SAEXIT,848,X,X
+    GOSUB    UNSDB,802
+    GO    BSNEXT,-506,X,X
+
+
+    NB    "Exit from operation macro"
+
+MCEXIT:    GOSUB    OPEXIT,486
+    GO    BSNEXT,-508,X,X
+
+    NB    "Error exit from operation macro"
+
+MCABRT:    GOSUB    OPEXIT,484
+    LAL    1
+    STV    CAPSW,X
+    LAV    MTCHPT,X
+    GOSUB    PRNAME,2164
+    MESS    " aborted due to above error$$"
+    GO    BSNEXT,-515,X,X
+
+
+
+
+
+
+    SUBR    ADVNCE,X,2
+
+    BUMP    SPT,OF(LCH)
+    LAV    SPT,X
+    CAV    STOPPT,A
+    GONE    GL8,1,X,X
+    $EXIT    1,ADVNCE
+GL8:    LAV    SPT,X
+    CAV    FFPT,A
+    GONE    GOTIT,42,X,X
+    LAV    NLSW,X
+    CAL    0
+    GOEQ    NOTSL,19,X,X
+
+    NB    "Update S2"
+
+    LAV    SVARPT,X
+    SAL    OF(2*LNM)
+    STV    TEMPT,X
+    LAI    TEMPT,X
+    AAL    1
+    STI    TEMPT,X
+    LAV    LINECT,X
+    CAV    TLINCT,X
+    GONE    NOTTL,2,X,X
+    LAI    TEMPT,X
+    STV    TLINCT,X
+NOTTL:    LAI    TEMPT,X
+    STV    LINECT,X
+    LBV    TEMPT
+    LAM    OF(LNM)
+    CAL    0
+    GOEQ    NOTSL,2,X,X
+
+    NB    "Insert startline"
+
+    LCN    SLREP
+    CFSTK
+NOTSL:    LAV    FFPT,X
+    STV    TEMPT,X
+    GOSUB    MDREAD,X
+    GO    RDSTOP,7,X,C
+    CFSTK
+    CLEAR    NLSW
+    LCI    TEMPT,X
+    CCN    NLREP
+    GONE    GOTIT,11,X,X
+    BUMP    NLSW,1
+    GO    GOTIT,9,X,X
+
+    NB    "End of input"
+
+RDSTOP:    LAV    SPT,X
+    STV    FFPT,X
+
+    NB    "Add preceding newline if necessary"
+
+    LAV    NLSW,X
+    CAL    0
+    GONE    STPSTK,2,X,X
+    LCN    NLREP
+    CFSTK
+STPSTK:    LCN    STOPCD
+    CFSTK
+GOTIT:    $EXIT    2,ADVNCE
+
+
+
+
+
+    SUBR    BUMPFF,PARNM,1
+
+    LAV    FFPT,X
+    AAV    PARNM
+    STV    FFPT,P
+    CAV    LFPT,A
+    GOGE    ERLSO,1837,E,X
+    $EXIT    1,BUMPFF
+
+
+
+
+
+    SUBR    CHATOM,X,1
+
+    LAV    ARGLEN,X
+    CAL    0
+    GOEQ    ERLIA,1853,E,X
+    GOSUB    GTATOM,267
+    LAV    IDLEN,X
+    CAV    ARGLEN,X
+    GONE    GL10,1,X,X
+    $EXIT    1,CHATOM
+GL10:    GO    ERLIA,1847,E,X
+
+
+
+
+
+    SUBR    CHEKID,X,1
+
+    GOSUB    GSATOM,245
+    GO    ERLIA,1844,E,C
+    GOSUB    GSATOM,243
+    GO    CKRET,1,X,C
+    GO    ERLIA,1841,E,X
+CKRET:    $EXIT    1,CHEKID
+
+
+
+
+
+    SUBR    CKVALY,PARNM,2
+    CAV    ENDPT,A
+    GOGR    CKVEX,11,X,X
+    LAV    TYPE,X
+    MULTL    OF(LNM)
+    STV    TEMP,X
+    LAV    HASHPT,X
+    AAV    TEMP
+    AAL    OF(LHV-LNM)
+    STV    TEMAPT,X
+    LAV    PARNM,X
+    CAI    TEMAPT,A
+    GOLT    CKVEX,1,X,X
+    $EXIT    1,CKVALY
+CKVEX:    $EXIT    2,CKVALY
+
+
+
+
+
+    SUBR    CMPARE,PARNM,2
+    AAL    OF(LNM)
+    STV    TEMAPT,X
+    LAV    IDLEN,X
+    CAI    TEMAPT,X
+    GOEQ    GL12,1,X,X
+    $EXIT    1,CMPARE
+GL12:    BUMP    TEMAPT,OF(LNM)
+    LAV    TEMAPT,X
+    AAV    IDLEN
+    STV    INFOPT,X
+    LAV    IDPT,X
+    STV    TEMPT,X
+CMP1:    LCI    TEMPT,X
+    CCI    TEMAPT
+    GOEQ    GL13,1,X,X
+    $EXIT    1,CMPARE
+GL13:    BUMP    TEMPT,OF(LCH)
+    BUMP    TEMAPT,OF(LCH)
+    LAV    TEMAPT,X
+    CAV    INFOPT,A
+    GONE    CMP1,-9,X,X
+    LAV    TEMAPT,R
+    ALIGN
+    STV    INFOPT,X
+    $EXIT    2,CMPARE
+
+
+
+
+
+    SUBR    CORECT,X,1
+
+    LAV    NDEFPT,X
+    CAI    TEMPT,A
+    GOGR    CREXIT,6,X,X
+    LAI    TEMPT,X
+    CAV    INFFPT,A
+    GOGR    CREXIT,3,X,X
+    LAI    TEMPT,R
+    AAV    IDLEN
+    STI    TEMPT,X
+CREXIT:    $EXIT    1,CORECT
+
+
+
+
+
+    SUBR    DECALV,X,2
+
+    LAV    NESTLV,X
+    SAL    1
+    STV    NESTLV,P
+    CAL    0
+    GONE    GL14,1,X,X
+    $EXIT    1,DECALV
+GL14:    UNSTK    DELPT
+    UNSTK    MTCHPT
+    UNSTK    MCHLIN
+    LAV    LFPT,X
+    STV    CLLFPT,X
+    $EXIT    2,DECALV
+
+
+
+
+
+    SUBR    DECLF,PARNM,1
+
+    LAV    LFPT,X
+    SAV    PARNM
+    STV    LFPT,X
+    LAV    FFPT,X
+    CAV    LFPT,A
+    GOGE    ERLSO,1747,E,X
+    $EXIT    1,DECLF
+
+
+
+
+
+    SUBR    ENCALL,X,1
+
+    LAV    NESTLV,X
+    CAL    0
+    GOEQ    ENTC1,6,X,X
+    LAV    MCHLIN,X
+    BSTK
+    LAV    MTCHPT,X
+    BSTK
+    LAV    DELPT,X
+    BSTK
+ENTC1:    LAV    LFPT,X
+    STV    CLLFPT,X
+    LAV    BINFPT,X
+    AAV    BINDIC
+    SAL    OF(LNM+LNM)
+    STV    DELPT,X
+    LAV    BFNDPT,X
+    STV    MTCHPT,X
+    LAV    LINECT,X
+    STV    MCHLIN,X
+    BUMP    NESTLV,1
+    $EXIT    1,ENCALL
+
+
+
+
+
+    SUBR    ER1TST,X,1
+
+    LAV    VARPT,X
+    CAL    0
+    GOEQ    ERLME,1676,E,X
+    LAV    MEVAL,X
+    CAI    VARPT,X
+    GOGR    ERLME,1673,E,X
+    LAV    MEVAL,X
+    CAL    0
+    GOLE    GL15,1,X,X
+    $EXIT    1,ER1TST
+GL15:    GO    ERLME,1668,E,X
+
+
+
+
+
+    SUBR    GARGCH,X,2
+
+GAR1:    GOSUB    ADVNCE,-185
+    GO    GAREX,4,X,C
+    LCI    SPT,X
+    CCN    SPREP
+    GOEQ    GAR1,-5,X,X
+    $EXIT    2,GARGCH
+GAREX:    $EXIT    1,GARGCH
+
+
+
+
+
+    SUBR    GETEXP,X,1
+
+    CLEAR    SUM
+    LAV    SPT,X
+    STV    OLIDPT,X
+    LAL    1
+    STV    VARSW,X
+    CLEAR    MEVAL
+GXP1:    CLEAR    OPSW
+GXP3:    CLEAR    NEGVAL
+GXP6:    GOSUB    GSATOM,115
+    GO    GMEXIT,54,X,C
+    LCI    IDPT,X
+    CCL    "+"
+    GOEQ    GMP,33,X,X
+    LCI    IDPT,R
+    CCL    "-"
+    GOEQ    GMM,26,X,X
+    LCI    IDPT,R
+    CCL    "*"
+    GOEQ    GMT,37,X,X
+    LCI    IDPT,R
+    CCL    "/"
+    GOEQ    GMD,31,X,X
+    LAV    VARSW,X
+    CAL    0
+    GOEQ    ERLIA,1699,E,X
+    GOSUB    LONUM,2188
+    GO    GXP2,1,X,C
+    GO    GXP5,1,X,X
+
+GXP2:    GOSUB    GMEADD,44
+GXP5:    LAV    NEGVAL,X
+    CAL    1
+    GONE    GL16,3,X,X
+    LAL    0
+    SAV    MEVAL
+    STV    MEVAL,X
+GL16:    CLEAR    VARSW
+    LAV    OPSW,X
+    CAL    0
+    GOEQ    GXP3,-32,X,X
+    GOSUB    MDOP,X
+    GO    ERLOVF,1679,E,C
+    GO    GXP1,-36,X,X
+
+    NB    "Minus and plus"
+
+GMM:    LAL    0
+    SAV    NEGVAL
+    AAL    1
+    STV    NEGVAL,X
+GMP:    LAV    SUM,X
+    AAV    MEVAL
+    STV    SUM,X
+GXP4:    LAL    1
+    STV    VARSW,X
+    CLEAR    MEVAL
+    GO    GXP6,-45,X,X
+
+    NB    "Divide and times"
+
+GMD:    LAL    2
+    STV    OPSW,X
+    GO    GMT1,2,X,X
+
+GMT:    LAL    1
+    STV    OPSW,X
+GMT1:    LAV    VARSW,X
+    CAL    1
+    GOEQ    ERLIA,1663,E,X
+    LAV    MEVAL,X
+    STV    OP1,X
+    GO    GXP4,-15,X,X
+
+GMEXIT:    LAV    VARSW,X
+    CAL    1
+    GOEQ    ERLIA,1657,E,X
+    LAV    MEVAL,X
+    AAV    SUM
+    STV    MEVAL,X
+    LAV    OLIDPT,X
+    STV    IDPT,X
+    $EXIT    1,GETEXP
+
+
+
+
+
+    SUBR    GMEADD,X,1
+
+    LAV    IDPT,X
+    STV    FLAGPT,X
+GMD3:    LCI    IDPT,X
+    CCL    "P"
+    GOEQ    GMD2,40,X,X
+    LCI    IDPT,R
+    CCL    "S"
+    GOEQ    GMD2,37,X,X
+    LCI    IDPT,R
+    CCL    "T"
+    GOEQ    GMD2,34,X,X
+    LAV    IDPT,X
+    CAV    FLAGPT,A
+    GOEQ    ERLIA,1636,E,X
+    GOSUB    LONUM,2125
+    GO    ERLIA,1634,E,C
+GMD1:    LAV    IDPT,X
+    SAL    OF(LCH)
+    STV    IDPT,X
+    LAV    PVARPT,X
+    STV    VARPT,X
+    LCI    IDPT,X
+    CCL    "T"
+    GONE    GL17,2,X,X
+    LAV    TVARPT,X
+    STV    VARPT,X
+GL17:    LCI    IDPT,X
+    CCL    "S"
+    GONE    GL18,2,X,X
+    LAV    SVARPT,X
+    STV    VARPT,X
+GL18:    GOSUB    ER1TST,-127
+    LAV    MEVAL,X
+    MULTL    OF(LNM)
+    STV    MEVAL,X
+    LAV    VARPT,X
+    SAV    MEVAL
+    STV    TEMPT,X
+    LAI    TEMPT,X
+    STV    MEVAL,X
+    LAV    IDPT,X
+    CAV    FLAGPT,A
+    GONE    GL19,1,X,X
+    $EXIT    1,GMEADD
+GL19:    GO    GMD1,-29,X,X
+
+GMD2:    LAV    IDPT,X
+    CAV    SPT,A
+    GOEQ    ERLIA,1602,E,X
+    BUMP    IDPT,OF(LCH)
+    GO    GMD3,-48,X,X
+
+
+
+
+
+    SUBR    GSATOM,X,2
+
+    GOSUB    GARGCH,-135
+    GO    GSERR,8,X,C
+    LCI    SPT,X
+    CCN    STOPCD
+    GOEQ    GSERR,5,X,X
+    LAV    SPT,X
+    SAL    OF(LCH)
+    STV    SPT,X
+    GOSUB    GTATOM,5
+    $EXIT    2,GSATOM
+
+GSERR:    LAV    SPT,X
+    SAL    OF(LCH)
+    STV    SPT,X
+    $EXIT    1,GSATOM
+
+
+
+
+
+    SUBR    GTATOM,X,1
+
+    LAV    LEVEL,X
+    CAL    0
+    GONE    EL6,11,X,X
+    LAV    SKVAL,X
+    CAL    0
+    GOLT    EL6,8,X,X
+    LAV    FFPT,X
+    SAV    SPT
+    CAL    OF(LCH)
+    GONE    EL6,4,X,X
+    LAV    INFFPT,X
+    STV    FFPT,P
+    SAL    OF(LCH)
+    STV    SPT,X
+EL6:    GOSUB    ADVNCE,-347
+    GO    ENTEXT,-390,E,C
+    LCI    SPT,X
+    CCN    NLREP
+    GONE    GL20,1,X,X
+    BUMP    LINECT,1
+GL20:    LAV    SPT,X
+    STV    IDPT,X
+    LAL    OF(LCH)
+    STV    IDLEN,X
+    LCI    SPT,X
+    GOPC    GT3,9,X,X
+GT2:    GOSUB    ADVNCE,-359
+    GO    ENDID,4,X,C
+    LCI    SPT,X
+    GOPC    ENDID,2,X,X
+    BUMP    IDLEN,OF(LCH)
+    GO    GT2,-6,X,X
+
+    NB    "End of identifier"
+
+ENDID:    LAV    SPT,X
+    SAL    OF(LCH)
+    STV    SPT,X
+GT3:    $EXIT    1,GTATOM
+
+
+
+
+
+    SUBR    LUDEL,PARNM,2
+    GOSUB    LOSCHN,1933
+    GO    MACERR,1557,E,C
+CHN2:    LAV    CHANPT,X
+    AAL    OF(LNM)
+    GOSUB    CMPARE,-283
+    GO    LDCNT,1,X,C
+    $EXIT    2,LUDEL
+LDCNT:    GOSUB    LOECHN,1934
+    GO    CHN2,-7,X,C
+    $EXIT    1,LUDEL
+
+
+
+
+
+    SUBR    LULAYK,X,2
+
+    LAA    LAYCHN,C
+    GOSUB    LOSCHN,1921
+    GO    MACERR,1545,E,C
+CHN3:    LAV    CHANPT,X
+    AAL    OF(LNM)
+    STV    TEMPT,X
+    LAI    TEMPT,X
+    AAV    TEMPT
+    STV    TIDPT,X
+
+    NB    "Unless called from PRID routine ..."
+    NB    "...compare with list of layout characters"
+
+    LAV    EXITSW,X
+    CAL    2
+    GOEQ    LKCONT,8,X,X
+    LAV    TEMPT,X
+    GOSUB    CMPARE,-303
+    GO    LKCONT,5,X,C
+    LAV    TIDPT,X
+    STV    IDPT,X
+    LAL    OF(LCH)
+    STV    IDLEN,X
+LULRET:    $EXIT    2,LULAYK
+LKCONT:    LCI    TIDPT,X
+    CCI    IDPT
+    GONE    GL21,1,X,X
+    $EXIT    1,LULAYK
+GL21:    LAA    KSPACS,C
+    CAV    CHANPT,A
+    GOEQ    LULRET,-8,X,X
+    GOSUB    LOECHN,1903
+    GO    CHN3,-26,X,C
+    GO    MACERR,1518,E,X
+
+
+
+
+    SUBR    MKROOM,X,1
+
+    LAV    PVNUM,X
+    MULTL    OF(LNM)
+    STV    TEMP,X
+    LAV    PVARPT,X
+    SAV    TEMP
+    STV    NDEFPT,X
+    LAV    IDLEN,X
+    GOSUB    BUMPFF,-367
+    LAV    NDEFPT,X
+    STV    SRCPT,P
+    AAV    IDLEN
+    STV    DSTPT,X
+    LAV    FFPT,X
+    SAV    NDEFPT
+    SAV    IDLEN
+    BMOVE
+    LAV    STAKPT,X
+    STV    DBUGPT,X
+MKLOOP:    LBV    DBUGPT
+    LAM    OF(8*LNM)
+    STV    TEMPSW,P
+    CAL    1
+    GOEQ    MRMAC,26,X,X
+    LAV    DBUGPT,X
+    AAL    OF(4*LNM)
+    STV    TEMPT,X
+    GOSUB    CORECT,-321
+    LAV    DBUGPT,X
+    AAL    OF(14*LNM)
+    STV    TEMPT,X
+    GOSUB    CORECT,-325
+    LAV    TEMPSW,X
+    CAL    0
+    GOEQ    MREXIT,26,X,X
+    LAV    DBUGPT,X
+    AAL    OF(12*LNM)
+    STV    TEMPT,X
+    GOSUB    CORECT,-332
+    LAV    TEMPSW,X
+    CAL    2
+    GONE    MKR1,4,X,X
+    LBV    DBUGPT
+    LAM    OF(3*LNM)
+    STV    TEMPT,X
+    GO    MKR2,7,X,X
+MKR1:    LBV    DBUGPT
+    LAM    OF(1*LNM)
+    STV    DBUGPT,X
+    GO    MKLOOP,-31,X,X
+
+MRMAC:    LBV    DBUGPT
+    LAM    OF(2*LNM)
+    STV    TEMPT,X
+MKR2:    LAV    TEMPT,X
+    SAL    OF(LNM)
+    STV    TEMPT,X
+    LAI    TEMPT,X
+    CAL    0
+    GOEQ    MKR1,-13,X,X
+    GOSUB    CORECT,-353
+    GO    MKR2,-8,X,X
+
+MREXIT:    LAV    PVARPT,X
+    AAV    IDLEN
+    STV    PVARPT,X
+    LAV    INFFPT,X
+    AAV    IDLEN
+    STV    INFFPT,X
+    $EXIT    1,MKROOM
+
+
+
+
+
+    SUBR    OPEXIT,X,1
+
+    GOSUB    UNOPDB,289
+    GOSUB    UNSDB,311
+    $EXIT    1,OPEXIT
+
+
+
+
+
+    SUBR    PRARG,X,1
+
+    LAV    MHSHPT,X
+    STV    HASHPT,X
+    GOSUB    SETPTS,70
+    LAV    IDPT,X
+    SAL    OF(LCH)
+    STV    SPT,X
+    LAV    IDPT,X
+    AAV    IDLEN
+    STV    STOPPT,X
+    LAV    INSW,X
+    ANDL    6
+    STV    DBUGSW,P
+    CAV    INSW,X
+    GOEQ    PRGEX,12,X,X
+
+    NB    "Delete spaces"
+
+    GOSUB    GSATOM,-182
+    GO    PRGEX,10,X,C
+    LAV    IDPT,X
+    SAL    OF(LCH)
+    STV    SPT,X
+PRG1:    LAV    STOPPT,X
+    SAL    OF(LCH)
+    STV    STOPPT,X
+    LCI    STOPPT,X
+    CCN    SPREP
+    GOEQ    PRG1,-6,X,X
+    BUMP    STOPPT,OF(LCH)
+PRGEX:    GOSUB    PRSCAN,1
+    $EXIT    1,PRARG
+
+
+
+
+
+    SUBR    PRSCAN,X,1
+
+    CLEAR    OHSW
+    CLEAR    SKVAL
+    LAL    1
+    STV    LINECT,X
+    CLEAR    LABPT
+    $EXIT    1,PRSCAN
+
+
+
+
+
+    SUBR    RESSP,X,2
+
+    LAV    BESPT,X
+    STV    SPT,X
+    CLEAR    BESPT
+    LAV    BINDIC,X
+    CAV    EXCLMK,X
+    GOEQ    RESEX,6,X,X
+    LAV    BESLIN,X
+    STV    LINECT,X
+    LAV    BINDIC,X
+    CAL    0
+    GOEQ    RESRET,12,X,X
+    $EXIT    1,RESSP
+
+    NB    "Exclusive delimiter"
+
+RESEX:    CLEAR    IDLEN
+    CLEAR    BINDIC
+    LAV    IDPT,X
+    SAL    OF(LCH)
+    STV    SPT,X
+    LCI    IDPT,X
+    CCN    NLREP
+    GONE    RESRET,3,X,X
+    LAV    LINECT,X
+    SAL    1
+    STV    LINECT,X
+RESRET:    $EXIT    2,RESSP
+
+
+
+
+
+    SUBR    SBSTPL,X,1
+
+    CLEAR    BESTPL
+    LAV    OPLEV,X
+    CAL    0
+    GOEQ    GL23,2,X,X
+    LAL    8
+    STV    BESTPL,X
+GL23:    LAV    SKVAL,X
+    CAL    0
+    GOEQ    GL24,2,X,X
+    LAL    6
+    STV    BESTPL,X
+GL24:    $EXIT    1,SBSTPL
+
+
+
+
+
+    SUBR    SETPTS,X,1
+
+    LAV    ARGNO,X
+    MULTL    OF(2*LNM)
+    STV    TEMP,X
+    LAV    INSW,X
+    CAL    6
+    GONE    GL25,1,X,X
+    BUMP    TEMP,OF(LNM)
+GL25:    LBV    DBUGPT
+    SBV    TEMP
+    LAM    0
+    STV    IDPT,X
+    LBV    DBUGPT
+    SBV    TEMP
+    SBL    OF(LNM)
+    LAM    0
+    SAV    IDPT
+    STV    IDLEN,X
+    $EXIT    1,SETPTS
+
+
+
+
+
+    SUBR    SKLAB,X,2
+
+    LAV    LABPT,X
+    STV    CHANPT,X
+SKLOOP:    LAV    CHANPT,X
+    CAL    0
+    GONE    GL26,1,X,X
+    $EXIT    2,SKLAB
+GL26:    LBV    CHANPT
+    LAM    OF(LNM)
+    CAV    MEVAL,X
+    GONE    EL9,2,X,X
+    BUMP    CHANPT,OF(LNM+LNM)
+    $EXIT    1,SKLAB
+EL9:    LAI    CHANPT,X
+    STV    CHANPT,X
+    GO    SKLOOP,-13,X,X
+
+
+
+
+
+    SUBR    SMSKSW,X,1
+
+    LBV    HASHPT
+    LAM    OF(4*LNM+LHV)
+    ANDV    GLBWSW
+    STV    MASKSW,X
+    $EXIT    1,SMSKSW
+
+
+
+    SUBR    STKHSH,X,1
+
+    LAL    1
+    STV    OHSW,X
+    LAL    OF(5*LNM+LHV)
+    GOSUB    DECLF,-461
+    LAV    HASHPT,X
+    STV    SRCPT,X
+    LAV    LFPT,X
+    STV    HASHPT,P
+    STV    DSTPT,X
+    LAL    OF(5*LNM+LHV)
+    FMOVE
+    $EXIT    1,STKHSH
+
+
+
+
+
+    SUBR    SUBCHK,X,1
+
+    LAV    MEVAL,X
+    MULTL    OF(LCH)
+    STV    MEVAL,P
+    CAV    OPTYP,X
+    GOGR    SUBNUL,10,X,X
+    LAV    MEVAL,X
+    CAL    0
+    GOGR    GL27,3,X,X
+    LAV    MEVAL,R
+    AAV    OPTYP
+    STV    MEVAL,X
+GL27:    LAV    MEVAL,X
+    CAV    SQNUM,X
+    GOLE    SUBNUL,1,X,X
+    $EXIT    1,SUBCHK
+
+    NB    "MCSUB has null value"
+
+SUBNUL:    CLEAR    IDLEN
+
+    NB    "Go to label in code to perform insert"
+
+    GO    FNCTEX,-752,E,X
+
+
+
+
+
+    SUBR    TESDEL,PARNM,1
+
+    LAL    6
+    STV    INSW,X
+    GOSUB    SETPTS,-76
+    CLEAR    MEVAL
+    LAV    PARNM,X
+    GOSUB    LOSCHN,1668
+    GO    MACERR,1292,E,C
+CHN4:    LAV    CHANPT,X
+    GOSUB    CMPARE,-547
+    GO    TDCNT,1,X,C
+    $EXIT    1,TESDEL
+TDCNT:    BUMP    MEVAL,1
+    GOSUB    LOECHN,1669
+    GO    CHN4,-7,X,C
+    GO    MACERR,1284,E,X
+
+
+
+
+
+    SUBR    TEBEST,X,1
+
+    LAV    IDPT,X
+    STV    TIDPT,X
+    LAV    SPT,X
+    STV    TSPT,X
+    LAV    LINECT,X
+    STV    TLINCT,X
+    LAV    IDLEN,X
+    ALIGN
+    STV    IDLEN,X
+    LAV    INFOPT,X
+    SAV    IDLEN
+    SAL    OF(2*LNM)
+    STV    FNDPT,X
+TBSWIT:    LAI    INFOPT,X
+    CAV    SPCSMK,X
+    GONE    EL10,6,X,X
+    BUMP    INFOPT,OF(LNM)
+    GOSUB    GARGCH,-480
+    GO    TBSW1,0,X,C
+TBSW1:    LAV    SPT,X
+    SAL    OF(LCH)
+    STV    SPT,X
+EL10:    LAV    INFOPT,X
+    GOSUB    TEWITH,90
+    GO    TBWITH,73,X,C
+    LAV    INDIC,X
+    CAV    EXCLMK,X
+    GONE    TB1,4,X,X
+
+    NB    "Exclusive delimiter"
+
+    LAV    BINDIC,X
+    CAV    EXCLMK,X
+    GONE    TB3,7,X,X
+    GO    TB2,3,X,X
+
+    NB    "Not exclusive delimiter"
+
+TB1:    LAV    BINDIC,X
+    CAV    EXCLMK,X
+    GOEQ    TEBEX,53,X,X
+TB2:    LAV    BESPT,X
+    CAV    SPT,A
+    GOGE    TEBEX,50,X,X
+TB3:    LAV    HTABPT,X
+    CAL    0
+    GONE    EL11,3,X,X
+
+    NB    "Secondary delimiter case"
+
+    LAL    5
+    STV    BESTPL,X
+    GO    UPDATE,34,X,X
+EL11:    BUMP    INFOPT,OF(LNM)
+    LAI    INFOPT,X
+    CAL    0
+    GONE    NOTSTP,12,X,X
+
+    NB    "Case of stop marker"
+
+    LAV    LEVEL,X
+    CAL    0
+    GONE    TEBEX,37,X,X
+    LAV    SKVAL,X
+    CAL    0
+    GONE    GL29,3,X,X
+    LAV    SKIPLV,X
+    CAL    0
+    GOEQ    TEBEX,31,X,X
+GL29:    LAL    9
+    STV    BESTPL,X
+    GO    UPDATE,18,X,X
+NOTSTP:    LAI    INFOPT,X
+    ANDV    MASKSW
+    STV    TEMPSW,P
+    CAL    0
+    GOEQ    TEBEX,23,X,X
+    LAI    INFOPT,X
+    STV    TYPE,P
+    CAL    3
+    GONE    GL30,3,X,X
+    LAV    MASKSW,X
+    CAL    1
+    GOEQ    TEBEX,16,X,X
+GL30:    LAV    CHANPT,X
+    GOSUB    CKVALY,-643
+    GO    TEBEX,13,X,C
+    BUMP    INFOPT,OF(LNM)
+    LAV    TYPE,X
+    STV    BESTPL,X
+UPDATE:    LAV    FNDPT,X
+    STV    BFNDPT,X
+    LAV    INFOPT,X
+    STV    BINFPT,X
+    LAV    INDIC,X
+    STV    BINDIC,X
+    LAV    SPT,X
+    STV    BESPT,X
+    LAV    LINECT,X
+    STV    BESLIN,X
+TEBEX:    LAV    TIDPT,X
+    STV    IDPT,X
+    LAV    TSPT,X
+    STV    SPT,P
+    SAV    IDPT
+    AAL    OF(LCH)
+    STV    IDLEN,X
+    LAV    TLINCT,X
+    STV    LINECT,X
+    $EXIT    1,TEBEST
+
+
+    NB    "Composite name"
+
+TBWITH:    GOSUB    ADVNCE,-744
+    GO    TEBEX,-12,X,C
+    LAV    SPT,X
+    SAL    OF(LCH)
+    STV    SPT,X
+    GOSUB    GTATOM,-418
+    LCI    IDPT,X
+    CCN    SPREP
+    GONE    GL31,3,X,X
+    LAV    INDIC,X
+    CAV    WTHSMK,X
+    GOEQ    TBWITH,-12,X,X
+GL31:    LAV    INFOPT,X
+    GOSUB    CMPARE,-666
+    GO    TEBEX,-25,X,C
+    GO    TBSWIT,-101,X,X
+
+
+
+
+
+    SUBR    TEWITH,PARNM,2
+
+    LAI    PARNM,X
+    STV    INDIC,P
+    CAV    WITHMK,X
+    GOEQ    GL32,3,X,X
+    LAV    INDIC,X
+    CAV    WTHSMK,X
+    GONE    GL33,1,X,X
+GL32:    $EXIT    1,TEWITH
+GL33:    $EXIT    2,TEWITH
+
+
+
+
+
+    SUBR    UNOPDB,X,1
+
+    LAV    INFFPT,X
+    STV    FFPT,X
+    LAV    LEVEL,X
+    SAL    1
+    STV    LEVEL,X
+    LAV    OPLEV,X
+    SAL    1
+    STV    OPLEV,P
+    CAL    0
+    GONE    GL34,1,X,X
+    $EXIT    1,UNOPDB
+GL34:    LAV    TOPSPT,X
+    STV    TEMPT,P
+    STV    SRCPT,X
+    LAA    TOPSPT,D
+    STV    DSTPT,X
+    LAL    OF(9*LNM)
+    FMOVE
+    LAV    TEMPT,X
+    AAL    OF(9*LNM)
+    STV    LFPT,X
+    $EXIT    1,UNOPDB
+
+
+
+
+
+    SUBR    UNSDB,X,1
+
+    LAV    DBUGSW,X
+    CAL    1
+    GONE    GL35,3,X,X
+    LAV    LEVEL,X
+    SAL    1
+    STV    LEVEL,X
+GL35:    LAV    STAKPT,X
+    STV    TEMPT,P
+    STV    SRCPT,X
+    LAA    ARGCT,D
+    STV    DSTPT,X
+    LAL    OF(18*LNM)
+    FMOVE
+    LAV    TEMPT,X
+    AAL    OF(18*LNM)
+    STV    LFPT,X
+
+    NB    "Delete text of call if in source text"
+
+    LAV    LEVEL,X
+    CAL    0
+    GONE    UNSDEX,18,X,X
+    BUMP    SPT,OF(LCH)
+    LAV    FFPT,X
+    SAV    SPT
+    STV    TEMP,P
+    CAL    0
+    GOEQ    GL36,6,X,X
+    LAV    SPT,X
+    STV    SRCPT,X
+    LAV    INFFPT,X
+    STV    DSTPT,X
+    LAV    TEMP,X
+    FMOVE
+GL36:    LAV    INFFPT,X
+    SAL    OF(LCH)
+    STV    SPT,X
+    LAV    INFFPT,X
+    AAV    TEMP
+    STV    FFPT,X
+UNSDEX:    $EXIT    1,UNSDB
+
+
+
+
+
+    NB    "The Linkroutine"
+
+    LINKR    STKARG
+
+    LAL    3
+    STV    INSW,X
+    GOSUB    PRARG,-353
+    CLEAR    ARGLEN
+    GO    BSNEXT,-1352,X,X
+
+    NB    "When arg has been stacked, control returns here"
+
+SAEXIT:    LAV    TOPSPT,X
+    STV    LFPT,X
+    LAV    FFPT,X
+    STV    STOPPT,P
+    SAV    ARGLEN
+    STV    ERIAPT,P
+    SAL    OF(LCH)
+    STV    SPT,X
+    LAL    5
+    STV    DBUGSW,X
+    LINKB
+
+
+
+
+
+
+
+
+
+    NB    "Code for MCALTERMAC"
+
+ALT:    LAL    2
+    STV    ARGNO,X
+    GOSUB    STKARG,-20
+    GOSUB    CHATOM,-793
+    LAV    IDLEN,X
+    STV    SQNUM,X
+    LAV    IDPT,X
+    STV    SQPT,X
+    LAL    1
+    STV    ARGNO,X
+    GOSUB    STKARG,-28
+    GOSUB    CHATOM,-801
+    LAA    DELCHN,C
+    GOSUB    LUDEL,-494
+    GO    ERLIA,1053,X,C
+    LAV    SQNUM,X
+    STV    ARGLEN,X
+    LAV    SQPT,X
+    STV    ERIAPT,X
+    LAL    2
+    STV    ARGNO,X
+ALT1:    LAV    CHLINK,X
+    SAV    ARGLEN
+    CAL    OF(4*LNM-LCH)
+    GOLE    ERLIA,1043,X,X
+    LAV    CHANPT,X
+    AAL    OF(3*LNM)
+    STV    SPT,X
+
+    NB    "Test for case of N"
+
+    LAV    SPT,X
+    CAV    KNPT,A
+    GONE    GL37,2,X,X
+    LCI    ERIAPT,X
+    GOPC    ERLIA,1035,X,X
+GL37:    LAV    CHANPT,X
+    AAL    OF(2*LNM)
+    STV    LOTEMP,X
+    LAV    ARGLEN,X
+    STI    LOTEMP,X
+    LAV    SPT,X
+    AAV    ARGLEN
+    ALIGN
+    STV    TEMPT,X
+
+    NB    "TEMP is needed below in case fields overlap"
+
+    LAI    INFOPT,X
+    STV    TEMP,P
+    STI    TEMPT,X
+    LAI    TEMPT,X
+    CAL    0
+    GOEQ    GL38,4,X,X
+    LAI    TEMPT,R
+    AAV    INFOPT
+    SAV    TEMPT
+    STI    TEMPT,X
+GL38:    LAV    ERIAPT,X
+    STV    SRCPT,X
+    LAV    SPT,X
+    STV    DSTPT,X
+    LAV    ARGLEN,X
+    FMOVE
+    LAV    CHANPT,X
+    AAV    CHLINK
+    STV    CHANPT,P
+    GOSUB    LUDEL,-542
+    GO    MCEXIT,-920,X,C
+    GO    ALT1,-43,X,X
+
+
+
+
+    NB    "Code for MCGOMAC"
+
+MGO:    LAV    ARGCT,X
+    CAL    1
+    GOEQ    GODO,72,X,X
+    LAA    DIF,C
+    GOSUB    TESDEL,-289
+    LAV    MEVAL,X
+    STV    OPTYP,X
+    LAL    2
+    STV    ARGNO,X
+    LAA    DGE,C
+    GOSUB    TESDEL,-295
+    CLEAR    SQNUM
+    CLEAR    SQSW
+    GOADD    MEVAL
+    GO    GOGREQ,31,X,T
+    GO    GOGRT,32,X,T
+    GO    GOEN,33,X,T
+    GO    GOBC,19,X,T
+    GO    GOEQU,0,X,T
+
+    NB    "Character comparison"
+
+GOEQU:    GOSUB    STKARG,-101
+    LAV    ARGLEN,X
+    STV    SQNUM,X
+    LAL    3
+    STV    ARGNO,X
+    GOSUB    STKARG,-106
+    LAV    ARGLEN,X
+    CAV    SQNUM,X
+    GONE    GOFAIL,42,X,X
+    LAV    INFFPT,X
+    STV    TEMPT,X
+GOEQ1:    GOSUB    ADVNCE,-943
+    GO    GOSUC,37,X,C
+    LCI    SPT,X
+    CCI    TEMPT
+    GONE    GOFAIL,35,X,X
+    BUMP    TEMPT,OF(LCH)
+    GO    GOEQ1,-7,X,X
+
+    NB    "Belongs to class"
+
+GOBC:    GOSUB    STKARG,-119
+    LAL    3
+    STV    ARGNO,X
+    GOSUB    STKARG,-122
+    GOSUB    CHEKID,-885
+    LAV    IDLEN,X
+    CAL    OF(LCH)
+    GONE    ERLIA,959,X,X
+    GO    LOGOBC,1387,X,X
+
+    NB    "Numerical comparison"
+
+GOGREQ:    LAL    1
+    STV    SQNUM,X
+GOGRT:    LAL    1
+    STV    SQSW,X
+GOEN:    GOSUB    STKARG,-132
+    GOSUB    GETEXP,-773
+    LAV    SQNUM,X
+    AAV    MEVAL
+    STV    SQNUM,X
+    LAL    3
+    STV    ARGNO,X
+    GOSUB    STKARG,-139
+    GOSUB    GETEXP,-780
+    LAV    SQSW,X
+    CAL    0
+    GONE    EL12,4,X,X
+    LAV    MEVAL,X
+    CAV    SQNUM,X
+    GOEQ    GOSUC,4,X,X
+    GO    GOFAIL,4,X,X
+EL12:    LAV    MEVAL,X
+    CAV    SQNUM,X
+    GOGE    GOFAIL,1,X,X
+GOSUC:    BUMP    OPTYP,1
+GOFAIL:    LAV    OPTYP,X
+    CAL    1
+    GONE    MCEXIT,-994,X,X
+    LAL    1
+    STV    ARGNO,X
+
+    NB    "Perform GO TO"
+
+GODO:    GOSUB    STKARG,-157
+    GOSUB    GARGCH,-806
+    GO    ERLIA,926,X,C
+    LCI    SPT,X
+    CCL    "L"
+    GONE    ERLIA,923,X,X
+    GOSUB    GETEXP,-803
+    LAV    MEVAL,X
+    CAL    0
+    GONE    EL13,5,X,X
+    LAV    LEVEL,X
+    CAL    1
+    GOEQ    ERLME,851,X,X
+    GOSUB    OPEXIT,-523
+    GO    ENTX2,-1016,X,X
+EL13:    LAV    MEVAL,X
+    CAL    0
+    GOLE    ERLME,846,X,X
+    GOSUB    OPEXIT,-528
+    GOSUB    SKLAB,-432
+    GO    LABFND,5,X,C
+    LAV    MEVAL,X
+    STV    SKVAL,X
+    LAV    MCHLIN,X
+    STV    SKLIN,X
+    GO    BSNEXT,-1528,X,X
+
+    NB    "Backwards GO TO"
+
+LABFND:    LAI    CHANPT,X
+    AAV    STOPPT
+    STV    SPT,X
+    LBV    CHANPT
+    LAM    OF(LNM)
+    STV    LINECT,X
+    GO    BSNEXT,-1535,X,X
+
+
+
+
+    NB    "Code for MCLENGMAC"
+
+LNG:    GOSUB    STKARG,-190
+    LAV    ARGLEN,X
+    MULTL    OF(LICH)
+    STV    MEVAL,X
+
+    NB    "Go to label in code to perform insert"
+
+    GO    INV1,-1150,X,X
+
+
+
+
+
+    NB    "Code for MCNOTEMAC"
+
+NTE:    GOSUB    STKARG,-195
+    MESS    "$"
+    LAV    ERIAPT,X
+    STV    IDPT,X
+    LAV    ARGLEN,X
+    STV    IDLEN,X
+    GOSUB    LOERPR,1357
+    GOSUB    OPEXIT,-555
+    LBV    SVARPT
+    SBL    OF(4*LNM)
+    LAM    0
+    CAL    0
+    GOEQ    ER2A,828,X,X
+    MESS    "$"
+    GO    BSNEXT,-1555,X,X
+
+
+
+
+    NB    "Code for MCPVARMAC"
+
+PVR:    GOSUB    STKARG,-210
+    GOSUB    GETEXP,-851
+    LAV    MEVAL,X
+    SAV    PVNUM
+    STV    IDLEN,P
+    CAL    0
+    GOLE    MCEXIT,-1056,X,X
+    LAV    IDLEN,X
+    MULTL    OF(LNM)
+    STV    IDLEN,X
+    GOSUB    MKROOM,-641
+
+    NB    "Zeroise new permanent variables"
+
+    LAV    NDEFPT,X
+    AAV    IDLEN
+    STV    TEMPT,X
+ZNPLP:    LAV    TEMPT,X
+    SAL    OF(LNM)
+    STV    TEMPT,X
+    LAL    0
+    STI    TEMPT,X
+    LAV    TEMPT,X
+    CAV    NDEFPT,A
+    GONE    ZNPLP,-8,X,X
+    LAV    MEVAL,X
+    STV    PVNUM,P
+    STI    PVARPT,X
+    GO    MCEXIT,-1075,X,X
+
+
+
+
+    NB    "Code for MCSETMAC"
+
+MSET:    GOSUB    STKARG,-236
+    GOSUB    CHEKID,-999
+    LAV    IDPT,X
+    AAV    IDLEN
+    SAL    OF(LCH)
+    STV    SPT,X
+    GOSUB    GMEADD,-808
+    LAV    TEMPT,X
+    STV    SQPT,X
+    LAL    2
+    STV    ARGNO,X
+    GOSUB    STKARG,-247
+    GOSUB    GETEXP,-888
+    LAV    MEVAL,X
+    STI    SQPT,X
+    GO    MCEXIT,-1091,X,X
+
+
+
+
+    NB    "Code for MCSUBMAC"
+
+SUB:    GOSUB    STKARG,-252
+    LAV    ARGLEN,X
+    STV    OPTYP,X
+    LAL    2
+    STV    ARGNO,X
+    GOSUB    STKARG,-257
+    GOSUB    GETEXP,-898
+    CLEAR    SQNUM
+    GOSUB    SUBCHK,-481
+    LAV    MEVAL,X
+    SAL    OF(LCH)
+    STV    SQNUM,X
+    LAL    3
+    STV    ARGNO,X
+    GOSUB    STKARG,-266
+    GOSUB    GETEXP,-907
+    GOSUB    SUBCHK,-489
+    LAV    MEVAL,X
+    SAV    SQNUM
+    STV    IDLEN,X
+    LAV    INFFPT,X
+    AAV    SQNUM
+    STV    IDPT,X
+
+    NB    "Go to label in code to perform insert"
+
+    GO    FNCTEX,-1230,X,X
+
+
+
+
+
+    NB    "Code for MCNO--- macros"
+
+
+MWN:    LAV    HASHPT,X
+    AAL    OF(4*LNM+LHV)
+    STV    LOTEMP,X
+    LAL    7
+    STI    LOTEMP,X
+
+    NB    "Above statement applies only to MCNOWARNMAC"
+
+MNO:    LAV    TYPE,X
+    MULTL    OF(LNM)
+    STV    TYPE,X
+    LAV    HASHPT,X
+    AAV    TYPE
+    AAL    OF(LHV)
+    STV    LOTEMP,X
+    LAV    DBUGPT,X
+    AAL    OF(18*LNM)
+    STI    LOTEMP,X
+    GO    MCEXIT,-1131,X,X
+
+
+
+
+    NB    "Code for MCWARNMAC"
+
+WRN:    LAL    2
+    STV    NTYPSW,X
+    GO    EVTREE,94,X,X
+
+
+    NB    "Code for MCSTOPMAC"
+
+STP:    CLEAR    NTYPSW
+    GO    EVTREE,92,X,X
+
+
+
+
+    NB    "Code for MCDEFMAC"
+
+DEF:    LAV    ARGCT,X
+    SAL    1
+    STV    ARGNO,X
+    LAA    DAS,C
+    GOSUB    TESDEL,-504
+    CLEAR    SQSW
+    LAV    MEVAL,X
+    CAL    0
+    GOEQ    GL39,2,X,X
+    LAL    1
+    STV    SQSW,X
+GL39:    LAL    3
+    STV    SQNUM,X
+    LAV    ARGCT,X
+    CAL    2
+    GOEQ    DEF1,9,X,X
+    LAL    1
+    STV    ARGNO,X
+    GOSUB    STKARG,-315
+    GOSUB    GETEXP,-956
+    LAV    MEVAL,X
+    CAL    3
+    GOLT    DEF1,2,X,X
+    LAV    MEVAL,R
+    STV    SQNUM,X
+DEF1:    LAV    INFFPT,X
+    ALIGN
+    STV    FFPT,X
+    LAI    DBUGPT,X
+    STV    ARGNO,X
+    GOSUB    STKARG,-327
+    LAV    ARGNO,X
+    SAL    1
+    STV    ARGNO,X
+    LAL    1
+    STV    NTYPSW,X
+    GO    EVTREE,55,X,X
+
+
+
+
+    NB    "Code for MCINSMAC"
+
+INS:    LAL    3
+    STV    SQNUM,X
+    LAL    3
+    STV    NTYPSW,X
+    LAV    ARGCT,X
+    CAL    1
+    GOEQ    EVTREE,48,X,X
+    GOSUB    STKARG,-341
+    GOSUB    CHEKID,-1104
+    LAV    IDLEN,X
+    CAL    OF(LCH)
+    GONE    ERLIA,740,X,X
+    LCI    IDPT,X
+    CCL    "P"
+    GOEQ    EVTR2,38,X,X
+    LCI    IDPT,R
+    CCL    "U"
+    GOEQ    MINSU,1,X,X
+    GO    ERLIA,733,X,X
+
+MINSU:    LAL    2
+    STV    SQNUM,X
+    GO    EVTR2,31,X,X
+
+
+
+
+    NB    "Code for MCSKIPMAC"
+
+SKIP:    CLEAR    SQSW
+    LAL    4
+    STV    NTYPSW,X
+    LAV    ARGCT,X
+    CAL    1
+    GOEQ    EVTREE,27,X,X
+    GOSUB    STKARG,-362
+SK3:    GOSUB    GARGCH,-1011
+    GO    EVTR2,22,X,C
+    LCI    SPT,X
+    CCL    "D"
+    GOEQ    SKD,7,X,X
+    LCI    SPT,R
+    CCL    "T"
+    GOEQ    SKT,8,X,X
+    LCI    SPT,R
+    CCL    "M"
+    GOEQ    SKM,9,X,X
+    GO    ERLIA,711,X,X
+
+SKD:    LAV    SQSW,X
+    ORL    1
+    STV    SQSW,X
+    GO    SK3,-16,X,X
+
+SKT:    LAV    SQSW,X
+    ORL    2
+    STV    SQSW,X
+    GO    SK3,-20,X,X
+
+SKM:    LAV    SQSW,X
+    ORL    4
+    STV    SQSW,X
+    GO    SK3,-24,X,X
+
+EVTR2:    LAL    2
+    STV    ARGNO,X
+
+    NB    "Deal with structure representation"
+
+EVTREE:    GOSUB    STKARG,-389
+    CLEAR    NODEPT
+    LAL    0
+    STV    DELCT,P
+    STV    OPTLEV,X
+    LAL    OF(LNM)
+    GOSUB    BUMPFF,-1174
+    LAV    FFPT,X
+    ALIGN
+    STV    FFPT,X
+    CLEAR    EXITSW
+    LAV    LFPT,X
+    STV    LNODPT,X
+    LAL    1
+    STV    CONSW,P
+    STV    NODESW,P
+    STV    KEYSW,X
+    GOSUB    GETDEL,292
+EV1:    LAV    NTYPSW,X
+    FSTK
+    GOADD    NTYPSW
+    GO    EV2,30,X,T
+    GO    EVMAC,3,X,T
+    GO    EV2,28,X,T
+    GO    EVINS,22,X,T
+    GO    EVSKIP,24,X,T
+
+EVMAC:    LAV    SQSW,X
+    CAL    0
+    GOEQ    GL41,2,X,X
+    LAL    4
+    FSTK
+
+    NB    "Stack offsets of start and end..."
+    NB    "...of replacement text"
+
+GL41:    LAV    STOPPT,X
+    ALIGN
+    STV    TEMAPT,X
+    LAV    ERIAPT,X
+    ALIGN
+    SAV    TEMAPT
+    AAV    FFPT
+    STV    TEMPT,X
+
+    NB    "TEMPT now points at final position of slot"
+
+    LAV    ERIAPT,X
+    SAV    TEMPT
+    FSTK
+    LAV    INFFPT,X
+    ALIGN
+    SAV    TEMPT
+    SAL    OF(LNM)
+    FSTK
+EVINS:    LAV    SQNUM,X
+    FSTK
+    GO    EV2,2,X,X
+
+EVSKIP:    LAV    SQSW,X
+    FSTK
+EV2:    GOSUB    GETDEL,257
+    GO    EV2,-2,X,X
+
+
+    NB    "Action at OPT"
+
+EVOPT:    CSS
+    BUMP    OPTLEV,1
+    LAL    OF(3*LNM)
+    GOSUB    DECLF,-1136
+    LAA    ALLPT,D
+    STV    SRCPT,X
+    LAV    LFPT,X
+    STV    DSTPT,X
+    LAL    OF(3*LNM)
+    FMOVE
+    LAV    FFPT,X
+    STV    OPTHPT,P
+    STV    OPTPT,X
+    CLEAR    ALLPT
+    CLEAR    NODESW
+    GOSUB    GETDEL,240
+EVCONT:    LAV    DELCT,X
+    CAL    0
+    GOEQ    EV1,-55,X,X
+    GO    EV2,-22,X,X
+
+
+    NB    "Action at OR"
+
+EVOR:    CSS
+    GOSUB    JOINCH,455
+    LAV    DELCT,X
+    CAL    0
+    GONE    GL42,2,X,X
+    LAL    OF(LNM)
+    GOSUB    BUMPFF,-1248
+GL42:    LAV    OPTPT,X
+    STV    NODEPT,X
+    LAV    FFPT,X
+    STV    OPTPT,X
+    LAL    1
+    STV    NODESW,X
+    GOSUB    GETDEL,222
+
+    NB    "Check that name of branch is unique"
+
+    LAV    OPTHPT,X
+    GOSUB    LOSCHN,994
+    GO    MACERR,618,X,C
+CHN5:    LAV    CHANPT,X
+    CAV    OPTPT,A
+    GOEQ    EVCONT,-24,X,X
+    LAV    OPTPT,X
+    STV    IDPT,X
+    LAV    CHANPT,X
+    STV    INFOPT,X
+EVOR4:    LBV    IDPT
+    LAM    OF(LNM)
+    STV    IDLEN,X
+    BUMP    IDPT,OF(2*LNM)
+    LAV    INFOPT,X
+    GOSUB    CMPARE,-1232
+    GO    EVDIFF,22,X,C
+    LAV    IDPT,X
+    AAV    IDLEN
+    ALIGN
+    STV    IDPT,X
+
+    NB    "Check WITH, WITHS and SPACES"
+
+    GOSUB    TESPAC,502
+    LAV    INFOPT,X
+    STV    TEMPT,X
+    LAV    IDPT,X
+    STV    INFOPT,X
+    LAV    TEMPT,X
+    STV    IDPT,X
+    GOSUB    TESPAC,495
+    LAV    INFOPT,X
+    GOSUB    TEWITH,-579
+    GO    EVOR1,4,X,C
+    LAV    IDPT,X
+    GOSUB    TEWITH,-582
+    GO    EVDIFF,4,X,C
+    GO    ERLIA,573,X,X
+
+EVOR1:    LAV    IDPT,X
+    GOSUB    TEWITH,-586
+    GO    EVOR4,-29,X,C
+EVDIFF:    GOSUB    LOECHN,964
+    GO    CHN5,-38,X,C
+
+
+    NB    "Action at end of string"
+
+EVEXIT:    CSS
+    LAV    DELCT,X
+    CAL    0
+    GOEQ    ERLIA,564,X,X
+    LAV    OPTLEV,X
+    CAL    0
+    GONE    ERLIA,561,X,X
+    LAV    NODEPT,X
+    GOSUB    LOSCHN,946
+    GO    EVEX1,13,X,C
+CHN6:    LAL    0
+    STI    CHANPT,X
+    GOSUB    LOECHN,950
+    GO    CHN6,-4,X,C
+
+    NB    "Check that all nodes have been placed"
+
+EVEX2:    LAV    LFPT,X
+    CAV    TOPSPT,A
+    GOEQ    PLDEF,10,X,X
+    LBV    LFPT
+    LAM    OF(LNM)
+    CAL    0
+    GOEQ    ERLIA,547,X,X
+    BUMP    LFPT,OF(3*LNM)
+    GO    EVEX2,-9,X,X
+
+EVEX1:    LAV    EXITSW,X
+    CAL    0
+    GOEQ    ERLIA,542,X,X
+    GO    EVEX2,-13,X,X
+
+
+    NB    "Action after processing..."
+    NB    "...of structure representation"
+
+PLDEF:    LAL    OF(LNM)
+    STV    OFFSET,X
+    LAV    STOPPT,X
+    ALIGN
+    STV    STOPPT,X
+    LAV    FFPT,X
+    SAV    STOPPT
+    STV    IDLEN,X
+    GOADD    NTYPSW
+    GO    PLSTOP,41,X,T
+    GO    PLMAC,3,X,T
+    GO    PLWARN,24,X,T
+    GO    PLINS,42,X,T
+    GO    ADDENV,44,X,T
+
+    NB    "Macro case -- make delimiter structure ..."
+    NB    "...adjacent to replacement text"
+
+PLMAC:    LAV    STOPPT,X
+    STV    SRCPT,X
+    LAV    ERIAPT,X
+    ALIGN
+    STV    DSTPT,P
+    STV    ERIAPT,X
+    LAV    IDLEN,X
+    FMOVE
+    LAV    INFFPT,X
+    ALIGN
+    STV    STOPPT,X
+    LAV    ERIAPT,X
+    AAV    IDLEN
+    STV    FFPT,X
+    LAV    OFFSET,X
+    AAV    ERIAPT
+    SAV    STOPPT
+    STV    OFFSET,X
+    LAV    FFPT,X
+    SAV    STOPPT
+    STV    IDLEN,X
+    GO    ADDENV,22,X,X
+
+    NB    "Warning case"
+
+PLWARN:    LAV    DELCT,X
+    CAL    1
+    GONE    ERLIA,502,X,X
+    LAV    OPTYP,X
+    CAL    0
+    GOEQ    PLWG,6,X,X
+    LAV    HASHPT,X
+    AAL    OF(4*LNM+LHV)
+    STV    LOTEMP,X
+    LAL    6
+    STI    LOTEMP,X
+    GO    ADDENV,10,X,X
+PLWG:    LAL    6
+    STV    GLBWSW,X
+    GO    ADDENV,7,X,X
+
+    NB    "Stop marker case"
+
+PLSTOP:    LAV    DELCT,X
+    CAL    1
+    GONE    ERLIA,487,X,X
+    GO    ADDENV,3,X,X
+
+    NB    "Insert case"
+
+PLINS:    LAV    DELCT,X
+    CAL    2
+    GONE    ERLIA,483,X,X
+
+    NB    "Add to environment"
+
+ADDENV:    LAV    STOPPT,X
+    STV    IDPT,X
+    LAV    OPTYP,X
+    CAL    1
+    GOEQ    LOCDEF,6,X,X
+    GOSUB    MKROOM,-1029
+    LAV    IDPT,X
+    AAV    IDLEN
+    STV    IDPT,X
+    GOSUB    OPEXIT,-965
+    GO    PLD1,5,X,X
+
+    NB    "Local case"
+
+LOCDEF:    GOSUB    OPEXIT,-967
+    LAV    IDLEN,X
+    GOSUB    DECLF,-1306
+    LAV    LFPT,X
+    STV    NDEFPT,X
+PLD1:    LAV    SPT,X
+    STV    BESPT,X
+    LAV    IDPT,X
+    STV    SRCPT,X
+    LAV    NDEFPT,X
+    STV    DSTPT,X
+    LAV    IDLEN,X
+    BMOVE
+    LAV    NDEFPT,X
+    AAV    OFFSET
+    GOSUB    LOSCHN,843
+    GO    MACERR,467,X,C
+CHN7:    LAV    CHANPT,X
+    AAL    OF(LNM)
+    STV    IDPT,X
+    LAI    IDPT,X
+    STV    IDLEN,X
+    BUMP    IDPT,OF(LNM)
+    LAV    IDPT,X
+    AAV    IDLEN
+    SAL    OF(LCH)
+    STV    SPT,X
+    GOSUB    MDFIND,X
+    LAV    HTABPT,X
+    SAV    HASHPT
+    STV    OFFSET,X
+    LAV    NDEFPT,X
+    CAV    LFPT,A
+    GOEQ    GL43,9,X,X
+
+    NB    "Find end of locals"
+
+FENLOC:    LAI    HTABPT,X
+    CAV    LFPT,A
+    GOLT    GL43,6,X,X
+    LAI    HTABPT,R
+    CAV    ENDPT,A
+    GOGE    GL43,3,X,X
+    LAI    HTABPT,R
+    STV    HTABPT,X
+    GO    FENLOC,-9,X,X
+GL43:    LAV    CHANPT,X
+    SAL    OF(LNM)
+    STV    TEMPT,X
+    LAI    HTABPT,X
+    STI    TEMPT,X
+    LAV    TEMPT,X
+    STI    HTABPT,X
+    LAV    NDEFPT,X
+    CAV    LFPT,A
+    GOEQ    PLDCH,16,X,X
+    LAV    HASHPT,X
+    STV    TEMAPT,X
+
+    NB    "Add globals to all hash tables"
+
+BCHSH:    LBV    TEMAPT
+    LAM    OF(5*LNM+LHV)
+    STV    TEMAPT,P
+    CAL    0
+    GOEQ    PLDCH,9,X,X
+    LAV    TEMAPT,R
+    AAV    OFFSET
+    STV    SRCPT,X
+    LAI    SRCPT,X
+    CAI    TEMPT,A
+    GONE    NGAD,2,X,X
+    LAV    TEMPT,X
+    STI    SRCPT,X
+NGAD:    GO    BCHSH,-14,X,X
+PLDCH:    GOSUB    LOECHN,797
+    GO    CHN7,-54,X,C
+    LAV    BESPT,X
+    STV    SPT,X
+    GO    BSNEXT,-2033,X,X
+
+
+
+
+
+
+    SUBR    ERTEST,PARNM,1
+    CAL    0
+    GOEQ    ERLIA,395,E,X
+    LAV    NTYPSW,X
+    CAL    1
+    GOEQ    GL44,3,X,X
+    LAV    NTYPSW,R
+    CAL    4
+    GONE    GL45,1,X,X
+GL44:    $EXIT    1,ERTEST
+GL45:    GO    ERLIA,387,E,X
+
+
+
+
+
+    SUBR    GETDEL,X,1
+
+GDNEXT:    LAL    3
+    STV    TYPE,X
+    GOSUB    GSRATM,207
+    GO    EVEXIT,-186,E,C
+GD1:    LAV    SPT,X
+    STV    OLDSPT,X
+    GOSUB    KEYSRC,231
+    GO    GDKEY,90,X,C
+    LCI    IDPT,X
+    CCI    KNPT
+    GONE    GD2,3,X,X
+    LAV    IDLEN,X
+    CAL    OF(LCH)
+    GONE    TRYNOD,114,X,X
+
+    NB    "Case of delimiter"
+
+GD2:    LAV    TYPE,X
+    CAL    3
+    GONE    GDW1,62,X,X
+
+    NB    "Place LID on forwards stack..."
+    NB    "...and link it up"
+
+    LAV    FFPT,X
+    GOSUB    SNODCH,267
+    LAL    0
+    FSTK
+GTLOOP:    LAV    IDLEN,X
+    FSTK
+    LAV    FFPT,X
+    STV    DSTPT,X
+    LAV    IDLEN,X
+    GOSUB    BUMPFF,-1505
+    LAV    FFPT,X
+    ALIGN
+    STV    FFPT,X
+    LAV    IDPT,X
+    STV    SRCPT,X
+    LAV    IDLEN,X
+    FMOVE
+
+    NB    "Look ahead for WITH or WITHS"
+
+    LAV    IDPT,X
+    STV    EXIDPT,X
+    GOSUB    GSRATM,173
+    GO    GTEXIT,2,X,C
+    GOSUB    KEYSRC,199
+    GO    GDWITH,19,X,C
+GTEXIT:    LAA    SPCSRP,C
+    CAV    EXIDPT,A
+    GONE    GL47,2,X,X
+    LAV    SPCSMK,X
+    FSTK
+GL47:    LAV    OLDSPT,X
+    STV    SPT,X
+    LAV    FFPT,X
+    STV    NODEPT,X
+    LAL    0
+    FSTK
+GD4:    LAV    OPTLEV,X
+    CAL    0
+    GONE    GL48,1,X,X
+    BUMP    DELCT,1
+GL48:    LAL    1
+    STV    KEYSW,P
+    STV    NODESW,X
+    $EXIT    1,GETDEL
+
+
+    NB    "Test for WITHS or WITH"
+
+GDWITH:    LAV    TYPE,X
+    CAL    2
+    GOGE    GTEXIT,-22,X,X
+    LAV    TYPE,X
+    CAL    0
+    GONE    EL14,6,X,X
+    LAA    SPCSRP,C
+    CAV    EXIDPT,A
+    GOEQ    EL14,3,X,X
+    LAV    WITHMK,X
+    FSTK
+    GO    GDW2,2,X,X
+EL14:    LAV    WTHSMK,X
+    FSTK
+GDW2:    LAL    0
+    STV    NODESW,P
+    STV    KEYSW,X
+    GOSUB    GSRATM,133
+    GO    ERLIA,308,E,C
+    GO    GD1,-75,X,X
+
+    NB    "Subsequently returning here to perform checking"
+
+GDW1:    LAV    TYPE,X
+    CAL    1
+    GONE    EL15,11,X,X
+    LCI    IDPT,X
+    CCN    SPREP
+    GONE    GTLOOP,-64,X,X
+
+    NB    "Convert   WITHS SPACE   to   WITH SPACES"
+
+    LAV    FFPT,X
+    SAL    OF(LNM)
+    STV    LOTEMP,X
+    LAV    WITHMK,X
+    STI    LOTEMP,X
+    LAA    SPCSRP,C
+    STV    IDPT,X
+    GO    GTLOOP,-72,X,X
+EL15:    LCI    IDPT,X
+    GOPC    GTLOOP,-74,X,X
+    LCI    EXIDPT,X
+    GOPC    GTLOOP,-76,X,X
+    GO    ERLIA,288,E,X
+
+
+    NB    "Case of keyword"
+
+GDKEY:    LAV    KEYSW,X
+    GOSUB    ERTEST,-112
+    CLEAR    KEYSW
+    GOADD    TYPE
+    GO    ERLIA,283,E,T
+    GO    ERLIA,282,E,T
+    GO    EVOPT,-362,E,T
+    GO    EVOR,-343,E,T
+    GO    GDALL,0,X,T
+
+
+    NB    "Action at ALL"
+
+GDALL:    GOSUB    JOINCH,112
+    LAV    ALLPT,X
+    STV    NODEPT,X
+    CLEAR    CONSW
+    LAV    LFPT,X
+    STV    SRCPT,X
+    LAA    ALLPT,D
+    STV    DSTPT,X
+    LAL    OF(3*LNM)
+    FMOVE
+    LAV    LFPT,X
+    AAL    OF(3*LNM)
+    STV    LFPT,X
+    LAV    OPTLEV,X
+    SAL    1
+    STV    OPTLEV,X
+    GO    GD4,-73,X,X
+
+
+
+    NB    "Node is false alarm"
+
+GD3:    LAV    IDPT,X
+    SAL    OF(LCH)
+    STV    IDPT,X
+    GO    GD2,-114,X,X
+
+
+    NB    "Test for node"
+
+TRYNOD:    BUMP    IDPT,OF(LCH)
+    GOSUB    LONUM,746
+    GO    GD3,-7,X,C
+    LAV    NODESW,X
+    GOSUB    ERTEST,-145
+    CLEAR    NODESW
+
+    NB    "Test whether placing or go to"
+
+    GOSUB    GSRATM,75
+    GO    NDGO,30,X,C
+    GOSUB    KEYSRC,101
+    GO    NDKEY,22,X,C
+
+    NB    "Case of placing"
+
+NDPLAC:    LAV    MEVAL,X
+    CAL    0
+    GOEQ    ERLIA,245,E,X
+    LAL    1
+    STV    CONSW,X
+    GOSUB    PLNODE,103
+    GO    GNOD1,7,X,C
+    LAI    NNODPT,X
+    CAL    1
+    GOEQ    ERLIA,238,E,X
+    LAV    FFPT,X
+    GOSUB    SNODCH,136
+    LAV    TEMPT,X
+    STV    NODEPT,X
+GNOD1:    LAL    1
+    STI    NNODPT,X
+    LAV    NNODPT,X
+    AAL    OF(LNM)
+    STV    LOTEMP,X
+    LAV    FFPT,X
+    STI    LOTEMP,X
+    GO    GNOD4,34,X,X
+
+
+NDKEY:    GOADD    TYPE
+    GO    ERLIA,224,E,T
+    GO    ERLIA,223,E,T
+    GO    NDPLAC,-26,X,T
+    GO    NDGO,1,X,T
+    GO    NDGO,0,X,T
+
+
+    NB    "Node is gone to"
+
+NDGO:    LAV    MEVAL,X
+    CAL    0
+    GOEQ    NDN0,31,X,X
+    LAV    NODEPT,X
+    CAL    0
+    GOEQ    ERLIA,214,E,X
+    GOSUB    PLNODE,74
+    GO    NUNODE,12,X,C
+    LAI    NNODPT,X
+    CAL    1
+    GOEQ    OLDNOD,20,X,X
+    LAV    TEMPT,X
+    GOSUB    LOSCHN,594
+    GO    NUND1,8,X,C
+CHN8:    GOSUB    LOECHN,600
+    GO    CHN8,-2,X,C
+    LAV    NODEPT,X
+    SAV    CHANPT
+    STI    CHANPT,X
+    GO    GNOD3,7,X,X
+
+NUNODE:    LAL    0
+    STI    NNODPT,X
+NUND1:    LAV    NNODPT,X
+    AAL    OF(LNM)
+    STV    LOTEMP,X
+    LAV    NODEPT,X
+    STI    LOTEMP,X
+GNOD3:    CLEAR    NODEPT
+GNOD4:    LAV    OLDSPT,X
+    STV    SPT,X
+    GO    GDNEXT,-197,X,X
+
+
+    NB    "Going to old node"
+
+OLDNOD:    LAV    TEMPT,X
+    GOSUB    SNODCH,87
+    GO    GNOD3,-7,X,X
+
+
+    NB    "Node N0"
+
+NDN0:    LAV    NODEPT,X
+    GOSUB    LOSCHN,571
+    GO    ERLIA,183,E,C
+CHN9:    LAV    EXCLMK,X
+    STI    CHANPT,X
+    GOSUB    LOECHN,575
+    GO    CHN9,-4,X,C
+    LAL    1
+    STV    EXITSW,X
+    GO    GNOD3,-17,X,X
+
+
+
+
+
+    SUBR    GSRATM,X,2
+
+GSR1:    LAV    STOPPT,X
+    SAV    SPT
+    CAL    OF(LCH)
+    GONE    GL49,1,X,X
+    $EXIT    1,GSRATM
+GL49:    GOSUB    GTATOM,-1416
+    GOSUB    LULAYK,-1369
+    GO    GSR1,-8,X,C
+    $EXIT    2,GSRATM
+
+
+
+
+
+    SUBR    JOINCH,X,1
+
+    LAV    OPTLEV,X
+    CAL    0
+    GOEQ    ERLIA,162,E,X
+
+    NB    "Add NODEPT chain to head of ALLPT chain"
+
+    LAV    NODEPT,X
+    GOSUB    LOSCHN,547
+    GO    JC1,10,X,C
+CHN10:    GOSUB    LOECHN,553
+    GO    CHN10,-2,X,C
+    LAV    ALLPT,X
+    CAL    0
+    GOEQ    GL50,3,X,X
+    LAV    ALLPT,R
+    SAV    CHANPT
+    STI    CHANPT,X
+GL50:    LAV    NODEPT,X
+    STV    ALLPT,X
+JC1:    $EXIT    1,JOINCH
+
+
+
+
+
+    SUBR    KEYSRC,X,2
+
+    LAA    KEYCHN,C
+    GOSUB    LUDEL,-1403
+    GO    KEYRET,4,X,C
+    LBV    CHANPT
+    LAM    OF(LNM)
+    STV    TYPE,X
+    $EXIT    1,KEYSRC
+
+KEYRET:    $EXIT    2,KEYSRC
+
+
+
+
+
+    SUBR    PLNODE,X,2
+
+    LAV    LNODPT,X
+    STV    NNODPT,X
+PLN2:    LAV    NNODPT,X
+    CAV    TOPSPT,A
+    GOEQ    PLN1,10,X,X
+    LAI    NNODPT,X
+    CAV    MEVAL,X
+    GONE    EL16,5,X,X
+    BUMP    NNODPT,OF(LNM)
+    LBV    NNODPT
+    LAM    OF(LNM)
+    STV    TEMPT,X
+    $EXIT    2,PLNODE
+EL16:    BUMP    NNODPT,OF(3*LNM)
+    GO    PLN2,-13,X,X
+
+
+    NB    "Reserve new node"
+
+PLN1:    LAV    LFPT,X
+    STV    OLLFPT,X
+    LAL    OF(3*LNM)
+    GOSUB    DECLF,-1656
+    LAV    LNODPT,X
+    CAV    OLLFPT,A
+    GOEQ    EL17,7,X,X
+    LAV    OLLFPT,X
+    STV    SRCPT,X
+    LAV    LFPT,X
+    STV    DSTPT,X
+    LAV    LNODPT,X
+    SAV    OLLFPT
+    FMOVE
+EL17:    LAV    LNODPT,X
+    SAL    OF(3*LNM)
+    STV    LNODPT,X
+    LAV    MEVAL,X
+    STI    LNODPT,X
+    LAV    LNODPT,X
+    AAL    OF(LNM)
+    STV    NNODPT,X
+    $EXIT    1,PLNODE
+
+
+
+
+
+    SUBR    SNODCH,PARNM,1
+
+    STV    TEMAPT,X
+    LAV    NODEPT,X
+    GOSUB    LOSCHN,483
+    GO    SND1,6,X,C
+CHN11:    LAV    TEMAPT,X
+    SAV    CHANPT
+    STI    CHANPT,X
+    GOSUB    LOECHN,486
+    GO    CHN11,-5,X,C
+    $EXIT    1,SNODCH
+
+SND1:    LAV    CONSW,X
+    CAL    0
+    GOEQ    ERLIA,86,E,X
+    $EXIT    1,SNODCH
+
+
+
+
+
+    SUBR    TESPAC,X,1
+
+    LAI    INFOPT,X
+    CAV    SPCSMK,X
+    GOEQ    TSP2,3,X,X
+    LAI    INFOPT,R
+    CAV    WTHSMK,X
+    GONE    TSP1,12,X,X
+TSP2:    LAI    IDPT,X
+    CAV    WITHMK,X
+    GONE    TSP1,9,X,X
+    LBV    IDPT
+    LCM    OF(2*LNM)
+    CCN    SPREP
+    GONE    TSP1,5,X,X
+    LAV    IDPT,X
+    AAL    OF(2*LNM+LCH)
+    ALIGN
+    STV    IDPT,X
+    GO    TSP2,-12,X,X
+TSP1:    $EXIT    1,TESPAC
+
+
+
+
+
+
+
+
+    NB    "Illegal macro element"
+
+ERLME:    CSS
+    GOSUB    PRERR,183
+    LAL    OF(LCH)
+    STV    IDLEN,X
+    GOSUB    LOERPR,533
+    LAV    MEVAL,X
+    GOSUB    PRNUM,318
+    MESS    " is illegal macro element"
+ER1A:    GOSUB    PRCTXT,72
+    GO    MCABRT,-1868,X,X
+
+
+
+
+    NB    "Multiply-defined label"
+
+ERLMD:    GOSUB    PRERR,174
+    MESS    "Label "
+    LAV    MEVAL,X
+    GOSUB    PRNUM,311
+    MESS    " is multiply-defined"
+ER2A:    GOSUB    PRCTXT,65
+    GO    BSNEXT,-2383,X,X
+
+
+
+
+    NB    "Illegal input character"
+
+    SUBR    ERSIC,X,1
+
+    LAV    IDPT,X
+    BSTK
+    LAV    IDLEN,X
+    BSTK
+    GOSUB    PRERR,162
+    MESS    "Illegal input character"
+    GOSUB    PRCTXT,56
+    UNSTK    IDLEN
+    UNSTK    IDPT
+    $EXIT    1,ERSIC
+
+
+
+
+
+    NB    "Illegal name after warning"
+
+    SUBR    ERSNW,X,1
+
+    GOSUB    PRERR,155
+    MESS    "Illegal macro name after warning"
+    GOSUB    PRVIZ,334
+    $EXIT    1,ERSNW
+
+
+
+
+
+    NB    "Test for mismatches"
+
+    SUBR    ERMTST,X,1
+
+    LAV    SKIPLV,X
+    CAL    0
+    GONE    GL52,4,X,X
+    LAV    SKVAL,X
+    CAL    0
+    GONE    GL52,1,X,X
+    $EXIT    1,ERMTST
+GL52:    GOSUB    PRERR,143
+    GOSUB    PRMISS,221
+    $EXIT    1,ERMTST
+
+
+
+
+
+    NB    "Stack overflow"
+
+ERLSO:    CSS
+    GOSUB    PRERR,139
+    MESS    "Process aborted for lack of storage"
+    LAV    DBUGSW,X
+    CAL    0
+    GONE    ER7A,9,X,X
+    LAV    SKIPLV,X
+    CAL    0
+    GONE    GL53,3,X,X
+    LAV    SKVAL,X
+    CAL    0
+    GOEQ    ER7A,3,X,X
+GL53:    MESS    " possibly due to$"
+    GOSUB    PRMISS,206
+    GO    LOHALT,412,X,X
+
+ER7A:    GOSUB    PRCTXT,21
+    GO    LOHALT,410,X,X
+
+
+
+
+    NB    "Arithmetic overflow"
+
+ERLOVF:    CSS
+    GOSUB    PRERR,122
+    MESS    "Arithmetic overflow"
+    GO    ER1A,-57,X,X
+
+
+
+
+    NB    "Illegal argument"
+
+ERLIA:    CSS
+    GOSUB    PRERR,118
+    MESS    "Argument "
+    LAV    ARGNO,X
+    GOSUB    PRNUM,255
+    MESS    " has illegal value"
+    LAV    ARGLEN,X
+    STV    IDLEN,X
+    LAV    ERIAPT,X
+    STV    IDPT,X
+    GOSUB    PRVIZ,290
+    GO    MCABRT,-1935,X,X
+
+
+
+
+    NB    "System error"
+
+MACERR:    CSS
+    GOSUB    PRERR,106
+    MESS    "System error$$"
+    GO    LOHALT,390,X,X
+
+
+
+    NB    "Subroutines for error print-outs"
+
+    SUBR    PRCTXT,X,1
+
+    LAA    STAKPT,D
+    STV    SRCPT,X
+    LAV    ETEMPT,X
+    STV    DSTPT,X
+    LAL    OF(8*LNM)
+    FMOVE
+    MESS    "$$detected in$"
+    LAV    DBUGSW,X
+    CAL    5
+    GOEQ    EROP,69,X,X
+PRCT2:    LAV    LINECT,X
+    GOSUB    PRLINO,165
+PRCT3:    MESS    " of "
+    GOADD    DBUGSW
+    GO    ERPSRC,80,X,T
+    GO    ERMAC,5,X,T
+    GO    ERARG,56,X,T
+    GO    MACERR,-23,E,T
+    GO    ERARG,54,X,T
+    GO    MACERR,-25,E,T
+    GO    ERDEL,54,X,T
+
+
+    NB    "In macro"
+
+ERMAC:    CLEAR    CAPSW
+    LAV    DBUGPT,X
+    GOSUB    PRNAME,205
+    MESS    " with "
+    LAI    ARGPT,X
+    CAL    0
+    GONE    GL54,1,X,X
+    MESS    "no "
+GL54:    MESS    "arguments"
+    CLEAR    ARGNO
+    LAL    4
+    STV    INSW,X
+    LAV    ARGPT,X
+    STV    DBUGPT,X
+PALOOP:    LAI    ARGPT,X
+    CAV    ARGNO,X
+    GOEQ    PRCT1,8,X,X
+    MESS    "  $  "
+    BUMP    ARGNO,1
+    LAV    ARGNO,X
+    GOSUB    PRNUM,201
+    MESS    ")  "
+    GOSUB    SETPTS,-1421
+    GOSUB    PRID,67
+    GO    PALOOP,-11,X,X
+
+PRCT1:    MESS    "$called from$"
+PRNEXT:    LAV    STAKPT,X
+    AAL    OF(LNM)
+    STV    TEMPT,P
+    STV    SRCPT,X
+    LAA    STAKPT,D
+    STV    DSTPT,X
+    LAL    OF(8*LNM)
+    FMOVE
+    LAV    MCHLIN,X
+    CAV    LINECT,X
+    GOEQ    PRCT2,-48,X,X
+    LCI    SPT,X
+    CCN    NLREP
+    GONE    EL19,5,X,X
+    LAV    LINECT,X
+    SAL    1
+    STV    LINECT,P
+    CAV    MCHLIN,X
+    GOEQ    PRCT2,-56,X,X
+EL19:    MESS    "lines "
+    LAV    MCHLIN,X
+    GOSUB    PRNUM,174
+    MESS    " to "
+    LAV    LINECT,X
+    GOSUB    PRNUM,171
+    GO    PRCT3,-61,X,X
+
+
+    NB    "In argument"
+
+ERARG:    MESS    "argument "
+    GO    ERDL1,1,X,X
+
+
+    NB    "In delimiter"
+
+ERDEL:    MESS    "delimiter "
+ERDL1:    LAV    ARGNO,X
+    GOSUB    PRNUM,165
+    MESS    " of "
+
+    NB    "In operation macro, argument or delimiter"
+
+EROP:    LAV    DBUGPT,X
+    STV    ARGPT,X
+    LBV    DBUGPT
+    LAM    OF(11*LNM)
+    STV    DBUGPT,X
+    LAV    DBUGSW,X
+    CAL    5
+    GOEQ    ERMAC,-66,X,X
+    CLEAR    CAPSW
+    LAV    DBUGPT,X
+    GOSUB    PRNAME,139
+    MESS    " evaluated in$"
+    LAV    DBUGSW,X
+    CAL    2
+    GOEQ    ERMAC,-73,X,X
+    GO    PRNEXT,-48,X,X
+
+
+
+    NB    "In source text"
+
+ERPSRC:    MESS    "source text$$$"
+    LAV    ETEMPT,X
+    STV    SRCPT,X
+    LAA    STAKPT,D
+    STV    DSTPT,X
+    LAL    OF(8*LNM)
+    FMOVE
+    $EXIT    1,PRCTXT
+
+
+
+
+
+    SUBR    PRERR,X,1
+
+    MESS    "$$$Error(s)$"
+
+    NB    "Update count of errors in S5"
+
+    LAV    SVARPT,X
+    SAL    OF(5*LNM)
+    STV    LOTEMP,X
+    LAI    LOTEMP,X
+    AAL    1
+    STI    LOTEMP,X
+    $EXIT    1,PRERR
+
+
+
+
+
+    SUBR    PRID,X,1
+
+    LAV    IDLEN,X
+    CAL    0
+    GONE    EL20,2,X,X
+    MESS    "(null)"
+    GO    PRIDEX,17,X,X
+EL20:    LAV    IDLEN,X
+    CAL    OF(LCH)
+    GONE    PRID1,15,X,X
+
+    NB    "Test if layout character"
+
+    LAL    2
+    STV    EXITSW,X
+    GOSUB    LULAYK,-1678
+    GO    PRID2,1,X,C
+    GO    PRID1,10,X,X
+
+    NB    "Print keyword for layout character"
+
+PRID2:    LBV    CHANPT
+    LAM    OF(2*LNM)
+    STV    IDLEN,X
+    LAV    CHANPT,X
+    AAL    OF(3*LNM)
+    STV    IDPT,X
+    MESS    "("
+    GOSUB    LOERPR,322
+    MESS    ")"
+PRIDEX:    $EXIT    1,PRID
+
+    NB    "Print ordinary text"
+
+PRID1:    CLEAR    TEMPSW
+    LAV    IDLEN,X
+    CAL    60
+    GOLE    EL21,8,X,X
+    LAL    1
+    STV    TEMPSW,X
+    LAV    IDPT,X
+    AAV    IDLEN
+    SAL    26
+    STV    TEMPT,X
+    LAL    26
+    STV    IDLEN,X
+EL21:    GOSUB    LOERPR,307
+    LAV    TEMPSW,X
+    CAL    0
+    GOEQ    PRIDEX,-17,X,X
+    LAV    TEMPT,X
+    STV    IDPT,X
+    MESS    "  ---  "
+    GO    PRID1,-20,X,X
+
+
+
+
+
+    SUBR    PRLID,PARNM,1
+    STV    TEMAPT,X
+PRL1:    LBV    TEMAPT
+    LAM    OF(LNM)
+    STV    IDLEN,X
+    LAV    TEMAPT,X
+    AAL    OF(2*LNM)
+    STV    IDPT,P
+    AAV    IDLEN
+    ALIGN
+    STV    TEMAPT,X
+    GOSUB    PRID,-56
+    LAI    TEMAPT,X
+    CAV    WITHMK,X
+    GOEQ    PRL1,-13,X,X
+    LAI    TEMAPT,R
+    CAV    WTHSMK,X
+    GOEQ    GL55,1,X,X
+    $EXIT    1,PRLID
+GL55:    MESS    " "
+    GO    PRL1,-19,X,X
+
+
+
+
+
+    SUBR    PRLINO,PARNM,1
+
+    MESS    "line "
+    LAV    PARNM,X
+    GOSUB    PRNUM,62
+    $EXIT    1,PRLINO
+
+
+
+
+
+    SUBR    PRMISS,X,1
+
+    LAV    NESTLV,X
+    CAL    0
+    GOEQ    PMLAB,31,X,X
+    LAV    CLLFPT,X
+    STV    LFPT,X
+PMDEL:    MESS    "Delimiter "
+PMOR:    LAV    DELPT,X
+    GOSUB    PRLID,-35
+    LAI    DELPT,X
+    STV    CHLINK,P
+    CAL    0
+    GOEQ    EL22,5,X,X
+    MESS    " or "
+    LAV    DELPT,X
+    AAV    CHLINK
+    STV    DELPT,X
+    GO    PMOR,-11,X,X
+EL22:    MESS    " of "
+    CLEAR    CAPSW
+    LAV    MTCHPT,X
+    GOSUB    PRNAME,25
+    LAV    MCHLIN,X
+    GOSUB    PRNFND,31
+    GOSUB    DECALV,-2012
+    GO    PMD1,1,X,C
+    GO    PMDEL,-21,X,X
+PMD1:    CLEAR    SKIPLV
+    LAV    SKVAL,X
+    CAL    0
+    GOGE    PMLAB,4,X,X
+    LAL    0
+    SAV    SKVAL
+    SAL    1
+    STV    SKVAL,X
+PMLAB:    LAV    SKVAL,X
+    CAL    0
+    GOEQ    PMTHRU,7,X,X
+    MESS    "Label "
+    LAV    SKVAL,X
+    GOSUB    PRNUM,20
+    MESS    " referenced"
+    LAV    SKLIN,X
+    GOSUB    PRNFND,11
+    CLEAR    SKVAL
+PMTHRU:    GOSUB    PRCTXT,-229
+    $EXIT    1,PRMISS
+
+
+
+
+
+    SUBR    PRNAME,PARNM,1
+    STV    IDPT,P
+    GOSUB    SETYPE,61
+    GOSUB    PRTYPE,15
+    MESS    " "
+    LAV    IDPT,X
+    GOSUB    PRLID,-80
+    $EXIT    1,PRNAME
+
+
+
+
+
+    SUBR    PRNFND,PARNM,1
+
+    MESS    " in "
+    LAV    PARNM,X
+    GOSUB    PRLINO,-64
+    MESS    " of current text not found$"
+    $EXIT    1,PRNFND
+
+
+
+
+
+    SUBR    PRNUM,PARNM,1
+    STV    MEVAL,X
+    GOSUB    MDCONV,X
+    GOSUB    LOERPR,209
+    $EXIT    1,PRNUM
+
+
+
+
+
+    SUBR    PRTYPE,X,1
+
+    LAV    TYPE,X
+    MULTL    2
+    AAV    CAPSW
+    STV    LOTEMP,X
+    GOADD    LOTEMP
+    GO    PRT0,9,X,T
+    GO    PRT0C,10,X,T
+    GO    PRT1,11,X,T
+    GO    PRT1C,12,X,T
+    GO    PRT2,13,X,T
+    GO    PRT2C,14,X,T
+    GO    PRT3,15,X,T
+    GO    PRT3C,16,X,T
+    GO    PRT4,17,X,T
+    GO    PRT4C,18,X,T
+
+PRT0:    MESS    "stop"
+    GO    PREXIT,17,X,X
+
+PRT0C:    MESS    "Stop"
+    GO    PREXIT,15,X,X
+
+PRT1:    MESS    "macro"
+    GO    PREXIT,13,X,X
+
+PRT1C:    MESS    "Macro"
+    GO    PREXIT,11,X,X
+
+PRT2:    MESS    "warning"
+    GO    PREXIT,9,X,X
+
+PRT2C:    MESS    "Warning"
+    GO    PREXIT,7,X,X
+
+PRT3:    MESS    "insert"
+    GO    PREXIT,5,X,X
+
+PRT3C:    MESS    "Insert"
+    GO    PREXIT,3,X,X
+
+PRT4:    MESS    "skip"
+    GO    PREXIT,1,X,X
+
+PRT4C:    MESS    "Skip"
+PREXIT:    $EXIT    1,PRTYPE
+
+
+
+
+
+    SUBR    PRVIZ,X,1
+
+    MESS    ", viz "
+    LCN    QUTREP
+    GOSUB    MDERCH,X
+    GOSUB    PRID,-177
+    LCN    QUTREP
+    GOSUB    MDERCH,X
+    GOSUB    PRCTXT,-293
+    $EXIT    1,PRVIZ
+
+
+
+
+
+    SUBR    SETYPE,PARNM,1
+    AAL    OF(LNM)
+    STV    TEMAPT,X
+STP1:    LAI    TEMAPT,X
+    AAV    TEMAPT
+    AAL    OF(LNM)
+    ALIGN
+    STV    TEMPT,P
+    AAL    OF(LNM)
+    STV    TEMAPT,X
+    LAI    TEMPT,X
+    CAV    WITHMK,X
+    GOEQ    STP1,-10,X,X
+    LAI    TEMPT,R
+    CAV    WTHSMK,X
+    GOEQ    STP1,-13,X,X
+    LAI    TEMPT,R
+    CAV    SPCSMK,X
+    GONE    GL56,1,X,X
+    BUMP    TEMAPT,OF(LNM)
+GL56:    LAI    TEMAPT,X
+    STV    TYPE,X
+    $EXIT    1,SETYPE
+
+
+
+
+
+
+    SUBR    PRENV,X,1
+
+    MESS    "$$Version AJB$"
+    CLEAR    MTYPE
+ENV1:    MESS    "$"
+    LAV    MTYPE,X
+    CAL    5
+    GONE    GL57,1,X,X
+    $EXIT    1,PRENV
+GL57:    LAV    MTYPE,X
+    STV    TYPE,X
+    LAL    1
+    STV    CAPSW,X
+    GOSUB    PRTYPE,-81
+    MESS    "s are$$"
+    LAV    HASHPT,X
+    STV    PRSTPT,P
+    STV    PRTAPT,X
+TAB3:    LAV    PRTAPT,X
+    STV    PRTBPT,X
+TAB1:    LAI    PRTBPT,X
+    STV    PRTBPT,P
+    CAL    0
+    GOEQ    TAB2,23,X,X
+
+    NB    "Eliminate built-in macros"
+
+    LAV    STFFPT,X
+    CAV    PRTBPT,A
+    GOGR    TAB1,-7,X,X
+    LAV    PRTBPT,X
+    CAV    ENDPT,A
+    GOGE    TAB1,-10,X,X
+    LAV    PRTBPT,R
+    AAL    OF(LNM)
+    GOSUB    SETYPE,-55
+    LAV    TYPE,X
+    CAV    MTYPE,X
+    GONE    TAB1,-16,X,X
+    LAV    TYPE,X
+    CAL    0
+    GOEQ    GL58,3,X,X
+    LAV    PRTBPT,X
+    GOSUB    CKVALY,-2213
+    GO    TAB1,-22,X,C
+GL58:    LAV    PRTBPT,X
+    AAL    OF(LNM)
+    GOSUB    PRLID,-204
+    MESS    "$"
+    GO    TAB1,-27,X,X
+
+TAB2:    BUMP    PRTAPT,OF(LNM)
+    LAV    PRTAPT,X
+    SAV    PRSTPT
+    CAL    OF(LHV)
+    GONE    GL59,2,X,X
+    BUMP    MTYPE,1
+    GO    ENV1,-50,X,X
+GL59:    GO    TAB3,-37,X,X
+
+
+    NB    "End of MI-logic of ML/I"
+
+
+
+
+
+
+    NB    "Special additional code for LOWL ML/I"
+
+
+
+    SUBR    LOSCHN,PARNM,2
+
+    NB    "Corresponds to CHAIN FROM in L"
+
+    STV    CHANPT,P
+    CAL    0
+    GOEQ    LOS1,3,X,X
+    LAI    CHANPT,X
+    STV    CHLINK,X
+    $EXIT    2,LOSCHN
+
+LOS1:    $EXIT    1,LOSCHN
+
+
+
+
+
+    SUBR    LOECHN,X,2
+
+    NB    "Corresponds to ENDCH in L"
+
+    LAV    CHLINK,X
+    CAL    0
+    GOEQ    LOE1,6,X,X
+    LAV    CHLINK,R
+    AAV    CHANPT
+    STV    CHANPT,X
+    LAI    CHANPT,X
+    STV    CHLINK,X
+    $EXIT    1,LOECHN
+
+LOE1:    $EXIT    2,LOECHN
+
+
+
+
+    NB    "Finalisation code"
+
+LOHALT:    MESS    "$$At end of process: "
+    LBV    SVARPT
+    SBL    OF(2*LNM)
+    LAM    0
+    SAL    1
+    STV    TEMP,P
+    GOSUB    PRNUM,-153
+    MESS    " line"
+    LAV    TEMP,X
+    CAL    1
+    GOEQ    LOH1,1,X,X
+    MESS    "s"
+LOH1:    MESS    ", "
+    LAV    INVOCT,X
+    GOSUB    PRNUM,-161
+    MESS    " call"
+    LAV    INVOCT,X
+    CAL    1
+    GOEQ    LOH2,1,X,X
+    MESS    "s"
+LOH2:    MESS    "$"
+    GOSUB    PRENV,-95
+    GOSUB    MDQUIT,X
+
+
+
+
+
+    NB    "Code to process BC delimiter on GO macro"
+
+LOGOBC:    LAV    INFFPT,X
+    STV    TEMPT,X
+    CLEAR    TEMP
+    LCI    IDPT,X
+    CCL    "I"
+    GOEQ    BCI,16,X,X
+    LCI    IDPT,R
+    CCL    "L"
+    GOEQ    BCL,12,X,X
+    LCI    IDPT,R
+    CCL    "N"
+    GONE    ERLIA,-441,X,X
+BCNLP:    LCI    TEMPT,X
+    CCL    "+"
+    GOEQ    BCN1,3,X,X
+    LCI    TEMPT,R
+    CCL    "-"
+    GONE    BCN2,2,X,X
+BCN1:    BUMP    TEMPT,OF(LCH)
+    GO    BCNLP,-8,X,X
+
+BCN2:    BUMP    TEMP,1
+BCL:    BUMP    TEMP,1
+BCI:    LAV    TEMPT,X
+    CAV    ERIAPT,A
+    GOEQ    GOFAIL,-1388,X,X
+BCLOOP:    LCI    TEMPT,X
+    GOPC    GOFAIL,-1390,X,X
+    LAV    TEMP,X
+    CAL    0
+    GOEQ    BCOK,9,X,X
+    LAL    1
+    STV    IDLEN,X
+    CLEAR    MEVAL
+    LCI    TEMPT,X
+    GOND    BCTST,1,X,X
+    BUMP    IDLEN,1
+BCTST:    LAV    IDLEN,X
+    CAV    TEMP,X
+    GONE    GOFAIL,-1402,X,X
+BCOK:    BUMP    TEMPT,OF(LCH)
+    LAV    TEMPT,X
+    CAV    ERIAPT,A
+    GOEQ    GOSUC,-1407,X,X
+    GO    BCLOOP,-19,X,X
+
+
+
+
+
+
+    SUBR    LOERPR,X,1
+
+    NB    "Prints text in error messages"
+
+    LAV    IDPT,X
+    AAV    IDLEN
+    STV    DSTPT,X
+LOERLP:    LAV    IDPT,X
+    CAV    DSTPT,A
+    GOGE    LOERET,9,X,X
+    LCI    IDPT,X
+    CCN    SLREP
+    GOEQ    LOERSL,4,X,X
+    LCI    IDPT,R
+    GOSUB    MDERCH,X
+LOER1:    BUMP    IDPT,OF(LCH)
+    GO    LOERLP,-10,X,X
+LOERSL:    MESS    "(SL)"
+    GO    LOER1,-4,X,X
+LOERET:    $EXIT    1,LOERPR
+
+
+
+
+
+
+    SUBR    LONUM,X,2
+
+    NB    "Performs character to numerical conversion"
+
+    LCI    IDPT,X
+    GOND    NUMEX,16,X,X
+    STV    MEVAL,X
+    LAV    IDPT,X
+    STV    TEMPT,X
+LNMLP:    BUMP    TEMPT,OF(LCH)
+    LAV    SPT,X
+    CAV    TEMPT,A
+    GOLT    NMFIN,8,X,X
+    LCI    TEMPT,X
+    GOND    ERLIA,-502,E,X
+    STV    TEMP,X
+    LAV    MEVAL,X
+    MULTL    10
+    AAV    TEMP
+    STV    MEVAL,X
+    GO    LNMLP,-12,X,X
+
+NMFIN:    $EXIT    2,LONUM
+NUMEX:    $EXIT    1,LONUM
+
+    PRGEN
+
+;
+    END     MDSTAR
+    

@@ -1,0 +1,38 @@
+
+; FILENAME:       LOLAYO.mac
+; DESCRIPTION:
+; OUTPUT, COMMENT, AND LAYOUT STATEMENTS, [WXYZ] x.y.z
+
+;   Print a message to the debug stream: MESS "characters"  
+        DEFINE MESS (S, %msg, %exit) <
+        movei       index, %msg
+        pushj       sp, MDMESS
+        jrst        %exit
+        XLIST
+%msg:   IRPC S,< IFDIF </S/></"/>,<
+            IFDIF </S/></$/>,<        exp         "S" >
+            IFIDN </S/></$/>,<        exp         NLREP, CRREP >
+                                  >
+        >
+        exp         0           ; end of string
+        LIST
+%exit:
+>
+
+;   LOWL designates a comment ("nota bene")
+        DEFINE NB (STRING) <   >
+
+;   LOWL designates the start of program. This is a good place to dump 
+;   the machine-dependent logic.
+        DEFINE PRGST (STRING) <
+        MDLGIC
+        REMARK      "... START OF LOWL CODE ..."
+>
+
+;   LOWL designates the end of program.
+        DEFINE PRGEN <
+        REMARK      "... END OF LOWL CODE ..."
+        jrst        MDQUIT
+>
+
+

@@ -1,0 +1,44 @@
+;
+; FILENAME:       LOTABL.mac
+; DESCRIPTION:
+; DEFINITION OF THE 'OF' MACRO, [WXYZ] x.y.z
+; STATEMENTS FOR DEFINING TABLE ITEMS, [WXYZ] x.y.z
+
+;   The LOWL 'OF(expression)' is used to evaluate simple compile-time expressions.
+        DEFINE OF (expr) <expr>
+
+;   Declare a variable.
+        DEFINE DCL (V) <
+V:      exp         0
+>
+
+;   Equate two variables.
+        DEFINE EQU (V1, V2) <
+V1:     exp         0
+>
+
+;   Equate a name to an integer. Used for "manifest" constants, not storage.
+        DEFINE IDENT (V, DECINT) <
+        V=DECINT
+>
+
+;   Define a numerical constant.
+        DEFINE CON (N) <
+        exp         N
+>
+
+;   Define a character constant.
+        DEFINE NCH (CHRNAM) <
+        exp         CHRNAM
+>
+
+;   Define a character string constant.
+        DEFINE STR (S) <
+        XLIST
+        IRPC S,< IFDIF </S/></"/>,<        exp         "S" > >
+        LIST
+>
+
+;   Align up to next boundary. Since LCH is equal to LNM for this implementation, 
+;   the ALIGN operation is not needed.
+        DEFINE ALIGN < >

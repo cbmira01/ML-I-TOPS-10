@@ -1,0 +1,7 @@
+ML/I test -- ALTER -- version T2A
+Tests MC-ALTER (but resets environment so later tests not affected)
+12345 SB 12345
+23 SB 23
+Try errors (note that on an implementation with alignment the first
+ two will not give errors)
+1.2.3.4.5.6.7. SB 1.2.3.4.5.6.7.

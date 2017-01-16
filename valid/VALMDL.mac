@@ -1,0 +1,480 @@
+
+
+
+        SEARCH       jobdat, macten, uuosym, lowldf, machdp
+        
+        RADIX        10            ; all LOWL numerals are declared in base 10
+        LALL            
+        TITLE        MLIAJB
+    
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+        PRGST   "Validate machine-dependent logic for ML/I implementation."
+        NB      "This program accumulates various tests of LOWL machine-dependent logic."
+
+        NB      "The following variables are needed to reconcile with machine-dependent logic."
+        DCL     SVARPT
+        DCL     SRCPT
+        DCL     DSTPT
+        DCL     FFPT
+        DCL     LFPT
+        DCL     LINKPT
+        DCL     IDLEN
+        DCL     IDPT
+        DCL     MEVAL
+        DCL     HASHPT
+        DCL     HTABPT
+        DCL     OP1
+        DCL     OPSW
+        DCL     SPT
+        DCL     PARNM
+
+        NB      "The following variable(s) are used as workspace for testing."
+        DCL     PTRTMP
+
+        IDENT   MULOP, 1
+        IDENT   DIVOP, 0
+
+TABFST:
+        NB      "The following strings are used to test hashing."
+
+STR1:   
+        CON     5
+        NCH     "M"
+        NCH     "C"
+        NCH     "D"
+        NCH     "E"
+        NCH     "F"
+        NB      "OFFSET SHOULD HASH TO 31"
+
+STR2:   
+        CON     6
+        NCH     "M"
+        NCH     "C"
+        NCH     "S"
+        NCH     "K"
+        NCH     "I"
+        NCH     "P"
+        NB      "OFFSET SHOULD HASH TO 14"
+
+STR3:   
+        CON     7
+        NCH     "M"
+        NCH     "C"
+        NCH     "S"
+        NCH     "K"
+        NCH     "I"
+        NCH     "P"
+        NCH     "G"
+        NB      "OFFSET SHOULD HASH TO 12"
+
+STR4:   
+        CON     8
+        NCH     "M"
+        NCH     "C"
+        NCH     "N"
+        NCH     "O"
+        NCH     "W"
+        NCH     "A"
+        NCH     "R"
+        NCH     "N"
+        NB      "OFFSET SHOULD HASH TO 24"
+
+BEGIN::   
+        MESS    "$$$This program will validate machine-dependent logic for ML/I implementation."
+
+        MESS    "$$$Testing disk I/O routines..."
+        MESS    "$$   The contents of input stream should have been echoed to the output stream. "
+        MESS    "$$   The contents of input stream should have been echoed to the debug stream.  "
+   
+RDLOOP:   
+        GOSUB   MDREAD
+        GO      RDSTOP
+        GOSUB   MDOUCH
+        GOSUB   MDERCH
+        GO      RDLOOP
+RDSTOP:
+
+
+        MESS    "$$$Testing MDOP and MDCONV routines..."
+
+        MESS    "$$   Test of division by zero ... MDOP should take the NO-SKIP exit."
+        MESS    "$   -131 / 0 = "
+        LAL     -131
+        STV     OP1
+        LAL     0
+        STV     MEVAL
+        LAV     DIVOP
+        STV     OPSW
+        GOSUB   MDOP
+        GO      DZDET
+        GO      DZNDET
+
+DZNDET:   
+        GOSUB   MDCPRT
+        MESS    " ... the divide-by-zero error was **not** properly detected!"
+        GO      MDQUIT
+
+DZDET:   
+        GOSUB   MDCPRT
+        MESS    " ... the divide-by-zero error has been correctly detected."
+
+
+
+        MESS    "$$   Tests of various multiplications and divisions."
+
+        MESS    "$$      12 * 3 = "
+        LAL     12
+        BSTK
+        LAL     3
+        BSTK
+        LAL     MULOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be 36."
+
+        MESS    "$      -13 *  4 = "
+        LAL     -13
+        BSTK
+        LAL     4
+        BSTK
+        LAL     MULOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be -52."
+
+        MESS    "$      14 * -5 = "
+        LAL     14
+        BSTK
+        LAL     -5
+        BSTK
+        LAL     MULOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be -70."
+
+        MESS    "$      -15 * -7 = "
+        LAL     -15
+        BSTK
+        LAL     -7
+        BSTK
+        LAL     MULOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be 105."
+
+        MESS    "$$      131342 * 255 = "
+        LAL     131342
+        BSTK
+        LAL     255
+        BSTK
+        LAL     MULOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be 33492210."
+
+        MESS    "$      -121677 * 245 = "
+        LAL     -121677
+        BSTK
+        LAL     245
+        BSTK
+        LAL     MULOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be -29810865."
+
+        MESS    "$      111789 * -155 = "
+        LAL     111789
+        BSTK
+        LAL     -155
+        BSTK
+        LAL     MULOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be -17327295."
+
+        MESS    "$      -101563 * -251 = "
+        LAL     -101563
+        BSTK
+        LAL     -251
+        BSTK
+        LAL     MULOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be 25492313."
+
+        MESS    "$$      34100200302 / 13 = "
+        LAL     34100200302
+        BSTK
+        LAL     13
+        BSTK
+        LAL     DIVOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be 2623092330."
+
+        MESS    "$      -33010020037 / 14 = "
+        LAL     -33010020037
+        BSTK
+        LAL     14
+        BSTK
+        LAL     DIVOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be -2357858575."
+
+        MESS    "$      32001002003 / -15 = "
+        LAL     32001002003
+        BSTK
+        LAL     -15
+        BSTK
+        LAL     DIVOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be -2133400134."
+
+        MESS    "$      -31101202309 / -17 = "
+        LAL     -31101202309
+        BSTK
+        LAL     -17
+        BSTK
+        LAL     DIVOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be 1829482488."
+
+        MESS    "$$      7 / 4 = "
+        LAL     7
+        BSTK
+        LAL     4
+        BSTK
+        LAL     DIVOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be 1."
+
+        MESS    "$      4 / 4 = "
+        LAL     4
+        BSTK
+        LAL     4
+        BSTK
+        LAL     DIVOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be 1."
+
+        MESS    "$      3 / 4 = "
+        LAL     3
+        BSTK
+        LAL     4
+        BSTK
+        LAL     DIVOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be 0."
+
+        MESS    "$      -1 / -4 = "
+        LAL     -1
+        BSTK
+        LAL     -4
+        BSTK
+        LAL     DIVOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be 0."
+
+        MESS    "$      3 / -4 = "
+        LAL     3
+        BSTK
+        LAL     -4
+        BSTK
+        LAL     DIVOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be -1."
+
+        MESS    "$      -1 / 4 = "
+        LAL     -1
+        BSTK
+        LAL     4
+        BSTK
+        LAL     DIVOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be -1."
+
+        MESS    "$      -8 / 4 = "
+        LAL     -8
+        BSTK
+        LAL     4
+        BSTK
+        LAL     DIVOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be -2."
+
+        MESS    "$      7 / -4 = "
+        LAL     7
+        BSTK
+        LAL     -4
+        BSTK
+        LAL     DIVOP
+        BSTK
+        GOSUB   MULDIV
+        GO      DZDERR
+        GOSUB   MDCPRT
+        MESS    " ... should be -2."
+
+
+
+        MESS    "$$$Testing MDFIND (hashing) routine..."
+        MESS    "$   hash value = [LEN * [ASC(1st char) + ASC(last char)] ] & 31."
+
+        MESS    "$$   Let's suppose HASHPT points to address 1000..."
+        LAL     1000
+        STV     HASHPT
+
+        MESS    "$$         String to hash: "
+        LAA     STR1
+        GOSUB   MDFPRT
+        MESS    "  ... should be 1000 + 31"
+
+        MESS    "$        String to hash: "
+        LAA     STR2
+        GOSUB   MDFPRT
+        MESS    "  ... should be 1000 + 14"
+
+        MESS    "$       String to hash: "
+        LAA     STR3
+        GOSUB   MDFPRT
+        MESS    "  ... should be 1000 + 12"
+
+        MESS    "$      String to hash: "
+        LAA     STR4
+        GOSUB   MDFPRT
+        MESS    "  ... should be 1000 + 24"
+
+
+
+QUITOK:   
+        MESS    "$$$Test program has ended normally."
+        GO      MDQUIT
+        
+DZDERR:   
+        MESS    "$$$Error in MULDIV exit! This branch should **not** have been taken."
+        GO      MDQUIT
+        
+ERLOVF:   
+        MESS    "$$$Arithmetic overflow in LOWL logic! This branch is currently not used."
+        GO      MDQUIT
+        
+ERLSO:   
+        MESS    "$$$Stack overflow in LOWL logic! This branch is currently not used."
+        GO      MDQUIT
+
+
+
+    SUBR    MULDIV,X,2
+        NB      "Multiply or divide; operator and arguments are on the backward-stack."
+        NB      "  No-skip exit means divide-by-zero detected;"
+        NB      "  skip exit means division is valid."
+        UNSTK   OPSW
+        UNSTK   MEVAL
+        UNSTK   OP1
+        GOSUB   MDOP
+        GO      DIVZ
+        GO      DMOK
+        
+DIVZ:   $EXIT   1
+DMOK:   $EXIT   2
+
+
+
+    SUBR    MDCPRT,X,1
+        NB      "MD-convert a numeric result into string representation, "
+        NB      "   then print the string."
+        GOSUB   MDCONV
+        GOSUB   PRTSTR
+        $EXIT   1
+
+
+
+    SUBR   MDFPRT,PARNM,1
+        NB      "Print a short string, then print the hash address of the "
+        NB      "   string; string address is in PARNM."
+        LAI     PARNM
+        STV     IDLEN
+        LAV     PARNM
+        AAL     1
+        STV     IDPT
+        LAV     PARNM
+        AAV     IDLEN
+        STV     SPT
+        GOSUB   PRTSTR
+        GOSUB   MDFIND
+        LAV     HTABPT
+        STV     MEVAL
+        GOSUB   MDCONV
+        MESS    "      HTABPT = "
+        GOSUB   PRTSTR
+        $EXIT   1
+
+
+
+    SUBR   PRTSTR,X,1
+        NB      "Print the string at IDPT, of length IDLEN."
+        LAV     IDPT
+        STV     PTRTMP
+        LAV     IDLEN
+PR1:   
+        LCI     PTRTMP
+        GOSUB   MDERCH
+        BUMP    PTRTMP, 1
+        SAL     1
+        CAL     0
+        GONE    PR1
+        $EXIT   1
+
+        
+        PRGEN
+   
+        END     MDSTAR
+

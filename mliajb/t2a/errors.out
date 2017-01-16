@@ -1,0 +1,12 @@
+ML/I test -- ERRORS -- version T2A
+Checks detection of errors
+1 2 3 SB 1 2 3
+1234 SB 1234
+123456 SB 123456
+1234 SB 1234
+1234 SB 1234
+123456 SB 123456
+A quick way to verify that all the following errors have been
+detected is to check that the environment at the end contains
+only one macro,insert,stop,skip and warning.
+1.2.3.4.5. SB 1.2.3.4.5.

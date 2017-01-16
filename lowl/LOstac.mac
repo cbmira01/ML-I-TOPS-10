@@ -1,0 +1,72 @@
+
+; FILENAME:       LOSTAC.mac
+; DESCRIPTION:
+; STACKING, and BLOCK MOVE STATEMENTS, [WXYZ] x.y.z
+
+;   Stack the LOWL A register onto the forward-stack.
+        DEFINE FSTK <
+        movem       LOWL.A, @FFPT
+        move        ac2, FFPT
+        addi        ac2, OF(LNM)
+        movem       ac2, FFPT
+        sub         ac2, LFPT
+        jumpge      ac2, ERLSO      ;; detection of stack overflow
+>
+
+;   Stack the LOWL A register onto the backward-stack.
+        DEFINE BSTK <
+        move        ac2, LFPT
+        subi        ac2, OF(LNM)
+        movem       ac2, LFPT
+        movem       LOWL.A, @LFPT
+        move        ac2, FFPT
+        sub         ac2, LFPT
+        jumpge      ac2, ERLSO      ;; detection of stack overflow
+>
+;   Stack the LOWL C register onto the forward-stack.
+        DEFINE CFSTK <
+        movem       LOWL.C, @FFPT
+        move        ac2, FFPT
+        addi        ac2, OF(LCH)
+        movem       ac2, FFPT
+        sub         ac2, LFPT
+        jumpge      ac2, ERLSO      ;; detection of stack overflow
+>
+
+;   Pop the backward-stack into memory location V.
+        DEFINE UNSTK (V) <
+        move        ac2, @LFPT
+        movem       ac2, V
+        move        ac2, LFPT
+        addi        ac2, OF(LNM)
+        movem       ac2, LFPT
+>
+
+;   Perform forwards block move from SRCPT to DSTPT, 
+;   indexed by the LOWL A register.
+        DEFINE FMOVE (%loop) <
+        move        index, LOWL.A
+        move        ac1, SRCPT
+        move        ac2, DSTPT
+%loop:  move        (ac1)
+        movem       (ac2)
+        addi        ac1, 1
+        addi        ac2, 1
+        sojg        index, %loop
+>
+
+;   Perform backwards block move from SRCPT to DSTPT, 
+;   indexed by LOWL A register.
+        DEFINE BMOVE (%loop) <
+        move        index, LOWL.A
+        move        ac1, SRCPT
+        move        ac2, DSTPT
+        add         ac1, index
+        add         ac2, index
+%loop:  subi        ac1, 1
+        subi        ac2, 1
+        move        (ac1)
+        movem       (ac2)
+        sojg        index, %loop
+>
+

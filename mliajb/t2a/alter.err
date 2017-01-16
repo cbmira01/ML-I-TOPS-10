@@ -1,0 +1,100 @@
+
+
+Error(s)
+Argument 2 has illegal value, viz "EQ"
+
+detected in
+macro MCALTER with arguments
+  1) =
+  2)  EQ
+called from
+line 39 of source text
+
+Macro MCALTER aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "EQ"
+
+detected in
+macro MCALTER with arguments
+  1)  EQ 
+  2)  =
+called from
+line 40 of source text
+
+Macro MCALTER aborted due to above error
+
+
+
+Error(s)
+Argument 1 has illegal value, viz "(null)"
+
+detected in
+macro MCALTER with arguments
+  1) (SPACE)
+  2)  X
+called from
+line 41 of source text
+
+Macro MCALTER aborted due to above error
+
+
+
+Error(s)
+Argument 2 has illegal value, viz "(null)"
+
+detected in
+macro MCALTER with arguments
+  1)  GE 
+  2) (null)
+called from
+line 42 of source text
+
+Macro MCALTER aborted due to above error
+
+
+
+Error(s)
+Argument 2 has illegal value, viz "."
+
+detected in
+macro MCALTER with arguments
+  1)  N 
+  2) .
+called from
+line 43 of source text
+
+Macro MCALTER aborted due to above error
+
+
+
+Error(s)
+Argument 2 has illegal value, viz "G."
+
+detected in
+macro MCALTER with arguments
+  1)  GE 
+  2)  G.
+called from
+line 44 of source text
+
+Macro MCALTER aborted due to above error
+
+
+
+Error(s)
+Argument 2 has illegal value, viz "VERYLONGINDEED"
+
+detected in
+macro MCALTER with arguments
+  1)  , 
+  2)  VERYLONGINDEED
+called from
+line 45 of source text
+
+Macro MCALTER aborted due to above error
+
+
+At end of process: 46 lines, 45 calls

@@ -1,0 +1,32 @@
+
+
+Error(s)
+Delimiter ) of macro MCLENG ( in line 9 of current text not found
+Delimiter (NL) of macro MCGO in line 9 of current text not found
+Delimiter GE or GR or EN or BC or = of macro MCGO in line 9 of current t
+ext not found
+Delimiter (NL) of macro MCSET in line 9 of current text not found
+Delimiter ) of macro MCSUB ( in line 8 of current text not found
+Delimiter (NL) of macro MCDEFG in line 8 of current text not found
+Delimiter (NL) of macro MCPVAR in line 8 of current text not found
+Delimiter IF or UNLESS or (NL) of macro MCGO in line 8 of current text n
+ot found
+Delimiter (NL) of macro MCNOTE in line 8 of current text not found
+Delimiter AS or SSAS of macro MCDEF in line 7 of current text not found
+Delimiter (NL) of macro MCALTER in line 7 of current text not found
+Delimiter , or (NL) of macro MCINSG in line 7 of current text not found
+Delimiter (NL) of macro MCINS in line 7 of current text not found
+Delimiter VARS or AS or SSAS of macro MCDEF in line 6 of current text no
+t found
+Delimiter (NL) of macro MCSKIPG in line 6 of current text not found
+Delimiter , or (NL) of macro MCSKIP in line 6 of current text not found
+Delimiter (NL) of macro MCWARNG in line 6 of current text not found
+Delimiter (NL) of macro MCWARN in line 6 of current text not found
+Delimiter (NL) of macro MCSTOP in line 6 of current text not found
+
+
+detected in
+line 10 of source text
+
+
+At end of process: 9 lines, 4 calls
