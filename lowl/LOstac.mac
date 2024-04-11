@@ -1,7 +1,9 @@
+;
+; Filename:       LOSTAC.mac
+;
+; Stacking and block move statements, [LOWL] 2.11.9
+;
 
-; FILENAME:       LOSTAC.mac
-; DESCRIPTION:
-; STACKING, and BLOCK MOVE STATEMENTS, [WXYZ] x.y.z
 
 ;   Stack the LOWL A register onto the forward-stack.
         DEFINE FSTK <

@@ -1,7 +1,8 @@
-
-; FILENAME:       LOARIT.mac
-; DESCRIPTION:
-; ARITHMETIC AND LOGICAL STATEMENTS, [WXYZ] x.y.z
+;
+; Filename:       LOARIT.mac
+;
+; Arithmetic and logical statements, [LOWL] 2.11.4
+;
 
 
 ;   Add the contents of memory location V to the LOWL A register.
@@ -60,4 +61,3 @@
         DEFINE ANDL (N) <
         and         LOWL.A, [N]
 >
-

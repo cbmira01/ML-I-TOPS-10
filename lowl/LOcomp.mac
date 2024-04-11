@@ -1,8 +1,10 @@
-
-; FILENAME:       LOCOMP.mac
-; DESCRIPTION:
-; COMPARE STATEMENTS, [WXYZ] x.y.z
 ;
+; Filename:       LOCOMP.mac
+;
+; Compare statements, [LOWL] 2.11.5
+;
+
+
 ;   Compare the LOWL A register with the contents of memory location V.
         DEFINE CAV (V, ADORIN) <
         move        ac1, LOWL.A
@@ -38,4 +40,3 @@
         move        ac1, LOWL.C
         sub         ac1, @V
 >
-

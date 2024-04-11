@@ -1,7 +1,8 @@
-
-; FILENAME:       LOLOAD.mac
-; DESCRIPTION:
-; LOAD AND STORE STATEMENTS, [WXYZ] x.y.z
+;
+; Filename:       LOLOAD.mac
+;
+; Load and store statements, [LOWL] 2.11.2, 2.11.3
+;
 
 
 ;   Load the LOWL A register with the contents of memory location V.

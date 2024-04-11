@@ -1,7 +1,9 @@
+;
+; Filename:       LOBRAN.mac
+;
+; Subroutines and branching, [LOWL] 2.11.6, 2.11.7, 2.11.8
+;
 
-; FILENAME:       LOBRAN.mac
-; DESCRIPTION:
-; SUBROUTINES AND BRANCHING, [WXYZ] x.y.z
 
 ;   Declare a subroutine: SUBR    subroutine_name,parameter_name,number_of_exits
         DEFINE SUBR (SUBNAM, PARAM, NUMEXS) <
@@ -80,7 +82,7 @@ SUBNAM: IFDIF <PARAM><X>,<        movem       LOWL.A, PARAM>
         caige       LOWL.C, "a"
         jrst        LABNAM
         caile       LOWL.C, "z"
-        jrst        LABNAM
+        jrst        LABNAM          ;; puncuation recognized here
 %exit:                              ;; lower case recognized here
 >
 

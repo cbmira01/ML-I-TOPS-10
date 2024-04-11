@@ -1,7 +1,9 @@
+;
+; Filename:       LOLAYO.mac
+;
+; Output, comment, and layout statements, [LOWL] 2.11.11
+;
 
-; FILENAME:       LOLAYO.mac
-; DESCRIPTION:
-; OUTPUT, COMMENT, AND LAYOUT STATEMENTS, [WXYZ] x.y.z
 
 ;   Print a message to the debug stream: MESS "characters"  
         DEFINE MESS (S, %msg, %exit) <
@@ -20,19 +22,18 @@
 >
 
 ;   LOWL designates a comment ("nota bene")
+;   Comments from LOWL source code are not passed through to the assembler.
         DEFINE NB (STRING) <   >
 
-;   LOWL designates the start of program. This is a good place to dump 
-;   the machine-dependent logic.
+;   LOWL designates the start of a program. This is a good place to 
+;   dump machine-dependent logic.
         DEFINE PRGST (STRING) <
         MDLGIC
         REMARK      "... START OF LOWL CODE ..."
 >
 
-;   LOWL designates the end of program.
+;   LOWL designates the end of a program.
         DEFINE PRGEN <
         REMARK      "... END OF LOWL CODE ..."
         jrst        MDQUIT
 >
-
-

@@ -1,7 +1,9 @@
+;
+; Filename:       LOEXTE.mac
+;
+; LOWL extensions for the ML/I macro processor, [LSUP] 1.1, 1.2
+;
 
-; FILENAME:       LOEXTE.mac
-; DESCRIPTION:
-; LOWL EXTENSIONS FOR THE ML/I MACRO PROCESSOR, [WXYZ] x.y.z
 
 ;   Compute the relative offset to a tableLabel: RL tableLabel, OF()
         DEFINE RL (TABLAB, N.OF, %here) <
@@ -93,6 +95,3 @@ LNKNAM: pop         sp, LINKPT
         DEFINE LINKB <
         jrst        @LINKPT
 >
-
-        END                         ; end of LOWL macro definitions
-;

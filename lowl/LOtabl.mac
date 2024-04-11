@@ -1,10 +1,14 @@
 ;
-; FILENAME:       LOTABL.mac
-; DESCRIPTION:
-; DEFINITION OF THE 'OF' MACRO, [WXYZ] x.y.z
-; STATEMENTS FOR DEFINING TABLE ITEMS, [WXYZ] x.y.z
+; Filename:       LOTABL.mac
+;
+; Definition of variables, [LOWL] 2.9
+; Definition of the 'OF' macro, [LSUP] 1.2.2
+; Statements for defining table items, [LOWL] 2.11.1
+;
+
 
 ;   The LOWL 'OF(expression)' is used to evaluate simple compile-time expressions.
+;   expr is just passed to the assembler for evaluation.
         DEFINE OF (expr) <expr>
 
 ;   Declare a variable.
@@ -12,7 +16,7 @@
 V:      exp         0
 >
 
-;   Equate two variables.
+;   Equate two variables, "easier to map" version.
         DEFINE EQU (V1, V2) <
 V1:     exp         0
 >
