@@ -6,11 +6,7 @@
 ;
 ; Described in [LSUP] chapter 2
    
-   UNIVERSAL   MDCODE
-   
-
    DEFINE MDCODE <
-
 
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; Machine-dependent code: startup/initialize, run-time, and shutdown/exit
