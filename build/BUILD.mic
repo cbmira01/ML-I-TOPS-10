@@ -1,23 +1,36 @@
 
+; Build UNIVERSAL files for symbol search, UNVs and LSTs only
+
 r MACRO
-lowldf=lostar,loarit,lobran,locomp,loexte,lolayo,loload,lostac,lotabl,loend
-machdp=machdp
-hellow,hellow=hellow
-ltest4,ltest4=ltest4
-valmdl,valmdl=valmdl
-mliajb,mliajb=mliajb
+,lowldf=UNVbeg,loarit,lobran,locomp,loexte,lolayo,loload,lostac,lotabl,UNVend
+,mdSTOR=UNVbeg,mdSTOR,UNVend
+,mdCODE=UNVbeg,mdCODE,UNVend
 ^C
 
+; Build LOWL-defined applications:
+;   - Hellow World
+;   - Validate machine-dependent logic used by ML/I
+;   - Test runner for ML/I 
+;   - the ML/I application
 
-LOAD hworld
-SAVE
+;r MACRO
+;hellow,hellow=hellow
+;ltest4,ltest4=ltest4
+;valmdl,valmdl=valmdl
+;mliajb,mliajb=mliajb
+;^C
 
-LOAD ltest4
-SAVE
+; Link and save executables for the applications
 
-LOAD valmdl
-SAVE
+;LOAD hworld
+;SAVE
 
-LOAD mliajb
-SAVE
+;LOAD ltest4
+;SAVE
+
+;LOAD valmdl
+;SAVE
+
+;LOAD mliajb
+;SAVE
 

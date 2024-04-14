@@ -1,5 +1,5 @@
 
-        SEARCH      jobdat, macten, uuosym, lowldf, machdp
+        SEARCH      jobdat, macten, uuosym, lowldf, mdstor, mdcode
         
         RADIX       10           ; all LOWL numerals are declared in base 10
         LALL                
