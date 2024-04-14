@@ -121,7 +121,7 @@ MDFIND::    move    ac2, @IDPT      ; start with value of first character in the
 ; Perform multiplication or division, [LSUP] 2.6
 ; MDOP must return a strict "floor" result on negative quotients;
 ;   that is, -7 / 4 = -2, not -1.
-MDOP::      move   ac2, OPSW        ; OPSW=1 -> multiply, divide otherwise
+MDOP::      move   ac2, OPSW        ; OPSW=1 means multiply, divide otherwise
             caie   ac2, 1
                 jrst   mdop10
 
