@@ -5,8 +5,10 @@
 ;           code section
 ;
 ; Described in [LSUP] chapter 2
-   
-   DEFINE MDCODE <
+
+    UNIVERSAL MDCODE
+
+    DEFINE MDCODE <
 
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; Machine-dependent code: startup/initialize, run-time, and shutdown/exit
@@ -236,3 +238,5 @@ mdme10:     move    ac2, 0(index)   ; load the next character
 
 
 >  ; end of macro MDCODE
+
+            END

@@ -5,8 +5,10 @@
 ;       storage section
 ;
 ; Described in [LSUP] chapter 2
+
+    UNIVERSAL MDSTOR
    
-   DEFINE MDSTOR <
+    DEFINE MDSTOR <
 
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; Register allocations on target machine, [LOWL] 2.7
@@ -126,3 +128,5 @@ dbfnam: .RBEXT
 
 
 >   ; end of macro MDSTOR
+
+        END
