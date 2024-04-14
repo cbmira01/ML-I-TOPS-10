@@ -93,7 +93,7 @@ signqu:      exp   0   ; work area to figure out sign of division
 ; Input, results and debug I/O streams, [LSUP] 2.1
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-;    Working storage for default ML/I input stream, "INPUT.TXT"
+;    Working storage for default ML/I input stream, "INPUT.MLI"
         ischan=1
 isblk:  exp   .IOASC
         sixbit   /DSK/
@@ -102,9 +102,9 @@ isbuf:  block   3
 isfnam: .RBEXT
         0
         sixbit   /INPUT/
-        sixbit   /TXT/
+        sixbit   /MLI/
 
-;   Working storage for default ML/I results stream, "RESULT.TXT"
+;   Working storage for default ML/I results stream, "RESULT.OUT"
         oschan=2
 osblk:  exp   .IOASC
         sixbit   /DSK/
@@ -113,9 +113,9 @@ osbuf:  block   3
 osfnam: .RBEXT
         0
         sixbit   /RESULT/
-        sixbit   /TXT/
+        sixbit   /OUT/
 
-;   Working storage for ML/I debug stream, "DEBUG.OUT"
+;   Working storage for ML/I debug stream, "DEBUG.ERR"
         dbchan=3
 dbblk:  exp   .IOASC
         sixbit   /DSK/
@@ -124,7 +124,7 @@ dbbuf:  block   3
 dbfnam: .RBEXT
         0
         sixbit   /DEBUG/
-        sixbit   /OUT/
+        sixbit   /ERR/
 
 
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
