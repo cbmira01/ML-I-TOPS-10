@@ -2,7 +2,6 @@ del *.lst
 del *.rel
 del *.exe
 del *.unv
-del *.ctl
 del *.log
 del DEBUG.ERR
 del RESULT.OUT
