@@ -2,11 +2,8 @@ del *.lst
 del *.rel
 del *.exe
 del *.unv
-del *.mac
-del *.ml1
 del *.ctl
 del *.log
-copy =[100,100]*.mac
-copy =[100,100]*.ml1
-copy =[100,100]*.ctl
+del DEBUG.ERR
+del RESULT.OUT
 dir *.*
