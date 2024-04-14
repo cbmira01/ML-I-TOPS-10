@@ -355,3 +355,5 @@ mdme10:     move    ac2, 0(index)   ; load the next character
 
 
 >  ; end of macro MDLGIC
+
+            END
