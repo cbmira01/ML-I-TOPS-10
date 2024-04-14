@@ -28,7 +28,8 @@
 ;   LOWL designates the start of a program. This is a good place to 
 ;   dump machine-dependent logic.
         DEFINE PRGST (STRING) <
-        MDLGIC
+        MDSTOR
+        MDCODE
         REMARK      "... START OF LOWL CODE ..."
 >
 
