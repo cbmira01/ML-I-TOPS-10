@@ -1,0 +1,113 @@
+.copy TSTALL.txt = notext.txt
+
+
+; ===================  Hellow World
+.COPY INPUT.ML1=NOTEXT.TXT
+.COPY DEBUG.ERR=NOTEXT.TXT
+.RUN HELLOW
+;.TYPE DEBUG.ERR
+
+.copy TSTALL.txt = TSTALL.txt, break.txt
+.copy TSTALL.txt = TSTALL.txt, result.out
+.copy TSTALL.txt = TSTALL.txt, debug.err
+
+; ===================  Test of LOWL macro definitions
+.COPY INPUT.ML1=NOTEXT.TXT
+.COPY DEBUG.ERR=NOTEXT.TXT
+.RUN LTEST4
+
+.copy TSTALL.txt = TSTALL.txt, break.txt
+.copy TSTALL.txt = TSTALL.txt, result.out
+.copy TSTALL.txt = TSTALL.txt, debug.err
+
+; ===================  Validate machine-dependent logic
+.COPY INPUT.ML1=MILTON.TXT
+.COPY DEBUG.ERR=NOTEXT.TXT
+.RUN VALMDL
+
+.copy TSTALL.txt = TSTALL.txt, break.txt
+.copy TSTALL.txt = TSTALL.txt, result.out
+.copy TSTALL.txt = TSTALL.txt, debug.err
+
+; ===================  NAMES
+.COPY INPUT.ML1=NAMES.ML1
+.RUN MLIAJB
+
+.copy TSTALL.txt = TSTALL.txt, break.txt
+.copy TSTALL.txt = TSTALL.txt, result.out
+;.copy TSTALL.txt = TSTALL.txt, debug.err
+
+; ===================  ESCALA
+.COPY INPUT.ML1=ESCALA.ML1
+.RUN MLIAJB
+
+.copy TSTALL.txt = TSTALL.txt, break.txt
+.copy TSTALL.txt = TSTALL.txt, result.out
+;.copy TSTALL.txt = TSTALL.txt, debug.err
+
+; ===================  ALTER
+.COPY INPUT.ML1=ALTER.ML1
+.RUN MLIAJB
+
+.copy TSTALL.txt = TSTALL.txt, break.txt
+.copy TSTALL.txt = TSTALL.txt, result.out
+;.copy TSTALL.txt = TSTALL.txt, debug.err
+
+; ===================  ERRORS
+.COPY INPUT.ML1=ERRORS.ML1
+.RUN MLIAJB
+
+.copy TSTALL.txt = TSTALL.txt, break.txt
+.copy TSTALL.txt = TSTALL.txt, result.out
+;.copy TSTALL.txt = TSTALL.txt, debug.err
+
+; ===================  MACROT
+.COPY INPUT.ML1=MACROT.ML1
+.RUN MLIAJB
+
+.copy TSTALL.txt = TSTALL.txt, break.txt
+.copy TSTALL.txt = TSTALL.txt, result.out
+;.copy TSTALL.txt = TSTALL.txt, debug.err
+
+; ===================  OVERFL
+.COPY INPUT.ML1=OVERFL.ML1
+.RUN MLIAJB
+
+.copy TSTALL.txt = TSTALL.txt, break.txt
+.copy TSTALL.txt = TSTALL.txt, result.out
+;.copy TSTALL.txt = TSTALL.txt, debug.err
+
+; ===================  OVERRI
+.COPY INPUT.ML1=OVERRI.ML1
+.RUN MLIAJB
+
+.copy TSTALL.txt = TSTALL.txt, break.txt
+.copy TSTALL.txt = TSTALL.txt, result.out
+;.copy TSTALL.txt = TSTALL.txt, debug.err
+
+; ===================  S
+.COPY INPUT.ML1=S.ML1
+.RUN MLIAJB
+
+.copy TSTALL.txt = TSTALL.txt, break.txt
+.copy TSTALL.txt = TSTALL.txt, result.out
+;.copy TSTALL.txt = TSTALL.txt, debug.err
+
+; ===================  SKIPIN
+.COPY INPUT.ML1=SKIPIN.ML1
+.RUN MLIAJB
+
+.copy TSTALL.txt = TSTALL.txt, break.txt
+.copy TSTALL.txt = TSTALL.txt, result.out
+;.copy TSTALL.txt = TSTALL.txt, debug.err
+
+; ===================  STRUCT
+.COPY INPUT.ML1=STRUCT.ML1
+.RUN MLIAJB
+
+.copy TSTALL.txt = TSTALL.txt, break.txt
+.copy TSTALL.txt = TSTALL.txt, result.out
+;.copy TSTALL.txt = TSTALL.txt, debug.err
+
+; ===================  Tests complete
+.type TSTALL.txt
