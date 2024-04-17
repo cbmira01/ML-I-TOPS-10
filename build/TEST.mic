@@ -75,7 +75,7 @@
 
 .copy TSTALL.txt = TSTALL.txt, break.txt
 .copy TSTALL.txt = TSTALL.txt, result.out
-;.copy TSTALL.txt = TSTALL.txt, debug.err
+.copy TSTALL.txt = TSTALL.txt, debug.err
 
 ; ===================  OVERRI
 .COPY INPUT.ML1=OVERRI.ML1

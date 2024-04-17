@@ -11,27 +11,24 @@
         pushj       sp, MDMESS
         jrst        %exit
         XLIST
-%msg:   IRPC S,< IFDIF </S/></"/>,<
-            IFDIF </S/></$/>,<        exp         "S" >
-            IFIDN </S/></$/>,<        exp         NLREP, CRREP >
-                                  >
+%msg:   IRPC S,< 
+            IFDIF </S/></"/>,<
+                IFDIF </S/></$/>,<        exp       "S" >
+                IFIDN </S/></$/>,<        exp       NLREP, CRREP >
+            >
         >
-        exp         0           ; end of string
+        exp 0           ; end of string
         LIST
 %exit:
 >
 
 ;   LOWL designates a comment ("nota bene")
-;   Comments from LOWL source code are not passed through to the assembler.
-        DEFINE NB (STRING) <   >
+        DEFINE NB (S) < >
 
 ;   LOWL designates the start of a program. 
-        DEFINE PRGST (STRING) <
-        REMARK      "... PRGST, START OF LOWL CODE ..."
->
+        DEFINE PRGST (S) < >
 
 ;   LOWL designates the end of a program.
         DEFINE PRGEN <
-        REMARK      "... PRGEN, END OF LOWL CODE ..."
         jrst        MDQUIT
 >
