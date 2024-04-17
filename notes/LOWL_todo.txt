@@ -1,7 +1,0 @@
-
-- All these files are the MACRO-10 definitions for LOWL opcodes, 
-  and the machine-dependent logic.
-
-- All this stuff needs cleanup, but it appears to work and pass all tests.
-
-- Let's settle on a workable coding style.

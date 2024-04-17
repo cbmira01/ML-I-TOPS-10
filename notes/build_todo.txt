@@ -1,7 +1,42 @@
 
+- Explain what these files are:
+    LOWL source for ML/I macroprocessor, ver AJB
+    LOWL source for LOWLTEST, ver L4A
+    ML/I test suite, ver T2A
 
-- Can MIC or CTL do something like labeled build targets?
+    These files are as-distributed state
 
-- Can ML/I function as a configure/make tool for TOPS-10?
+- Explain where these files came from:
+    http://www.ml1.org.uk/implementation.html
 
-- Need preprocessing on as-distributed LOWL files
+- Explain conversion of LOWL-macro programs into MACRO-10 programs.
+    'quoted strings' into "quoted strings"
+    [LABLES] into LABLES:
+    BEGIN:: label made EXTERNal
+    Variables that MDCODE expects to see in a LOWL program
+    Additional stanzas needed by MACRO-10 (HEADER.MAC)
+
+- Explain CLEAN, BUILD, TEST and DEPLOY steps.
+
+- Explain HELLOW.MAC, the first sanity check.
+
+- Explain LTEST4.MAC, a test of LOWL macro definitions.
+
+- Explain VALMDL.MAC, a test of LOWL machine-dependent logic.
+
+- Explain the T2A test suite for ML/I.
+
+- Explore a conversion program to prepare LOWL source code for MACRO-10.
+    Can MACRO-10 conditional compiling do this?
+
+- TODO: Proper implementation guide.
+
+- TODO: command scanner and file globber for the ML/I executable.
+
+- TODO: character packing for better use of main memory.
+
+- TODO: DECsystem HLP: and DOC: files.
+
+- TODO: CI/CD pipeline that delivers a distribution on SIMH magtape.
+
+- TODO: Proper target machine deployment script.
