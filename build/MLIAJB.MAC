@@ -1,8 +1,9 @@
+;
+; FILNAME:     MLIAJB.mac
+; 
+; ML/I version AJB
+;
 
-        SEARCH       jobdat, macten, uuosym, lowldf, machdp
-        
-        RADIX        10            ; all LOWL numerals are declared in base 10
-        LALL            
         TITLE        MLIAJB
         
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =

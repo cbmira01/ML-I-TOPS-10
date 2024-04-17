@@ -2,99 +2,186 @@
 ; Filename:         MDCODE.MAC
 ;
 ; All the machine-dependent logic for the implementation of ML/I,
-;           code section
+;       storage section, [LSUP] chapter 2
 ;
-; Described in [LSUP] chapter 2
 
-    UNIVERSAL MDCODE
+    RADIX   10
 
-    DEFINE MDCODE <
+    SEARCH  JOBDAT, MACTEN, UUOSYM
 
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-; Machine-dependent code: startup/initialize, run-time, and shutdown/exit
+; The following references are in machine-independent logic
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
+    EXTERN  SVARPT, SRCPT, DSTPT, FFPT
+    EXTERN  LFPT, LINKPT, IDPT, IDLEN
+    EXTERN  MEVAL, HASHPT, HTABPT, OP1
+    EXTERN  OPSW, SPT, BEGIN
+
+
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+; Program layout, working storage and stacks
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+; LOWL logic stack, [LOWL] 2.11.9
+MILSTK::    block   MILLEN
+
+; Subroutine call-and-return stack, [LOWL] 2.11.6
+substk::    block   sublen
+
+; ML/I system variable reservations, [LSUP] 2.2
+s11:        exp     0       ; S11=0 don't suppress debug stream
+s10:        exp     0       ; S10=0 don't suppress results stream
+            exp     0       ; S9 not defined
+            exp     0       ; S8 not defined
+            exp     0       ; S7 not defined
+            exp     0       ; S6 = pseudo-alphanumeric character
+            exp     0       ; S5 = count of processing errors
+            exp     0       ; S4 = 0 don't suppress context print-out on MC-NOTE
+            exp     0       ; S3 = 0 give error message if warning marker 
+            exp     0       ; S2 = source text line number
+            exp     0       ; S1 = 0 don't insert startlines on input
+sysvar::    exp     11      ; system variables S1 to S11 used in this implementation
+
+; Working storage for MDCONV
+nstrng:     block   20      ; assembly area for numeric strings
+
+; Working storage for MDOP
+signqu:     exp     0       ; work area to figure out sign of division
+
+
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+; Input, results and debug I/O streams, [LSUP] 2.1
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+; Working storage for default ML/I input stream, "INPUT.ML1"
+            ischan=1
+isblk:      exp   .IOASC
+            sixbit   /DSK/
+            xwd   0,isbuf
+isbuf:      block   3
+isfnam:     .RBEXT
+            0
+            sixbit   /INPUT/
+            sixbit   /ML1/
+
+; Working storage for default ML/I results stream, "RESULT.OUT"
+            oschan=2
+osblk:      exp   .IOASC
+            sixbit   /DSK/
+            xwd   osbuf,0
+osbuf:      block   3
+osfnam:     .RBEXT
+            0
+            sixbit   /RESULT/
+            sixbit   /OUT/
+
+; Working storage for default ML/I debug stream, "DEBUG.ERR"
+            dbchan=3
+dbblk:      exp   .IOASC
+            sixbit   /DSK/
+            xwd   dbbuf,0
+dbbuf:      block   3
+dbfnam:     .RBEXT
+            0
+            sixbit   /DEBUG/
+            sixbit   /ERR/
+
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; Initialization, [LSUP] 2.2
-MDSTAR::   
-        reset
+MDSTAR::
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+            reset
 
-;   Set up subroutine stack
-        move    sp, [-sublen,,substk-1]
+; Set up subroutine stack
+            move    sp, [-sublen,,substk-1]
 
-;   Set up machine-independent logic stacks
-        movei   ac2, MILSTK
-        movem   ac2, FFPT
-        movei   ac2, MILSTK+MILLEN-1
-        movem   ac2, LFPT
+; Set up machine-independent logic stacks
+            movei   ac2, MILSTK
+            movem   ac2, FFPT
+            movei   ac2, MILSTK+MILLEN-1
+            movem   ac2, LFPT
 
-;   Initialize ML/I system variables
-        movei   ac2, sysvar
-        movem   ac2, SVARPT
-        movn    index, sysvar
-mdst10: setzm   sysvar(index)
-        aojl    index, mdst10
+; Initialize ML/I system variables
+            movei   ac2, sysvar
+            movem   ac2, SVARPT
+            movn    index, sysvar
 
-;   Open input, output, and debug files
-        open    ischan, isblk
-            jrst   isoerr
-        inbuf   ischan,
-        lookup  ischan, isfnam
-            jrst   isoerr
+mdst10:     setzm   sysvar(index)
+            aojl    index, mdst10
 
-        open    oschan, osblk
-            jrst    osoerr
-        outbuf  oschan,
-        enter   oschan, osfnam
-            jrst    osoerr
+; Open input, output, and debug files
+            open    ischan, isblk
+                jrst   isoerr
+            inbuf   ischan,
+            lookup  ischan, isfnam
+                jrst   isoerr
 
-        open    dbchan, dbblk
-            jrst    dboerr
-        outbuf  dbchan,
-        enter   dbchan, dbfnam
-            jrst    dboerr
+            open    oschan, osblk
+                jrst    osoerr
+            outbuf  oschan,
+            enter   oschan, osfnam
+                jrst    osoerr
 
-;   Begin machine-independent logic (start LOWL code program)
-        jrst    BEGIN
+            open    dbchan, dbblk
+                jrst    dboerr
+            outbuf  dbchan,
+            enter   dbchan, dbfnam
+                jrst    dboerr
 
-;   Simple error handling for file open failures
-isoerr: outstr  [ASCIZ " +++ Error opening input stream +++ "]
-        jrst    MDQUIT
-osoerr: outstr  [ASCIZ " +++ Error opening output stream +++ "]
-        jrst    MDQUIT
-dboerr: outstr  [ASCIZ " +++ Error opening debugging stream +++ "]
-        jrst    MDQUIT
+; Begin machine-independent logic (start LOWL code program)
+            jrst    BEGIN       ; make sure BEGIN is declared EXTERNAL
 
-;   Simple error handling for file read/write errors
-isrerr: outstr  [ASCIZ " +++ Error reading input stream +++ "]
-        jrst    MDQUIT
-oswerr: outstr  [ASCIZ " +++ Error writing output stream +++ "]
-        jrst    MDQUIT
-dbwerr: outstr  [ASCIZ " +++ Error writing debuging stream +++ "]
-        jrst    MDQUIT
+; Simple error handling for file open failures
+isoerr:     outstr  [ASCIZ " +++ Error opening input stream +++ "]
+            jrst    MDQUIT
 
+osoerr:     outstr  [ASCIZ " +++ Error opening output stream +++ "]
+            jrst    MDQUIT
+
+dboerr:     outstr  [ASCIZ " +++ Error opening debugging stream +++ "]
+            jrst    MDQUIT
+
+; Simple error handling for file read/write errors
+isrerr:     outstr  [ASCIZ " +++ Error reading input stream +++ "]
+            jrst    MDQUIT
+
+oswerr:     outstr  [ASCIZ " +++ Error writing output stream +++ "]
+            jrst    MDQUIT
+
+dbwerr:     outstr  [ASCIZ " +++ Error writing debuging stream +++ "]
+            jrst    MDQUIT
+
+
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; Tidy up and exit back to monitor, [LOWL] 2.13
-MDQUIT::    close   ischan,
+MDQUIT::
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+            close   ischan,
             close   oschan,
             close   dbchan,
             exit
 
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; Convert number from internal format to character string, [LSUP] 2.4
-MDCONV::    pushj   sp, mdco10      ; perform numeric conversion proper
+MDCONV::
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+            pushj   sp, mdco10      ; perform numeric conversion proper
             movei   ac2, nstrng     ; result: beginning of the numeric string
             movem   ac2, IDPT       ; point MI logic to result
             movem   index, IDLEN    ; give MI logic the length of result
             popj    sp,             ; exit from MDCONV subroutine
 
-;   subroutine to convert entire MEVAL to numeric string
+;   convert entire MEVAL to numeric string
 mdco10:     setzm   index           ; initialize index to string assembly area
             move    ac1, MEVAL      ; get argument from LOWL code
-            jumpge   ac1, mdco20    ; jump if positive
+            jumpge  ac1, mdco20     ; jump if positive
             movei   ac2, "-"        ; load a minus sign
             movem   ac2, nstrng(index) ; add character to string assembly area
             add     index, [1]
             movn    ac1, ac1        ; make argument positive
 
-;   subroutine to convert next MEVAL digit to numeric character
+;   convert next MEVAL digit to numeric character
 mdco20:     idiv    ac1, [10]       ; quotient to ac1, remainder to ac2
             push    sp, ac2         ; save remainder
             skipe   ac1             ; skip if we have divided enough
@@ -105,10 +192,14 @@ mdco20:     idiv    ac1, [10]       ; quotient to ac1, remainder to ac2
             add     index, [1]
             popj    sp,             ; return from nxtdig/convrt
 
+
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; Hashing algorithm for ML/I operator strings, [LSUP] 2.5
 ; This routine implements the hash function:
-;    HTABPT = HASHPT + [ [ LEN(string) x [ ASC(first) + ASC(last) ] ] AND hsmask ]
-MDFIND::    move    ac2, @IDPT      ; start with value of first character in the string
+;   HTABPT = HASHPT + [ [ LEN(string) x [ ASC(first) + ASC(last) ] ] AND hsmask ]
+MDFIND::
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+            move    ac2, @IDPT      ; start with value of first character in the string
             add     ac2, @SPT       ; add value of the last character
             imul    ac2, IDLEN      ; multiply by length of the string
             andi    ac2, hsmask     ; mask out high order bits, modulo LHV
@@ -116,10 +207,14 @@ MDFIND::    move    ac2, @IDPT      ; start with value of first character in the
             movem   ac2, HTABPT     ; supply offset back to MI logic
             popj    sp,             ; exit from MDFIND subroutine
 
+
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; Perform multiplication or division, [LSUP] 2.6
 ; MDOP must return a strict "floor" result on negative quotients;
-;   that is, -7 / 4 = -2, not -1.
-MDOP::      move   ac2, OPSW        ; OPSW=1 means multiply, divide otherwise
+;   that is, -7 / 4 = -2, not -1
+MDOP::
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+            move   ac2, OPSW        ; OPSW=1 means multiply, divide otherwise
             caie   ac2, 1
                 jrst   mdop10
 
@@ -129,10 +224,10 @@ MDOP::      move   ac2, OPSW        ; OPSW=1 means multiply, divide otherwise
             popj    sp,             ; successful (skip) exit from MDOP subroutine
 
 mdop10:     movei   ac1, +1         ; assume a positive quotient initially
-            skipge   OP1            ; if dividend is positive, then preserve current sign
-                movns   ac1, ac1    ;   alternate the sign
-            skipge   MEVAL          ; if divisor is positive, then preserve current sign
-                movns   ac1, ac1    ;   alternate the sign
+            skipge  OP1             ; if dividend is positive, then preserve current sign
+                movns   ac1, ac1        ;   alternate the sign
+            skipge  MEVAL           ; if divisor is positive, then preserve current sign
+                movns   ac1, ac1        ;   alternate the sign
             movem   ac1, signqu     ; save sign of the eventual quotient
 
             move    ac1, OP1        ; load dividend
@@ -150,10 +245,13 @@ mdop20:     movem   ac1, MEVAL      ; quotient, possibly adjusted, goes to MI lo
             aos     (sp)
             popj    sp,             ; successful (skip) exit from MDOP subroutine
 
+
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; The input stream, [LSUP] 2.7
 MDREAD::
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 mdre10:     sosge   isbuf+.bfctr    ; more characters in buffer?
-                jrst   mdre20       ; no...
+                jrst   mdre20           ; no...
             ildb    ac2, isbuf+.bfptr  ; yes, get one
             jumpe   ac2, mdre10     ; ignore nulls
             cain    ac2, SLREP      ; ignore ML/I internal start-of-line code
@@ -172,8 +270,12 @@ mdre20:     in      ischan,         ; get another buffer
                 jrst    isrerr          ; error reading file
             popj    sp,             ; non-skip return from MDREAD indicates EOF
 
+
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; The output results stream, [LSUP] 2.8
-MDOUCH::    skipe   S10             ; S10 = 0 means do not suppress output results stream
+MDOUCH::
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+            skipe   S10             ; S10 = 0 means do not suppress output results stream
                 popj    sp,             ; otherwise, suppress output results stream
             move    ac2, LOWL.C
             cain    ac2, SLREP      ; do not output ML/I internal start-of-line code
@@ -199,8 +301,12 @@ mdou30:     movei   ac2, CRREP      ; line feed always triggers CR/LF
             movei   ac2, NLREP
             jrst    mdou10
 
+
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; The debug stream, [LSUP] 2.9
-MDERCH::    skipe   S11             ; S11 = 0 means do not suppress debug stream
+MDERCH::
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+            skipe   S11             ; S11 = 0 means do not suppress debug stream
                 popj    sp,             ; otherwise, suppress debug stream
             move    ac2, LOWL.C
             cain    ac2, SLREP      ; do not output ML/I internal start-of-line code
@@ -226,17 +332,18 @@ mder30:     movei   ac2, CRREP      ; line feed always triggers CR/LF
             movei   ac2, NLREP
             jrst    mder10
 
+
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; Handle output of message strings to the debugging stream.
-MDMESS::    skipe   S11             ; S11 = 0 means do not suppress debug stream
+MDMESS:: 
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =   
+            skipe   S11             ; S11 = 0 means do not suppress debug stream
                 popj    sp,             ; otherwise, suppress debug stream
+
 mdme10:     move    ac2, 0(index)   ; load the next character
             skipn   ac2             ; look for zero word at end of string
                 popj    sp,             ; MDMESS normal exit
             pushj   sp, mder10      ; print to debug stream,
-                                    ; content of ac2 is already conditioned for output
             aoja    index, mdme10
 
-
->  ; end of macro MDCODE
-
-            END
+        END     ; end machine-dependent code

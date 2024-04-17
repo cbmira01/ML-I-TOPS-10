@@ -13,12 +13,12 @@
 
 ;   Declare a variable.
         DEFINE DCL (V) <
-V:      exp         0
+V::      exp         0
 >
 
 ;   Equate two variables, "easier to map" version.
         DEFINE EQU (V1, V2) <
-V1:     exp         0
+V1::     exp         0
 >
 
 ;   Equate a name to an integer. Used for "manifest" constants, not storage.
@@ -46,3 +46,6 @@ V1:     exp         0
 ;   Align up to next boundary. Since LCH is equal to LNM for this implementation, 
 ;   the ALIGN operation is not needed.
         DEFINE ALIGN < >
+
+
+            END     ; end all LOWL macro definitions

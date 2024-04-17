@@ -1,11 +1,9 @@
-
+;
 ; FILNAME:     LTEST4.mac
-; DESCRIPTION: ...
-
-        SEARCH      jobdat, macten, uuosym, lowldf, machdp
-        
-        RADIX       10              ; all LOWL numerals are declared in base 10
-        LALL            
+; 
+; Test LOWL macro definitions
+;
+       
         TITLE       LTEST4
         
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -83,7 +81,7 @@ NUMS:  STR     "0123456789"
 LL35:  CON     10
         STR     "GOSUB"
 
-BEGIN: MESS    "$Test of LOWL"
+BEGIN:: MESS    "$Test of LOWL"
         MESS    " mapping$...Mar 1974"
         MESS    ",revised Nov 1976,Mar 1986, Apr 2004$"
         MESS    "Version L4A...$$"

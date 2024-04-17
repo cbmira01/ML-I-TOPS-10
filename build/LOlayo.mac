@@ -25,16 +25,13 @@
 ;   Comments from LOWL source code are not passed through to the assembler.
         DEFINE NB (STRING) <   >
 
-;   LOWL designates the start of a program. This is a good place to 
-;   dump machine-dependent logic.
+;   LOWL designates the start of a program. 
         DEFINE PRGST (STRING) <
-        MDSTOR
-        MDCODE
-        REMARK      "... START OF LOWL CODE ..."
+        REMARK      "... PRGST, START OF LOWL CODE ..."
 >
 
 ;   LOWL designates the end of a program.
         DEFINE PRGEN <
-        REMARK      "... END OF LOWL CODE ..."
+        REMARK      "... PRGEN, END OF LOWL CODE ..."
         jrst        MDQUIT
 >

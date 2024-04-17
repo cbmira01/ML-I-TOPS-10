@@ -1,10 +1,8 @@
+;
+; FILNAME:     HELLOW.mac
+; 
 
-        SEARCH      jobdat, macten, uuosym, lowldf, mdstor, mdcode
-        
-        RADIX       10           ; all LOWL numerals are declared in base 10
-        LALL                
         TITLE       HELLOW
-; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
     PRGST       "Minimal LOWL program"
     NB          "Hello, World! should appear in the debugging stream file."

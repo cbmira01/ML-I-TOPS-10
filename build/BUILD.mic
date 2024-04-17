@@ -1,36 +1,69 @@
 
-; Build UNIVERSAL files for symbol search, UNVs and LSTs only
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;       Build a universal table for LOWL macro definitions
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 r MACRO
-,lowldf=UNVbeg,loarit,lobran,locomp,loexte,lolayo,loload,lostac,lotabl,UNVend
-,mdSTOR=mdSTOR
-,mdCODE=mdCODE
+,lowldf=loarit,lobran,locomp,loexte,lolayo,loload,lostac,lotabl
 ^C
 
-; Build LOWL-defined applications:
-;   - Hellow World
-;   - Validate machine-dependent logic used by ML/I
-;   - Test runner for ML/I 
-;   - the ML/I application
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;       Build machine-dependent logic
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-;r MACRO
-;hellow,hellow=hellow
-;ltest4,ltest4=ltest4
-;valmdl,valmdl=valmdl
-;mliajb,mliajb=mliajb
-;^C
+r MACRO
+mdcode,mdcode=consts,mdcode
+^C
 
-; Link and save executables for the applications
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;       Build LOWL program "Hello World"
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-;LOAD hworld
-;SAVE
+r MACRO
+hellow,hellow=consts,header,hellow
+^C
 
-;LOAD ltest4
-;SAVE
+r LINK
+mdcode,hellow
+hellow.exe/save/go
+^C
 
-;LOAD valmdl
-;SAVE
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;       Build LOWL program to test LOWL macro definitions
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-;LOAD mliajb
-;SAVE
+r MACRO
+LTEST4,LTEST4=consts,header,LTEST4
+^C
+
+r LINK
+mdcode,LTEST4
+LTEST4.exe/save/go
+^C
+
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;       Build LOWL program to validate machine-dependent logic
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+r MACRO
+VALMDL,VALMDL=consts,header,VALMDL
+^C
+
+r LINK
+mdcode,VALMDL
+VALMDL.exe/save/go
+^C
+
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;       Build the ML/I macro processor
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+r MACRO
+MLIAJB,MLIAJB=consts,header,MLIAJB
+^C
+
+r LINK
+mdcode,MLIAJB
+MLIAJB.exe/save/go
+^C
 

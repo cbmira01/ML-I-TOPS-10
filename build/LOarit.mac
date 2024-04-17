@@ -4,6 +4,8 @@
 ; Arithmetic and logical statements, [LOWL] 2.11.4
 ;
 
+        UNIVERSAL    LOWLDF     ; begin all LOWL definitions
+
 
 ;   Add the contents of memory location V to the LOWL A register.
         DEFINE AAV (V) <
