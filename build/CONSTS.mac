@@ -1,10 +1,10 @@
 ;
 ; FILNAME:     CONSTS.mac
 ; 
-; Include this file when assembling either MDCODE or LOWL programs.
+; Include this file when assembling MDCODE.MAC or LOWL programs.
 ;
  
-    RADIX       10      ; all LOWL numerals are declared in base 10
+    RADIX   10          ; all LOWL numerals are declared in base 10
     LALL
 
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -12,9 +12,9 @@
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 ; The following reservations are for the LOWL A, B and C registers
-    LOWL.A=1        ; LOWL-machine A register, the numerical accumulator
-    LOWL.B=2        ; LOWL-machine B register, the index register
-    LOWL.C=3        ; LOWL-machine C register, the character register
+    LOWL.A=1            ; LOWL-machine A register, the numerical accumulator
+    LOWL.B=2            ; LOWL-machine B register, the index register
+    LOWL.C=3            ; LOWL-machine C register, the character register
 
 ; The following registers aid operations at the target-machine level. 
 ; These registers 
@@ -22,36 +22,35 @@
 ;       - are not directly accessible from LOWL code
 ;       - are needed for LOWL macro expansions
 ;       - are needed by the machine-dependent subroutines
-    tmp=0           ; register 0 is used implicitly in several places
-    ac1=4           ; general purpose accumulator and division quotient
-    ac2=ac1+1       ; general purpose accumulator and division remainder
-    index=6         ; general purpose pointer
-    sp=15           ; subroutine stack pointer
-                    ; Unused registers: 7 thru 14
+    tmp=0               ; register 0 is used implicitly in several places
+    ac1=4               ; general purpose accumulator and division quotient
+    ac2=ac1+1           ; general purpose accumulator and division remainder
+    index=6             ; general purpose pointer
+    sp=15               ; subroutine stack pointer
+                        ; Unused registers: 7 thru 14
 
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; Machine-dependent constants for LOWL implementation, [LOWL] 2.6
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 ; Constants that define LOWL datatypes, in target-machine wordsize
-   LNM=1				; number of fullwords needed for numeric values
-   LCH=1				; number of fullwords needed for character values
-   LICH=1			   ; inverse of LCH
+    LNM=1               ; number of fullwords needed for numeric values
+    LCH=1               ; number of fullwords needed for character values
+    LICH=1              ; inverse of LCH
 
 ; Core LOWL constants that define special characters
-   NLREP=10			 ; newline character
-   SPREP=32			 ; space character
-   TABREP=9			 ; tab character
-   QUTREP=34			; double-quote character
-   CRREP=13			 ; carriage return; not a core LOWL special character
+    NLREP=10            ; newline character
+    SPREP=32            ; space character
+    TABREP=9            ; tab character
+    QUTREP=34           ; double-quote character
+    CRREP=13            ; carriage return; not a core LOWL special character
 
 ; Additional constants for ML/I implementation, [LSUP] passim
-   SLREP=2			  ; STX, ML/I internal marker for start of text line
-   STOPCD=3			 ; ETX, ML/I internal marker for end of text line
-   bigint=34359738367   ; biggest integer that ML/I can handle, 2^35 - 1
-   LHV=32*LNM		   ; number of fullwords in the hash table
-   hsmask=LHV-1		 ; hash mask to produce a number 0 le N lt LHV
+    SLREP=2             ; STX, ML/I internal marker for start of text line
+    STOPCD=3            ; ETX, ML/I internal marker for end of text line
+    bigint=34359738367  ; biggest integer that ML/I can handle, 2^35 - 1
+    LHV=32*LNM          ; number of fullwords in the hash table
+    hsmask=LHV-1        ; hash mask to produce a number 0 le N lt LHV
 
-    SUBLEN=1000     ; 
-    MILLEN=5000     ; stack size
-
+    SUBLEN=1000         ; Size of subroutine stack
+    MILLEN=5000         ; Size of LOWL stack
