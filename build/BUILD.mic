@@ -64,6 +64,6 @@ MLIAJB,MLIAJB=consts,header,MLIAJB
 
 r LINK
 mdcode,MLIAJB
-MLIAJB.exe/save/go
+ML1.exe/save/go
 ^C
 
