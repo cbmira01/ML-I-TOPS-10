@@ -4,17 +4,18 @@
     LOWL source for LOWLTEST, ver L4A
     ML/I test suite, ver T2A
 
-    These files are as-distributed state
+    These files are the as-distributed ML/I implementation kit
 
-- Explain where these files came from:
+- Explain where to find the ML/I kit:
     http://www.ml1.org.uk/implementation.html
 
-- Explain conversion of LOWL-macro programs into MACRO-10 programs.
+- Explain conversion of LOWL programs into MACRO-10 programs.
     'quoted strings' into "quoted strings"
-    [LABLES] into LABLES:
+    [LABELS] into LABELS:
     BEGIN:: label made EXTERNal
     Variables that MDCODE expects to see in a LOWL program
     Additional stanzas needed by MACRO-10 (HEADER.MAC)
+    Add END MDSTAR to supply the MDCODE start address.
 
 - Explain CLEAN, BUILD, TEST and DEPLOY steps.
 
