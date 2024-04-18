@@ -31,4 +31,6 @@
 ;   LOWL designates the end of a program.
         DEFINE PRGEN <
         jrst        MDQUIT
+
+        END         MDSTAR      ; signal start address to MACRO-10
 >

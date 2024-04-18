@@ -875,6 +875,3 @@ ENDIT:   MESS    "...Correct above error(s) and run again$"
         GOSUB   MDQUIT,X
         PRGEN
 
-;
-        END         MDSTAR
-    

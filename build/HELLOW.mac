@@ -30,4 +30,3 @@ ERLOVF:
 ERLSO:
     GOSUB    MDQUIT,X
     PRGEN
-    END     MDSTAR    

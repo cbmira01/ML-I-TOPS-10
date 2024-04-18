@@ -4547,7 +4547,3 @@ NMFIN:    $EXIT    2,LONUM
 NUMEX:    $EXIT    1,LONUM
 
     PRGEN
-
-;
-    END     MDSTAR
-    
