@@ -6,6 +6,7 @@
 
     PRGST       "Minimal LOWL program"
     NB          "Hello, World! should appear in the debugging stream file."
+    NB          "   by Calvin Miracle, January 2017"
     
     NB    "The following variables are needed to reconcile with machine-dependent logic."
     DCL    SVARPT

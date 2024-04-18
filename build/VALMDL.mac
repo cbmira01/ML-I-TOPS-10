@@ -9,6 +9,7 @@
 
         PRGST   "Validate machine-dependent logic for ML/I implementation."
         NB      "This program accumulates various tests of LOWL machine-dependent logic."
+        NB      "   by Calvin Miracle, January 2017"
 
         NB      "The following variables are needed to reconcile with machine-dependent logic."
         DCL     SVARPT
@@ -366,7 +367,7 @@ DZDET:
         MESS    "$$$Testing MDFIND (hashing) routine..."
         MESS    "$   hash value = [LEN * [ASC(1st char) + ASC(last char)] ] & 31."
 
-        MESS    "$$   Let's suppose HASHPT points to address 1000..."
+        MESS    "$$   Suppose HASHPT points to address 1000..."
         LAL     1000
         STV     HASHPT
 
