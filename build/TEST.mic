@@ -31,7 +31,7 @@
 
 ; ===================  NAMES
 .COPY INPUT.ML1=NAMES.ML1
-.RUN MLIAJB
+.RUN ML1
 
 .copy TSTALL.txt = TSTALL.txt, break.txt
 .copy TSTALL.txt = TSTALL.txt, result.out
@@ -39,7 +39,7 @@
 
 ; ===================  ESCALA
 .COPY INPUT.ML1=ESCALA.ML1
-.RUN MLIAJB
+.RUN ML1
 
 .copy TSTALL.txt = TSTALL.txt, break.txt
 .copy TSTALL.txt = TSTALL.txt, result.out
@@ -47,7 +47,7 @@
 
 ; ===================  ALTER
 .COPY INPUT.ML1=ALTER.ML1
-.RUN MLIAJB
+.RUN ML1
 
 .copy TSTALL.txt = TSTALL.txt, break.txt
 .copy TSTALL.txt = TSTALL.txt, result.out
@@ -55,7 +55,7 @@
 
 ; ===================  ERRORS
 .COPY INPUT.ML1=ERRORS.ML1
-.RUN MLIAJB
+.RUN ML1
 
 .copy TSTALL.txt = TSTALL.txt, break.txt
 .copy TSTALL.txt = TSTALL.txt, result.out
@@ -63,7 +63,7 @@
 
 ; ===================  MACROT
 .COPY INPUT.ML1=MACROT.ML1
-.RUN MLIAJB
+.RUN ML1
 
 .copy TSTALL.txt = TSTALL.txt, break.txt
 .copy TSTALL.txt = TSTALL.txt, result.out
@@ -71,7 +71,7 @@
 
 ; ===================  OVERFL
 .COPY INPUT.ML1=OVERFL.ML1
-.RUN MLIAJB
+.RUN ML1
 
 .copy TSTALL.txt = TSTALL.txt, break.txt
 .copy TSTALL.txt = TSTALL.txt, result.out
@@ -79,7 +79,7 @@
 
 ; ===================  OVERRI
 .COPY INPUT.ML1=OVERRI.ML1
-.RUN MLIAJB
+.RUN ML1
 
 .copy TSTALL.txt = TSTALL.txt, break.txt
 .copy TSTALL.txt = TSTALL.txt, result.out
@@ -87,7 +87,7 @@
 
 ; ===================  S
 .COPY INPUT.ML1=S.ML1
-.RUN MLIAJB
+.RUN ML1
 
 .copy TSTALL.txt = TSTALL.txt, break.txt
 .copy TSTALL.txt = TSTALL.txt, result.out
@@ -95,7 +95,7 @@
 
 ; ===================  SKIPIN
 .COPY INPUT.ML1=SKIPIN.ML1
-.RUN MLIAJB
+.RUN ML1
 
 .copy TSTALL.txt = TSTALL.txt, break.txt
 .copy TSTALL.txt = TSTALL.txt, result.out
@@ -103,7 +103,7 @@
 
 ; ===================  STRUCT
 .COPY INPUT.ML1=STRUCT.ML1
-.RUN MLIAJB
+.RUN ML1
 
 .copy TSTALL.txt = TSTALL.txt, break.txt
 .copy TSTALL.txt = TSTALL.txt, result.out
