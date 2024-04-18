@@ -38,6 +38,18 @@
 
 - TODO: DECsystem HLP: and DOC: files.
 
-- TODO: CI/CD pipeline that delivers a distribution on SIMH magtape.
+- TODO: CI/CD pipeline that delivers ML/I on a SIMH magtape.
 
 - TODO: Proper target machine deployment script.
+
+- Explain assumptions of my working environment (Windows 10).
+
+- Explain OpenSIMH vs SIMH: acquire, setup and configuration.
+
+- Explain TOPS-10 pre-built images, or system generation from distribution tapes.
+
+- Explain account provisioning on TOPS-10, suitable for ML/I build.
+
+- Explain C-Kermit: acquire, setup, login and workflow.
+
+- A GitHub wiki should be established.
