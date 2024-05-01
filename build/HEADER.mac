@@ -3,11 +3,12 @@
 ; 
 ; Include this file when assembling LOWL programs
 ;
-    SEARCH      lowldf, jobdat, macten, uuosym   
+    SEARCH      JOBDAT, MACTEN, UUOSYM, LOWLDF
 
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ; The following references are defined in machine-dependent logic
 ; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     EXTERN      MILSTK, SUBSTK
+
     EXTERN      MDSTAR, MDQUIT, MDCONV, MDFIND, MDOP
     EXTERN      MDREAD, MDOUCH, MDERCH, MDMESS
