@@ -1,7 +1,9 @@
 .copy TSTALL.txt = notext.txt
 
 
-; ===================  Hellow World
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+;   Hello World!
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .COPY INPUT.ML1=NOTEXT.TXT
 .COPY DEBUG.ERR=NOTEXT.TXT
 .RUN HELLOW
@@ -11,7 +13,9 @@
 .copy TSTALL.txt = TSTALL.txt, result.out
 .copy TSTALL.txt = TSTALL.txt, debug.err
 
-; ===================  Test of LOWL macro definitions
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;   Test of LOWL macro definitions
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .COPY INPUT.ML1=NOTEXT.TXT
 .COPY DEBUG.ERR=NOTEXT.TXT
 .RUN LTEST4
@@ -20,7 +24,9 @@
 .copy TSTALL.txt = TSTALL.txt, result.out
 .copy TSTALL.txt = TSTALL.txt, debug.err
 
-; ===================  Validate machine-dependent logic
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;   Validate machine-dependent logic
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .COPY INPUT.ML1=MILTON.TXT
 .COPY DEBUG.ERR=NOTEXT.TXT
 .RUN VALMDL
@@ -29,7 +35,10 @@
 .copy TSTALL.txt = TSTALL.txt, result.out
 .copy TSTALL.txt = TSTALL.txt, debug.err
 
-; ===================  NAMES
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;   Tests initial state of built-in tables and hashing function
+;   Should be used as the first real test of a new implementation
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .COPY INPUT.ML1=NAMES.ML1
 .RUN ML1
 
@@ -37,7 +46,10 @@
 .copy TSTALL.txt = TSTALL.txt, result.out
 ;.copy TSTALL.txt = TSTALL.txt, debug.err
 
-; ===================  ESCALA
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;   Tests gradually more complicated constructions
+;   Not comprehensive, but useful as general overall test
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .COPY INPUT.ML1=ESCALA.ML1
 .RUN ML1
 
@@ -45,7 +57,9 @@
 .copy TSTALL.txt = TSTALL.txt, result.out
 ;.copy TSTALL.txt = TSTALL.txt, debug.err
 
-; ===================  ALTER
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;   Tests MC-ALTER (but resets environment so later tests not affected)
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .COPY INPUT.ML1=ALTER.ML1
 .RUN ML1
 
@@ -53,7 +67,9 @@
 .copy TSTALL.txt = TSTALL.txt, result.out
 ;.copy TSTALL.txt = TSTALL.txt, debug.err
 
-; ===================  ERRORS
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;   Checks detection of errors
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .COPY INPUT.ML1=ERRORS.ML1
 .RUN ML1
 
@@ -61,7 +77,10 @@
 .copy TSTALL.txt = TSTALL.txt, result.out
 ;.copy TSTALL.txt = TSTALL.txt, debug.err
 
-; ===================  MACROT
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;   Tests macro expressions and macro-time statements
+;   Macros tested are: MC-GO,MC-SET,MCSUB,MCLENG,MC-PVAR
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .COPY INPUT.ML1=MACROT.ML1
 .RUN ML1
 
@@ -69,7 +88,11 @@
 .copy TSTALL.txt = TSTALL.txt, result.out
 ;.copy TSTALL.txt = TSTALL.txt, debug.err
 
-; ===================  OVERFL
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;   Tests stack overflow, using endless recursion
+;   Depth of nesting reached before overflow occurs will
+;    vary between implementations
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .COPY INPUT.ML1=OVERFL.ML1
 .RUN ML1
 
@@ -77,7 +100,9 @@
 .copy TSTALL.txt = TSTALL.txt, result.out
 .copy TSTALL.txt = TSTALL.txt, debug.err
 
-; ===================  OVERRI
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;   Tests overriding, globals and locals,MC-NO macros and warnings
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .COPY INPUT.ML1=OVERRI.ML1
 .RUN ML1
 
@@ -85,7 +110,9 @@
 .copy TSTALL.txt = TSTALL.txt, result.out
 ;.copy TSTALL.txt = TSTALL.txt, debug.err
 
-; ===================  S
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;   Tests S-variables,startlines,stop markers and counting of lines
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .COPY INPUT.ML1=S.ML1
 .RUN ML1
 
@@ -93,7 +120,9 @@
 .copy TSTALL.txt = TSTALL.txt, result.out
 ;.copy TSTALL.txt = TSTALL.txt, debug.err
 
-; ===================  SKIPIN
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;   Tests skips and inserts
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .COPY INPUT.ML1=SKIPIN.ML1
 .RUN ML1
 
@@ -101,7 +130,9 @@
 .copy TSTALL.txt = TSTALL.txt, result.out
 ;.copy TSTALL.txt = TSTALL.txt, debug.err
 
-; ===================  STRUCT
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;   Tests delimiter structures and scanning mechanism
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .COPY INPUT.ML1=STRUCT.ML1
 .RUN ML1
 
@@ -109,5 +140,7 @@
 .copy TSTALL.txt = TSTALL.txt, result.out
 ;.copy TSTALL.txt = TSTALL.txt, debug.err
 
-; ===================  Tests complete
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+;   Tests complete
+; = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 .type TSTALL.txt
